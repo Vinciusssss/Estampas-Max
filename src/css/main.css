@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-950 text-white font-body antialiased;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display;
+  }
+}
+
+@layer components {
+  .heading-glow {
+    text-shadow: 0 0 30px rgba(234, 179, 8, 0.35);
+  }
+
+  .section-eyebrow {
+    @apply text-xs sm:text-sm font-mono uppercase tracking-[0.2em] text-gold-500;
+  }
+
+  .section-title {
+    @apply font-display font-bold uppercase text-3xl sm:text-4xl md:text-5xl tracking-tight;
+  }
+
+  .cta-button {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-gold-500 px-6 py-4
+      font-display font-bold uppercase tracking-wide text-slate-950 shadow-[0_0_25px_rgba(234,179,8,0.35)]
+      transition hover:scale-[1.02] hover:bg-gold-400 active:scale-[0.98];
+  }
+
+  .card {
+    @apply rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm;
+  }
+}
+
+@layer utilities {
+  .marquee-track {
+    animation: marquee 30s linear infinite;
+  }
+  .marquee-track-reverse {
+    animation: marquee-reverse 34s linear infinite;
+  }
+  .pause-on-hover:hover .marquee-track,
+  .pause-on-hover:hover .marquee-track-reverse {
+    animation-play-state: paused;
+  }
+}
