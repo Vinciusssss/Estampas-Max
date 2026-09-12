@@ -4,10 +4,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        gold: {
-          400: '#f5cc4d',
-          500: '#eab308',
-          600: '#ca9a04',
+        ink: {
+          900: '#140b23',
+          950: '#0a0512',
+        },
+        brand: {
+          300: '#c4a3ff',
+          400: '#a970ff',
+          500: '#9333ea',
+          600: '#7e22ce',
+          700: '#6b21a8',
         },
       },
       fontFamily: {

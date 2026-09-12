@@ -1,80 +1,105 @@
 export const galleryItems = [
-  { file: 'Nf502h0H-Chat-GPT-Image-4-de-jul-de-2026-16-42-42.png', title: 'Sukuna Oni Style', tag: 'Exclusiva' },
-  { file: 'wT7BRKBJ-Chat-GPT-Image-4-de-jul-de-2026-16-42-57.png', title: 'Goku Saiyan Spirit', tag: 'Premium' },
-  { file: 'gkn0L906-Chat-GPT-Image-4-de-jul-de-2026-16-43-00.png', title: 'Zoro Master Swordsman', tag: 'Hype' },
-  { file: 'qMz76f76-Chat-GPT-Image-4-de-jul-de-2026-16-43-03.png', title: 'Gojo Limitless Eyes', tag: 'Lendário' },
-  { file: 'qMz76f7X-Chat-GPT-Image-4-de-jul-de-2026-16-43-06.png', title: 'Retro EVA Pilot', tag: 'Destaque' },
-  { file: 'xTcdNrd3-Chat-GPT-Image-4-de-jul-de-2026-16-43-15.png', title: 'Luffy Gear 5 Joyboy', tag: 'Best Seller' },
-  { file: '9Frfw3f6-Chat-GPT-Image-4-de-jul-de-2026-16-43-25.png', title: 'Shinobi Shadow Warrior', tag: 'Exclusiva' },
-  { file: 'sDv2GF2b-Chat-GPT-Image-4-de-jul-de-2026-16-43-31.png', title: 'Dark Samurai Spirit', tag: 'Novo' },
-  { file: 'dtL0ZM0S-Chat-GPT-Image-4-de-jul-de-2026-16-43-43.png', title: 'Chainsaw Fiend Art', tag: 'Premium' },
-  { file: '5N6tQctr-Chat-GPT-Image-4-de-jul-de-2026-16-43-47.png', title: 'Cyber Mecha Overlord', tag: 'Vaporwave' },
-  { file: 'ncCL98LS-Chat-GPT-Image-4-de-jul-de-2026-16-43-50.png', title: 'Demon Slayer Premium', tag: 'Místico' },
-  { file: 'BQXvPWvg-Chat-GPT-Image-4-de-jul-de-2026-16-43-54.png', title: 'Tokyo Retro Vaporwave', tag: 'Hype' },
-  { file: 'Nf502h0x-Chat-GPT-Image-4-de-jul-de-2026-16-43-58.png', title: 'Hunter Gon Rage', tag: 'Destaque' },
-  { file: 'kXB5Rr4r-Chat-GPT-Image-4-de-jul-de-2026-16-44-02.png', title: 'Attack on Titan Duo', tag: 'Futurista' },
-  { file: 'm2tr1xDW-Chat-GPT-Image-4-de-jul-de-2026-16-44-09.png', title: 'Neon Streetwear Concept', tag: 'Oni Style' },
-  { file: 'Fs8HjPdr-Chat-GPT-Image-4-de-jul-de-2026-16-45-42.png', title: 'Luffy Sun God Red', tag: 'Saiyan Legend' },
-  { file: '2yb9ZdXv-Chat-GPT-Image-4-de-jul-de-2026-16-42-49.png', title: 'Saber Fate Stay', tag: 'Pirate Hunter' },
-  { file: 'ZnBsdPDw-Chat-GPT-Image-4-de-jul-de-2026-16-43-11.png', title: 'Kaneki Tokyo Ghoul', tag: 'Jujutsu Sorcerer' },
-  { file: 'fytq97gH-Chat-GPT-Image-4-de-jul-de-2026-16-43-21.png', title: 'Ichigo Bleach Hollow', tag: 'Synthwave' },
-  { file: '1Xn7q0Y2-Chat-GPT-Image-4-de-jul-de-2026-16-43-35.png', title: 'Naruto Sage Mode', tag: 'Pirate King' },
-  { file: '8cJX6d0g-Chat-GPT-Image-4-de-jul-de-2026-16-43-40.png', title: 'Zenitsu Lightning', tag: 'Slayer' },
-  { file: 'D09jdW9T-Chat-GPT-Image-4-de-jul-de-2026-16-45-47.png', title: 'Itachi Crow Illusion', tag: 'Uchiha' },
+  { file: 'Nf502h0H-Chat-GPT-Image-4-de-jul-de-2026-16-42-42.webp', title: 'Sukuna Oni Style', tag: 'Exclusiva' },
+  { file: 'wT7BRKBJ-Chat-GPT-Image-4-de-jul-de-2026-16-42-57.webp', title: 'Goku Saiyan Spirit', tag: 'Premium' },
+  { file: 'gkn0L906-Chat-GPT-Image-4-de-jul-de-2026-16-43-00.webp', title: 'Zoro Master Swordsman', tag: 'Hype' },
+  { file: 'qMz76f76-Chat-GPT-Image-4-de-jul-de-2026-16-43-03.webp', title: 'Gojo Limitless Eyes', tag: 'Lendário' },
+  { file: 'qMz76f7X-Chat-GPT-Image-4-de-jul-de-2026-16-43-06.webp', title: 'Retro EVA Pilot', tag: 'Destaque' },
+  { file: 'xTcdNrd3-Chat-GPT-Image-4-de-jul-de-2026-16-43-15.webp', title: 'Luffy Gear 5 Joyboy', tag: 'Best Seller' },
+  { file: '9Frfw3f6-Chat-GPT-Image-4-de-jul-de-2026-16-43-25.webp', title: 'Shinobi Shadow Warrior', tag: 'Exclusiva' },
+  { file: 'sDv2GF2b-Chat-GPT-Image-4-de-jul-de-2026-16-43-31.webp', title: 'Dark Samurai Spirit', tag: 'Novo' },
+  { file: 'dtL0ZM0S-Chat-GPT-Image-4-de-jul-de-2026-16-43-43.webp', title: 'Chainsaw Fiend Art', tag: 'Premium' },
+  { file: '5N6tQctr-Chat-GPT-Image-4-de-jul-de-2026-16-43-47.webp', title: 'Cyber Mecha Overlord', tag: 'Vaporwave' },
+  { file: 'ncCL98LS-Chat-GPT-Image-4-de-jul-de-2026-16-43-50.webp', title: 'Demon Slayer Premium', tag: 'Místico' },
+  { file: 'BQXvPWvg-Chat-GPT-Image-4-de-jul-de-2026-16-43-54.webp', title: 'Tokyo Retro Vaporwave', tag: 'Hype' },
+  { file: 'Nf502h0x-Chat-GPT-Image-4-de-jul-de-2026-16-43-58.webp', title: 'Hunter Gon Rage', tag: 'Destaque' },
+  { file: 'kXB5Rr4r-Chat-GPT-Image-4-de-jul-de-2026-16-44-02.webp', title: 'Attack on Titan Duo', tag: 'Futurista' },
+  { file: 'm2tr1xDW-Chat-GPT-Image-4-de-jul-de-2026-16-44-09.webp', title: 'Neon Streetwear Concept', tag: 'Oni Style' },
+  { file: 'Fs8HjPdr-Chat-GPT-Image-4-de-jul-de-2026-16-45-42.webp', title: 'Luffy Sun God Red', tag: 'Saiyan Legend' },
+  { file: '2yb9ZdXv-Chat-GPT-Image-4-de-jul-de-2026-16-42-49.webp', title: 'Saber Fate Stay', tag: 'Pirate Hunter' },
+  { file: 'ZnBsdPDw-Chat-GPT-Image-4-de-jul-de-2026-16-43-11.webp', title: 'Kaneki Tokyo Ghoul', tag: 'Jujutsu Sorcerer' },
+  { file: 'fytq97gH-Chat-GPT-Image-4-de-jul-de-2026-16-43-21.webp', title: 'Ichigo Bleach Hollow', tag: 'Synthwave' },
+  { file: '1Xn7q0Y2-Chat-GPT-Image-4-de-jul-de-2026-16-43-35.webp', title: 'Naruto Sage Mode', tag: 'Pirate King' },
+  { file: '8cJX6d0g-Chat-GPT-Image-4-de-jul-de-2026-16-43-40.webp', title: 'Zenitsu Lightning', tag: 'Slayer' },
+  { file: 'D09jdW9T-Chat-GPT-Image-4-de-jul-de-2026-16-45-47.webp', title: 'Itachi Crow Illusion', tag: 'Uchiha' },
+];
+
+export const problems = [
+  {
+    title: 'A Loja Fica Sem Novidade',
+    text: 'Você tem a loja ou o perfil pronto, mas falta estampa nova para postar e vender toda semana.',
+  },
+  {
+    title: 'Você Caça Arte Solta',
+    text: 'Grupos, sites e pastas bagunçadas consomem o tempo que podia estar na produção e na venda.',
+  },
+  {
+    title: 'Compra Arte Avulsa',
+    text: 'Cada personagem pedido vira outra busca ou outra compra antes mesmo de imprimir a primeira peça.',
+  },
+  {
+    title: 'O Catálogo Fica Curto',
+    text: 'Quando o cliente pede outro anime, falta opção pronta pra mostrar e a venda esfria.',
+  },
+];
+
+export const stats = [
+  { value: '+10.000', label: 'artes no Plano Premium' },
+  { value: '3', label: 'formatos: PNG, Canva e Photoshop' },
+  { value: 'R$ 19,90', label: 'planos a partir de • pagamento único' },
 ];
 
 export const compatItems = [
-  { icon: '🖨️', title: 'Print on Demand', text: 'Ideal para vender sem estoque físico ou investimentos iniciais.' },
-  { icon: '🎞️', title: 'DTF', text: 'Arquivos prontos para impressão direta em filme de alta qualidade.' },
-  { icon: '🖥️', title: 'DTG', text: 'Perfeito para impressão digital direta nas camisetas com cores vivas.' },
-  { icon: '🖼️', title: 'Serigrafia', text: 'Artes de alto contraste excelentes para separação de cores e telas.' },
-  { icon: '☕', title: 'Sublimação', text: 'Alta resolução para estampas completas, canecas e brindes personalizados.' },
-  { icon: '👕', title: 'Marcas de Roupas', text: 'Inicie ou impulsione sua própria marca com visual streetwear de nível premium.' },
+  { icon: 'printer', title: 'Print on Demand', text: 'Ideal para vender sem estoque físico ou investimentos iniciais.' },
+  { icon: 'film', title: 'DTF', text: 'Arquivos prontos para impressão direta em filme de alta qualidade.' },
+  { icon: 'monitor', title: 'DTG', text: 'Perfeito para impressão digital direta nas camisetas com cores vivas.' },
+  { icon: 'frame', title: 'Serigrafia', text: 'Artes de alto contraste excelentes para separação de cores e telas.' },
+  { icon: 'mug', title: 'Sublimação', text: 'Alta resolução para estampas completas, canecas e brindes personalizados.' },
+  { icon: 'shirt', title: 'Marcas de Roupas', text: 'Inicie ou impulsione sua própria marca com visual streetwear de nível premium.' },
 ];
 
 export const sampleStripFiles = [
-  { file: 'nVjmxXDH-Imagem-1-gerada.png', label: 'Attack on Titan' },
-  { file: 'DfJGhSX7-Imagem-1-gerada-(1).png', label: 'Demon Slayer' },
-  { file: 'v8gny4Vb-Imagem-1-gerada-(2).png', label: 'My Hero Academia' },
-  { file: 'QN97DFTZ-Imagem-1-gerada-(3).png', label: 'Tokyo Ghoul' },
-  { file: 'tTHTWN5N-Imagem-1-gerada-(4).png', label: 'Jujutsu Kaisen' },
-  { file: 'pTtTzJZQ-Imagem-1-gerada-(5).png', label: 'Dragon Ball' },
-  { file: 'bJjJk9TH-Imagem-1-gerada-(6).png', label: 'One Piece' },
-  { file: 'zB1BKFjj-Montagem-Naruto-3-3.png', label: 'Naruto' },
+  { file: 'nVjmxXDH-Imagem-1-gerada.webp', label: 'Attack on Titan' },
+  { file: 'DfJGhSX7-Imagem-1-gerada-(1).webp', label: 'Demon Slayer' },
+  { file: 'v8gny4Vb-Imagem-1-gerada-(2).webp', label: 'My Hero Academia' },
+  { file: 'QN97DFTZ-Imagem-1-gerada-(3).webp', label: 'Tokyo Ghoul' },
+  { file: 'tTHTWN5N-Imagem-1-gerada-(4).webp', label: 'Jujutsu Kaisen' },
+  { file: 'pTtTzJZQ-Imagem-1-gerada-(5).webp', label: 'Dragon Ball' },
+  { file: 'bJjJk9TH-Imagem-1-gerada-(6).webp', label: 'One Piece' },
+  { file: 'zB1BKFjj-Montagem-Naruto-3-3.webp', label: 'Naruto' },
 ];
 
 export const resultsRow1 = [
-  '7GkffZv1-Captura-de-Tela-2026-07-04-a-s-02-31-25.png',
-  '05TG3Cgc-Chat-GPT-Image-4-de-jul-de-2026-16-44-45.png',
-  'vgsccZRW-Captura-de-Tela-2026-07-04-a-s-02-31-46.png',
-  'pVwQ7BNs-Chat-GPT-Image-4-de-jul-de-2026-16-44-48.png',
-  'FfcYrJ6P-Captura-de-Tela-2026-07-04-a-s-02-34-13.png',
-  'xJ1qKFCP-Chat-GPT-Image-4-de-jul-de-2026-17-15-56.png',
-  'ZRr3zGzX-Chat-GPT-Image-4-de-jul-de-2026-17-15-56.png',
-  '2qdpXT1b-Chat-GPT-Image-5-de-jul-de-2026-17-39-21.png',
-  '2qNRwgS5-Chat-GPT-Image-5-de-jul-de-2026-17-39-40.png',
+  '7GkffZv1-Captura-de-Tela-2026-07-04-a-s-02-31-25.webp',
+  '05TG3Cgc-Chat-GPT-Image-4-de-jul-de-2026-16-44-45.webp',
+  'vgsccZRW-Captura-de-Tela-2026-07-04-a-s-02-31-46.webp',
+  'pVwQ7BNs-Chat-GPT-Image-4-de-jul-de-2026-16-44-48.webp',
+  'FfcYrJ6P-Captura-de-Tela-2026-07-04-a-s-02-34-13.webp',
+  'xJ1qKFCP-Chat-GPT-Image-4-de-jul-de-2026-17-15-56.webp',
+  'ZRr3zGzX-Chat-GPT-Image-4-de-jul-de-2026-17-15-56.webp',
+  '2qdpXT1b-Chat-GPT-Image-5-de-jul-de-2026-17-39-21.webp',
+  '2qNRwgS5-Chat-GPT-Image-5-de-jul-de-2026-17-39-40.webp',
 ];
 
 export const resultsRow2 = [
-  'mZv3qSfx-Chat-GPT-Image-4-de-jul-de-2026-16-44-53.png',
-  '2qv1kBtT-Captura-de-Tela-2026-07-04-a-s-02-34-36.png',
-  'WpBmK7RC-Chat-GPT-Image-4-de-jul-de-2026-16-45-15.png',
-  'CZDRhf2c-Captura-de-Tela-2026-07-04-a-s-02-34-57.png',
-  'Df9QDcVN-Chat-GPT-Image-4-de-jul-de-2026-16-45-20.png',
-  '47xnzFdQ-Chat-GPT-Image-4-de-jul-de-2026-17-50-01.png',
-  'tThPGKGw-Chat-GPT-Image-4-de-jul-de-2026-17-50-01.png',
-  '5H5ckpXX-Chat-GPT-Image-5-de-jul-de-2026-17-39-09.png',
-  '7C1vQX5k-Chat-GPT-Image-5-de-jul-de-2026-17-39-36.png',
+  'mZv3qSfx-Chat-GPT-Image-4-de-jul-de-2026-16-44-53.webp',
+  '2qv1kBtT-Captura-de-Tela-2026-07-04-a-s-02-34-36.webp',
+  'WpBmK7RC-Chat-GPT-Image-4-de-jul-de-2026-16-45-15.webp',
+  'CZDRhf2c-Captura-de-Tela-2026-07-04-a-s-02-34-57.webp',
+  'Df9QDcVN-Chat-GPT-Image-4-de-jul-de-2026-16-45-20.webp',
+  '47xnzFdQ-Chat-GPT-Image-4-de-jul-de-2026-17-50-01.webp',
+  'tThPGKGw-Chat-GPT-Image-4-de-jul-de-2026-17-50-01.webp',
+  '5H5ckpXX-Chat-GPT-Image-5-de-jul-de-2026-17-39-09.webp',
+  '7C1vQX5k-Chat-GPT-Image-5-de-jul-de-2026-17-39-36.webp',
 ];
 
 export const resultsRow3 = [
-  'qtnNJCFj-Captura-de-Tela-2026-07-04-a-s-02-35-28.png',
-  '2jsdJxpK-Chat-GPT-Image-4-de-jul-de-2026-16-45-29.png',
-  'zDswMkm2-Chat-GPT-Image-4-de-jul-de-2026-16-45-32.png',
-  'QN2gPqLS-Chat-GPT-Image-4-de-jul-de-2026-16-45-35.png',
-  '7PF1cNvB-Chat-GPT-Image-4-de-jul-de-2026-16-45-39.png',
-  'bG0XFLZP-Chat-GPT-Image-5-de-jul-de-2026-18-04-00.png',
-  'd7RMSnhq-Chat-GPT-Image-5-de-jul-de-2026-17-39-06.png',
+  'qtnNJCFj-Captura-de-Tela-2026-07-04-a-s-02-35-28.webp',
+  '2jsdJxpK-Chat-GPT-Image-4-de-jul-de-2026-16-45-29.webp',
+  'zDswMkm2-Chat-GPT-Image-4-de-jul-de-2026-16-45-32.webp',
+  'QN2gPqLS-Chat-GPT-Image-4-de-jul-de-2026-16-45-35.webp',
+  '7PF1cNvB-Chat-GPT-Image-4-de-jul-de-2026-16-45-39.webp',
+  'bG0XFLZP-Chat-GPT-Image-5-de-jul-de-2026-18-04-00.webp',
+  'd7RMSnhq-Chat-GPT-Image-5-de-jul-de-2026-17-39-06.webp',
 ];
 
 export const steps = [
@@ -112,26 +137,26 @@ export const audience = [
 ];
 
 export const differentials = [
-  { icon: '♾️', title: 'Acesso Vitalício', text: 'Uma compra, acesso para sempre + atualizações futuras' },
-  { icon: '⭐', title: 'Qualidade Profissional', text: 'Designs inspirados nas grandes ligas e clubes mundiais' },
-  { icon: '💼', title: 'Uso Comercial Liberado', text: 'Venda artes para seus clientes sem preocupação.' },
-  { icon: '🎨', title: '100% Editável no Canva', text: 'Templates criados do zero e totalmente editáveis: cores, textos, formas e tudo que você precisar ajustar.' },
-  { icon: '🖌️', title: '100% Editável no Photoshop', text: 'Templates criados do zero e totalmente editáveis: cores, textos, formas e tudo que você precisar ajustar.' },
-  { icon: '⚡', title: 'Download Imediato', text: 'Acesso instantâneo após a compra, sem espera' },
+  { icon: 'infinity', title: 'Acesso Vitalício', text: 'Uma compra, acesso para sempre + atualizações futuras' },
+  { icon: 'star', title: 'Qualidade Profissional', text: 'Designs inspirados nas grandes ligas e clubes mundiais' },
+  { icon: 'briefcase', title: 'Uso Comercial Liberado', text: 'Venda artes para seus clientes sem preocupação.' },
+  { icon: 'palette', title: '100% Editável no Canva', text: 'Templates criados do zero e totalmente editáveis: cores, textos, formas e tudo que você precisar ajustar.' },
+  { icon: 'brush', title: '100% Editável no Photoshop', text: 'Templates criados do zero e totalmente editáveis: cores, textos, formas e tudo que você precisar ajustar.' },
+  { icon: 'bolt', title: 'Download Imediato', text: 'Acesso instantâneo após a compra, sem espera' },
 ];
 
 export const testimonials = [
-  { file: 'CMq25gD0-Chat-GPT-Image-5-de-jul-de-2026-00-25-48-(1).png', alt: 'Feedback Cliente WhatsApp 1' },
-  { file: '3rvqNTpY-Chat-GPT-Image-5-de-jul-de-2026-00-25-48-(2).png', alt: 'Feedback Cliente WhatsApp 2' },
-  { file: 'CMq25gDY-Chat-GPT-Image-5-de-jul-de-2026-00-25-49-(3).png', alt: 'Feedback Cliente WhatsApp 3' },
-  { file: 'XNCPqbFb-Chat-GPT-Image-5-de-jul-de-2026-00-25-49-(4).png', alt: 'Feedback Cliente WhatsApp 4' },
+  { file: 'CMq25gD0-Chat-GPT-Image-5-de-jul-de-2026-00-25-48-(1).webp', alt: 'Feedback Cliente WhatsApp 1' },
+  { file: '3rvqNTpY-Chat-GPT-Image-5-de-jul-de-2026-00-25-48-(2).webp', alt: 'Feedback Cliente WhatsApp 2' },
+  { file: 'CMq25gDY-Chat-GPT-Image-5-de-jul-de-2026-00-25-49-(3).webp', alt: 'Feedback Cliente WhatsApp 3' },
+  { file: 'XNCPqbFb-Chat-GPT-Image-5-de-jul-de-2026-00-25-49-(4).webp', alt: 'Feedback Cliente WhatsApp 4' },
 ];
 
 export const bonuses = [
-  { file: 'L8W9bjXc-Chat-GPT-Image-9-de-jul-de-2026-00-00-22-(1).png', title: 'Mockups Prontos', price: 'R$ 67,00', text: 'Modelos profissionais de camisetas e canecas prontas para você editar e expor nas redes.' },
-  { file: '52r4R8yc-Chat-GPT-Image-9-de-jul-de-2026-00-00-23-(4).png', title: 'Modelos de Anúncios Prontos', price: 'R$ 97,00', text: 'Combo completo de artes prontas para usar em anúncios ou posts e vender muito mais.' },
-  { file: 't4cqMFTL-Chat-GPT-Image-9-de-jul-de-2026-00-00-22-(2).png', title: 'Guia de Venda Sem Estoque', price: 'R$ 47,00', text: 'Estratégia prática para começar a vender estampas incríveis sem precisar de estoque físico.' },
-  { file: 'HkNYhbxF-Chat-GPT-Image-9-de-jul-de-2026-00-00-22-(3).png', title: 'Estampas, Canecas & Manual da Sublimação', price: 'R$ 57,00', text: 'Guia definitivo de sublimação e estampagem com os melhores segredos técnicos.' },
+  { file: 'L8W9bjXc-Chat-GPT-Image-9-de-jul-de-2026-00-00-22-(1).webp', title: 'Mockups Prontos', price: 'R$ 67,00', text: 'Modelos profissionais de camisetas e canecas prontas para você editar e expor nas redes.' },
+  { file: '52r4R8yc-Chat-GPT-Image-9-de-jul-de-2026-00-00-23-(4).webp', title: 'Modelos de Anúncios Prontos', price: 'R$ 97,00', text: 'Combo completo de artes prontas para usar em anúncios ou posts e vender muito mais.' },
+  { file: 't4cqMFTL-Chat-GPT-Image-9-de-jul-de-2026-00-00-22-(2).webp', title: 'Guia de Venda Sem Estoque', price: 'R$ 47,00', text: 'Estratégia prática para começar a vender estampas incríveis sem precisar de estoque físico.' },
+  { file: 'HkNYhbxF-Chat-GPT-Image-9-de-jul-de-2026-00-00-22-(3).webp', title: 'Estampas, Canecas & Manual da Sublimação', price: 'R$ 57,00', text: 'Guia definitivo de sublimação e estampagem com os melhores segredos técnicos.' },
 ];
 
 export const faqs = [
