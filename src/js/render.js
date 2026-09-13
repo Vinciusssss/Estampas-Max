@@ -143,7 +143,7 @@ function renderSteps() {
     grid.appendChild(
       el(`
         <div class="card p-6 text-center reveal" style="transition-delay:${i * 100}ms">
-          <div class="mx-auto w-11 h-11 rounded-full bg-gradient-to-br from-brand-500 to-brand-700 text-white font-display font-bold flex items-center justify-center mb-4 shadow-[0_0_20px_-4px_rgba(168,85,247,0.7)]">
+          <div class="mx-auto w-11 h-11 rounded-full bg-gradient-to-br from-brand-500 to-brand-700 text-white font-display font-bold flex items-center justify-center mb-4 shadow-[0_0_20px_-4px_rgba(248,113,113,0.7)]">
             ${step.n}
           </div>
           <h3 class="font-display font-bold uppercase text-sm tracking-wide">${step.title}</h3>
