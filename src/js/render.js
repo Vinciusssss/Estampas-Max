@@ -104,16 +104,25 @@ function renderStats() {
 function renderCompat() {
   const grid = document.getElementById('compat-grid');
   compatItems.forEach((item, i) => {
-    grid.appendChild(
-      el(`
+    const card = item.photo
+      ? el(`
+        <figure class="card overflow-hidden reveal" style="transition-delay:${i * 70}ms">
+          <div class="img-wrap aspect-[3/2] bg-black">
+            <img src="${imgSrc(item.photo)}" alt="${item.title} — ${item.text}" loading="lazy" decoding="async"
+              class="img-fade absolute inset-0 w-full h-full object-contain" />
+          </div>
+        </figure>
+      `)
+      : el(`
         <div class="card p-6 text-center reveal" style="transition-delay:${i * 70}ms">
           <div class="mx-auto">${iconBadge(item.icon)}</div>
           <h3 class="font-display font-bold uppercase text-sm tracking-wide mt-4">${item.title}</h3>
           <p class="mt-2 text-xs text-gray-400">${item.text}</p>
         </div>
-      `)
-    );
+      `);
+    grid.appendChild(card);
   });
+  bindImageFade(grid);
 }
 
 function marqueeTrack(containerId, files, altPrefix = '') {
@@ -203,7 +212,7 @@ function renderTestimonials() {
   testimonials.forEach((item, i) => {
     grid.appendChild(
       el(`
-        <div class="card overflow-hidden reveal" style="transition-delay:${i * 90}ms">
+        <div class="card overflow-hidden reveal shrink-0 w-[58%] snap-center sm:w-auto sm:shrink" style="transition-delay:${i * 90}ms">
           ${pic(item.file, item.alt, { aspect: 'aspect-[9/16]' })}
         </div>
       `)

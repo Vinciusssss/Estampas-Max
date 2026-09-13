@@ -67,16 +67,18 @@ export const stats = [
 ];
 
 // SEÇÃO COMPATIBILIDADE — produtos de sublimação que você pode produzir.
+// Itens com "photo" usam a imagem enviada (já traz título e destaques
+// desenhados nela) no lugar do card de ícone + texto.
 export const compatItems = [
-  { icon: 'shirt', title: 'Camisetas', text: 'Estampe camisetas e moletons com artes de anime em alta resolução.' },
-  { icon: 'mug', title: 'Canecas', text: 'Aplique as artes em canecas de cerâmica e mágicas para presente e revenda.' },
-  { icon: 'cup', title: 'Copos e squeezes', text: 'Personalize copos térmicos, long drinks e squeezes com sublimação total.' },
-  { icon: 'tile', title: 'Azulejos e quadros', text: 'Sublime azulejos e placas decorativas para decoração e datas especiais.' },
-  { icon: 'cap', title: 'Bonés', text: 'Leve os personagens para bonés e viseiras com acabamento profissional.' },
-  { icon: 'bag', title: 'Ecobags e almofadas', text: 'Amplie o catálogo com ecobags, almofadas e itens de tecido sublimável.' },
-  { icon: 'mousepad', title: 'Mousepads', text: 'Produza mousepads geek, um item de alto giro e fácil de sublimar.' },
-  { icon: 'gift', title: 'Presentes e chaveiros', text: 'Chaveiros e brindes personalizados para datas comemorativas e pedidos sob medida.' },
-  { icon: 'palette', title: 'Compatível com seu editor', text: 'Arquivos que você abre no Photoshop e no Canva, pelo computador ou pelo celular.' },
+  { icon: 'shirt', title: 'Camisetas', text: 'Estampe camisetas e moletons com artes de anime em alta resolução.', photo: 'Imagem do Codex 12 de set. de 2026, 23_37_50.png' },
+  { icon: 'mug', title: 'Canecas', text: 'Aplique as artes em canecas de cerâmica e mágicas para presente e revenda.', photo: 'Imagem do Codex 12 de set. de 2026, 23_39_37.png' },
+  { icon: 'cup', title: 'Copos e squeezes', text: 'Personalize copos térmicos, long drinks e squeezes com sublimação total.', photo: 'Imagem do Codex 12 de set. de 2026, 23_39_44.png' },
+  { icon: 'tile', title: 'Azulejos e quadros', text: 'Sublime azulejos e placas decorativas para decoração e datas especiais.', photo: 'Imagem do Codex 12 de set. de 2026, 23_39_49.png' },
+  { icon: 'cap', title: 'Bonés', text: 'Leve os personagens para bonés e viseiras com acabamento profissional.', photo: 'Imagem do Codex 12 de set. de 2026, 23_40_02.png' },
+  { icon: 'bag', title: 'Ecobags e almofadas', text: 'Amplie o catálogo com ecobags, almofadas e itens de tecido sublimável.', photo: 'Imagem do Codex 12 de set. de 2026, 23_39_55.png' },
+  { icon: 'mousepad', title: 'Mousepads', text: 'Produza mousepads geek, um item de alto giro e fácil de sublimar.', photo: 'Imagem do Codex 12 de set. de 2026, 23_40_10.png' },
+  { icon: 'gift', title: 'Presentes e chaveiros', text: 'Chaveiros e brindes personalizados para datas comemorativas e pedidos sob medida.', photo: 'Imagem do Codex 12 de set. de 2026, 23_40_18.png' },
+  { icon: 'palette', title: 'Compatível com seu editor', text: 'Arquivos que você abre no Photoshop e no Canva, pelo computador ou pelo celular.', photo: 'Imagem do Codex 12 de set. de 2026, 23_49_05.png' },
 ];
 
 // Amostra em faixa (imagens reais existentes).
@@ -91,37 +93,23 @@ export const sampleStripFiles = [
   { file: 'zB1BKFjj-Montagem-Naruto-3-3.webp', label: 'Naruto' },
 ];
 
+// Marquees de resultado — só um exemplo por anime/produto, sem repetir a
+// mesma estampa em fotos diferentes.
 export const resultsRow1 = [
-  '7GkffZv1-Captura-de-Tela-2026-07-04-a-s-02-31-25.webp',
-  '05TG3Cgc-Chat-GPT-Image-4-de-jul-de-2026-16-44-45.webp',
   'vgsccZRW-Captura-de-Tela-2026-07-04-a-s-02-31-46.webp',
   'pVwQ7BNs-Chat-GPT-Image-4-de-jul-de-2026-16-44-48.webp',
-  'FfcYrJ6P-Captura-de-Tela-2026-07-04-a-s-02-34-13.webp',
-  'xJ1qKFCP-Chat-GPT-Image-4-de-jul-de-2026-17-15-56.webp',
   'ZRr3zGzX-Chat-GPT-Image-4-de-jul-de-2026-17-15-56.webp',
-  '2qdpXT1b-Chat-GPT-Image-5-de-jul-de-2026-17-39-21.webp',
-  '2qNRwgS5-Chat-GPT-Image-5-de-jul-de-2026-17-39-40.webp',
 ];
 
 export const resultsRow2 = [
   'mZv3qSfx-Chat-GPT-Image-4-de-jul-de-2026-16-44-53.webp',
-  '2qv1kBtT-Captura-de-Tela-2026-07-04-a-s-02-34-36.webp',
-  'WpBmK7RC-Chat-GPT-Image-4-de-jul-de-2026-16-45-15.webp',
-  'CZDRhf2c-Captura-de-Tela-2026-07-04-a-s-02-34-57.webp',
   'Df9QDcVN-Chat-GPT-Image-4-de-jul-de-2026-16-45-20.webp',
-  '47xnzFdQ-Chat-GPT-Image-4-de-jul-de-2026-17-50-01.webp',
-  'tThPGKGw-Chat-GPT-Image-4-de-jul-de-2026-17-50-01.webp',
-  '5H5ckpXX-Chat-GPT-Image-5-de-jul-de-2026-17-39-09.webp',
   '7C1vQX5k-Chat-GPT-Image-5-de-jul-de-2026-17-39-36.webp',
 ];
 
 export const resultsRow3 = [
-  'qtnNJCFj-Captura-de-Tela-2026-07-04-a-s-02-35-28.webp',
   '2jsdJxpK-Chat-GPT-Image-4-de-jul-de-2026-16-45-29.webp',
-  'zDswMkm2-Chat-GPT-Image-4-de-jul-de-2026-16-45-32.webp',
-  'QN2gPqLS-Chat-GPT-Image-4-de-jul-de-2026-16-45-35.webp',
   '7PF1cNvB-Chat-GPT-Image-4-de-jul-de-2026-16-45-39.webp',
-  'bG0XFLZP-Chat-GPT-Image-5-de-jul-de-2026-18-04-00.webp',
   'd7RMSnhq-Chat-GPT-Image-5-de-jul-de-2026-17-39-06.webp',
 ];
 
@@ -175,10 +163,10 @@ export const differentials = [
 // SEÇÃO PROVA SOCIAL — prints de clientes já existentes no projeto e já em
 // uso na página em produção.
 export const testimonials = [
-  { file: 'CMq25gD0-Chat-GPT-Image-5-de-jul-de-2026-00-25-48-(1).webp', alt: 'Print real de mensagem de cliente sobre o acervo de artes' },
-  { file: '3rvqNTpY-Chat-GPT-Image-5-de-jul-de-2026-00-25-48-(2).webp', alt: 'Print real de mensagem de cliente sobre o acervo de artes' },
-  { file: 'CMq25gDY-Chat-GPT-Image-5-de-jul-de-2026-00-25-49-(3).webp', alt: 'Print real de mensagem de cliente sobre o acervo de artes' },
-  { file: 'XNCPqbFb-Chat-GPT-Image-5-de-jul-de-2026-00-25-49-(4).webp', alt: 'Print real de mensagem de cliente sobre o acervo de artes' },
+  { file: 'Imagem do Codex 12 de set. de 2026, 22_29_25.png', alt: 'Print de conversa de cliente sobre os anúncios feitos com as artes' },
+  { file: 'Imagem do Codex 12 de set. de 2026, 22_38_21.png', alt: 'Print de conversa de cliente sobre vendas de canecas com as artes' },
+  { file: 'Imagem do Codex 12 de set. de 2026, 22_38_28.png', alt: 'Print de conversa de cliente sobre camiseta feita com as artes' },
+  { file: 'Imagem do Codex 12 de set. de 2026, 22_45_37.png', alt: 'Print de conversa de cliente sobre pedidos feitos com as artes' },
 ];
 
 // SEÇÃO BÔNUS — oferta empilhada com os valores de referência e o conteúdo
