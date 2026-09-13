@@ -42,34 +42,14 @@ function bindImageFade(root) {
   });
 }
 
-function pic(file, alt, { aspect = 'aspect-square', extra = '', eager = false } = {}) {
+function pic(file, alt, { aspect = 'aspect-square', extra = '', eager = false, fit = 'object-cover' } = {}) {
   const loading = eager ? 'eager' : 'lazy';
   return `
     <div class="img-wrap ${aspect} ${extra}">
       <img src="${imgSrc(file)}" alt="${alt}" loading="${loading}" decoding="async"
-        class="img-fade absolute inset-0 w-full h-full object-cover" />
+        class="img-fade absolute inset-0 w-full h-full ${fit}" />
     </div>
   `;
-}
-
-function renderGallery() {
-  const grid = document.getElementById('gallery-grid');
-  galleryItems.forEach((item, i) => {
-    grid.appendChild(
-      el(`
-        <figure class="card overflow-hidden group reveal" style="transition-delay:${(i % 8) * 60}ms">
-          <div class="relative">
-            ${pic(item.file, item.title, { extra: 'transition duration-300 group-hover:scale-105' })}
-            <span class="absolute top-2 left-2 z-10 bg-black/70 text-brand-300 text-[10px] font-mono uppercase tracking-wide px-2 py-1 rounded backdrop-blur-sm">
-              ${item.tag}
-            </span>
-          </div>
-          <figcaption class="p-3 text-xs sm:text-sm font-medium text-gray-300">${item.title}</figcaption>
-        </figure>
-      `)
-    );
-  });
-  bindImageFade(grid);
 }
 
 function renderProblems() {
@@ -101,40 +81,41 @@ function renderStats() {
   });
 }
 
-function renderCompat() {
-  const grid = document.getElementById('compat-grid');
-  compatItems.forEach((item, i) => {
-    const card = item.photo
-      ? el(`
-        <figure class="card overflow-hidden reveal" style="transition-delay:${i * 70}ms">
-          <div class="img-wrap aspect-[3/2] bg-black">
-            <img src="${imgSrc(item.photo)}" alt="${item.title} — ${item.text}" loading="lazy" decoding="async"
-              class="img-fade absolute inset-0 w-full h-full object-contain" />
-          </div>
-        </figure>
-      `)
-      : el(`
-        <div class="card p-6 text-center reveal" style="transition-delay:${i * 70}ms">
-          <div class="mx-auto">${iconBadge(item.icon)}</div>
-          <h3 class="font-display font-bold uppercase text-sm tracking-wide mt-4">${item.title}</h3>
-          <p class="mt-2 text-xs text-gray-400">${item.text}</p>
-        </div>
-      `);
-    grid.appendChild(card);
-  });
-  bindImageFade(grid);
-}
-
-function marqueeTrack(containerId, files, altPrefix = '') {
+// Carrossel horizontal que rola sozinho (CSS animation), sem depender de
+// gesto do usuário — pensado para telas pequenas, onde uma grid de várias
+// imagens ficaria espremida ou exigiria scroll vertical enorme.
+// entry pode ser uma string (nome do arquivo) ou { file, label, tag }.
+function marqueeTrack(containerId, entries, options = {}) {
+  const {
+    altPrefix = '',
+    cardWidth = 'w-40 sm:w-48',
+    aspect = 'aspect-square',
+    fit = 'object-cover',
+    duration = 30,
+    reverse = false,
+  } = options;
   const track = document.getElementById(containerId);
+  if (!track) return;
+  track.classList.add(reverse ? 'marquee-track-reverse' : 'marquee-track', 'flex', 'w-max', 'gap-4');
+  track.style.animationDuration = `${duration}s`;
+
   const renderSet = () =>
-    files.forEach((entry) => {
+    entries.forEach((entry) => {
       const file = typeof entry === 'string' ? entry : entry.file;
       const label = typeof entry === 'string' ? '' : entry.label;
+      const tag = typeof entry === 'string' ? '' : entry.tag;
+      const alt = (typeof entry === 'string' ? '' : entry.alt) || label || file;
       track.appendChild(
         el(`
-          <div class="shrink-0 w-40 sm:w-48 card overflow-hidden">
-            ${pic(file, `${altPrefix}${label}`)}
+          <div class="shrink-0 ${cardWidth} card overflow-hidden">
+            <div class="relative">
+              ${pic(file, `${altPrefix}${alt}`, { aspect, fit })}
+              ${
+                tag
+                  ? `<span class="absolute top-2 left-2 z-10 bg-black/70 text-brand-300 text-[10px] font-mono uppercase tracking-wide px-2 py-1 rounded backdrop-blur-sm">${tag}</span>`
+                  : ''
+              }
+            </div>
             ${label ? `<p class="p-2 text-center text-xs font-medium text-gray-300">${label}</p>` : ''}
           </div>
         `)
@@ -144,6 +125,22 @@ function marqueeTrack(containerId, files, altPrefix = '') {
   renderSet();
   renderSet();
   bindImageFade(track);
+}
+
+function renderGallery() {
+  marqueeTrack(
+    'gallery-grid',
+    galleryItems.map((item) => ({ file: item.file, label: item.title, tag: item.tag })),
+    { cardWidth: 'w-32 sm:w-40', duration: 40 }
+  );
+}
+
+function renderCompat() {
+  marqueeTrack(
+    'compat-grid',
+    compatItems.map((item) => ({ file: item.photo, alt: `${item.title} — ${item.text}` })),
+    { cardWidth: 'w-64 sm:w-80', aspect: 'aspect-[3/2]', fit: 'object-contain', duration: 55 }
+  );
 }
 
 function renderSteps() {
@@ -208,17 +205,11 @@ function renderDifferentials() {
 }
 
 function renderTestimonials() {
-  const grid = document.getElementById('testimonials-grid');
-  testimonials.forEach((item, i) => {
-    grid.appendChild(
-      el(`
-        <div class="card overflow-hidden reveal shrink-0 w-[58%] snap-center sm:w-auto sm:shrink" style="transition-delay:${i * 90}ms">
-          ${pic(item.file, item.alt, { aspect: 'aspect-[9/16]' })}
-        </div>
-      `)
-    );
-  });
-  bindImageFade(grid);
+  marqueeTrack(
+    'testimonials-grid',
+    testimonials.map((item) => ({ file: item.file, alt: item.alt })),
+    { cardWidth: 'w-48 sm:w-56', aspect: 'aspect-[9/16]', duration: 45 }
+  );
 }
 
 function renderBonusTotal() {
@@ -233,30 +224,37 @@ function renderBonusTotal() {
 }
 
 function renderBonuses() {
-  const grid = document.getElementById('bonus-grid');
-  bonuses.forEach((item, i) => {
-    grid.appendChild(
-      el(`
-        <div class="card overflow-hidden flex flex-col reveal" style="transition-delay:${i * 90}ms">
-          <div class="relative">
-            ${pic(item.file, item.title)}
-            <span class="absolute top-2 left-2 z-10 bg-black/70 text-[10px] font-mono uppercase px-2 py-1 rounded text-gray-300 backdrop-blur-sm">
-              Bônus 0${i + 1}
-            </span>
-          </div>
-          <div class="p-4 flex-1 flex flex-col">
-            <h3 class="font-display font-bold text-sm">${item.title}</h3>
-            <p class="mt-2 text-xs text-gray-400 flex-1">${item.text}</p>
-            <div class="mt-3 flex items-center gap-2">
-              <span class="text-gray-500 line-through text-xs">De: ${item.price}</span>
-              <span class="text-brand-400 font-display font-bold text-sm">GRÁTIS</span>
+  const track = document.getElementById('bonus-grid');
+  if (!track) return;
+  track.classList.add('marquee-track', 'flex', 'w-max', 'gap-4');
+  track.style.animationDuration = '48s';
+
+  const renderSet = () =>
+    bonuses.forEach((item, i) => {
+      track.appendChild(
+        el(`
+          <div class="shrink-0 w-64 sm:w-72 card overflow-hidden flex flex-col">
+            <div class="relative">
+              ${pic(item.file, item.title)}
+              <span class="absolute top-2 left-2 z-10 bg-black/70 text-[10px] font-mono uppercase px-2 py-1 rounded text-gray-300 backdrop-blur-sm">
+                Bônus 0${i + 1}
+              </span>
+            </div>
+            <div class="p-4 flex-1 flex flex-col">
+              <h3 class="font-display font-bold text-sm">${item.title}</h3>
+              <p class="mt-2 text-xs text-gray-400 flex-1">${item.text}</p>
+              <div class="mt-3 flex items-center gap-2">
+                <span class="text-gray-500 line-through text-xs">De: ${item.price}</span>
+                <span class="text-brand-400 font-display font-bold text-sm">GRÁTIS</span>
+              </div>
             </div>
           </div>
-        </div>
-      `)
-    );
-  });
-  bindImageFade(grid);
+        `)
+      );
+    });
+  renderSet();
+  renderSet();
+  bindImageFade(track);
 }
 
 function renderFaq() {
@@ -282,7 +280,7 @@ export function renderContent() {
   renderCompat();
   marqueeTrack('marquee-samples', sampleStripFiles);
   marqueeTrack('marquee-results-1', resultsRow1);
-  marqueeTrack('marquee-results-2', resultsRow2);
+  marqueeTrack('marquee-results-2', resultsRow2, { reverse: true });
   marqueeTrack('marquee-results-3', resultsRow3);
   renderSteps();
   renderStats();

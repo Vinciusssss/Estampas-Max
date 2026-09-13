@@ -103,6 +103,16 @@
   }
 }
 
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
 @keyframes shimmer {
   0% { transform: translateX(-120%); }
   60%, 100% { transform: translateX(120%); }
