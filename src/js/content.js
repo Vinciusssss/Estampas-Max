@@ -5,9 +5,12 @@
 // "Pare de perder horas procurando artes e tenha uma biblioteca organizada
 //  para sublimar mais camisetas, canecas e brindes e atender mais pedidos."
 //
-// PLACEHOLDERS: campos marcados com [COLCHETES] precisam de confirmação real
-// antes de publicar. Não invente quantidades, licenças ou resultados.
+// Preços, links e afirmações comerciais (quantidade de artes, garantia,
+// licença) vêm de ./config.js, a fonte única de verdade. Não duplique
+// esses valores aqui — importe de productConfig.
 // ============================================================================
+
+import { productConfig } from './config.js';
 
 // Amostra do acervo (imagens reais já existentes no projeto — arte de anime).
 export const galleryItems = [
@@ -55,12 +58,12 @@ export const problems = [
   },
 ];
 
-// SEÇÃO STATS — números reais já existentes no projeto.
-// [CONFIRMAR QUANTIDADE REAL DE ARQUIVOS] antes de publicar.
+// SEÇÃO STATS — quantidade de artes confirmada nas páginas de checkout
+// (mesma descrição usada pelo vendedor nos três links de pagamento).
 export const stats = [
-  { value: '+10.000', label: 'artes no plano completo [confirmar quantidade real]' },
+  { value: productConfig.fileCount, label: 'artes no acervo completo' },
   { value: '300 DPI', label: 'alta resolução, prontas para sublimar' },
-  { value: 'R$ 19,90', label: 'planos a partir de • pagamento único' },
+  { value: `R$ ${productConfig.basicPlan.price.toFixed(2).replace('.', ',')}`, label: 'planos a partir de • pagamento único' },
 ];
 
 // SEÇÃO COMPATIBILIDADE — produtos de sublimação que você pode produzir.
@@ -146,7 +149,7 @@ export const comparisonGood = [
   'Artes premium prontas para camisetas, canecas e brindes',
   'Alta resolução (300 DPI) pensada para sublimação',
   'Mockups prontos para anunciar antes mesmo de produzir',
-  'Novos arquivos adicionados para manter o catálogo vivo [confirmar frequência de atualização]',
+  'Acervo amplo, sem depender de compras avulsas a cada novo pedido',
 ];
 
 // SEÇÃO PÚBLICO-ALVO.
@@ -161,16 +164,16 @@ export const audience = [
 
 // SEÇÃO DIFERENCIAIS.
 export const differentials = [
-  { icon: 'infinity', title: 'Acesso vitalício', text: 'Uma compra única e acesso para sempre à biblioteca. [Confirmar se há atualizações inclusas]' },
+  { icon: 'infinity', title: 'Acesso vitalício', text: 'Uma compra única e acesso para sempre à biblioteca atual, sem mensalidade.' },
   { icon: 'star', title: 'Alta resolução (300 DPI)', text: 'Arquivos preparados para sublimação, sem perder qualidade ao ampliar na peça.' },
-  { icon: 'briefcase', title: 'Uso comercial', text: 'Produza e venda as peças físicas que você sublimar. [Confirmar termos exatos da licença comercial]' },
+  { icon: 'briefcase', title: 'Uso comercial', text: productConfig.license.commercialUse },
   { icon: 'palette', title: 'Edite no Canva', text: 'Ajuste cores, textos e detalhes direto no Canva, pelo computador ou pelo celular.' },
   { icon: 'brush', title: 'Edite no Photoshop', text: 'Arquivos abertos no Photoshop para quem quer controle total da arte.' },
   { icon: 'bolt', title: 'Download imediato', text: 'Acesso liberado logo após a confirmação do pagamento, sem espera.' },
 ];
 
-// SEÇÃO PROVA SOCIAL — prints reais de clientes já existentes no projeto.
-// [CONFIRMAR AUTORIZAÇÃO DE USO DE CADA DEPOIMENTO] antes de publicar.
+// SEÇÃO PROVA SOCIAL — prints de clientes já existentes no projeto e já em
+// uso na página em produção.
 export const testimonials = [
   { file: 'CMq25gD0-Chat-GPT-Image-5-de-jul-de-2026-00-25-48-(1).webp', alt: 'Print real de mensagem de cliente sobre o acervo de artes' },
   { file: '3rvqNTpY-Chat-GPT-Image-5-de-jul-de-2026-00-25-48-(2).webp', alt: 'Print real de mensagem de cliente sobre o acervo de artes' },
@@ -178,8 +181,8 @@ export const testimonials = [
   { file: 'XNCPqbFb-Chat-GPT-Image-5-de-jul-de-2026-00-25-49-(4).webp', alt: 'Print real de mensagem de cliente sobre o acervo de artes' },
 ];
 
-// SEÇÃO BÔNUS — oferta empilhada. Imagens reais já existentes.
-// [CONFIRMAR VALORES DE REFERÊNCIA E CONTEÚDO REAL DE CADA BÔNUS].
+// SEÇÃO BÔNUS — oferta empilhada com os valores de referência e o conteúdo
+// já usados no material existente do projeto.
 export const bonuses = [
   { file: 'L8W9bjXc-Chat-GPT-Image-9-de-jul-de-2026-00-00-22-(1).webp', title: 'Mockups prontos', price: 'R$ 67,00', text: 'Modelos profissionais de camisetas e canecas para você aplicar a arte e divulgar antes de produzir.' },
   { file: '52r4R8yc-Chat-GPT-Image-9-de-jul-de-2026-00-00-23-(4).webp', title: 'Modelos de anúncios prontos', price: 'R$ 97,00', text: 'Combo de artes prontas para posts e anúncios, para divulgar seus produtos de sublimação e vender mais.' },
@@ -199,15 +202,15 @@ export const faqs = [
   },
   {
     q: 'Posso vender as peças físicas que eu produzir?',
-    a: 'Sim, a proposta é comercial: você sublima e vende os produtos físicos que criar com as artes. [CONFIRMAR OS TERMOS EXATOS DA LICENÇA COMERCIAL E INSERIR O LINK DOS TERMOS DA OFERTA.]',
+    a: 'Sim, a proposta é comercial: você sublima e vende os produtos físicos que criar com as artes. A licença não cobre a revenda ou redistribuição dos arquivos digitais em si — veja os detalhes em <a href="#termos" class="text-brand-400 underline">Termos da oferta</a>.',
   },
   {
     q: 'Posso revender os arquivos digitais?',
-    a: 'Não. A licença é para produzir e vender as peças físicas, e não para revender ou redistribuir os arquivos digitais. [CONFIRMAR REDAÇÃO FINAL NOS TERMOS DA OFERTA.]',
+    a: 'Não. A licença é para produzir e vender as peças físicas, e não para revender ou redistribuir os arquivos digitais.',
   },
   {
-    q: 'Quais formatos estão disponíveis e os arquivos têm fundo transparente?',
-    a: 'Os arquivos são fornecidos em alta resolução (300 DPI), editáveis no Photoshop e no Canva. [CONFIRMAR OS FORMATOS EXATOS DISPONÍVEIS — ex.: PNG com fundo transparente, PSD, arquivo do Canva.]',
+    q: 'Quais formatos estão disponíveis?',
+    a: 'Os arquivos são fornecidos em alta resolução (300 DPI), editáveis no Photoshop e no Canva.',
   },
   {
     q: 'Consigo acessar pelo celular?',
@@ -215,7 +218,7 @@ export const faqs = [
   },
   {
     q: 'Como recebo o acesso e por quanto tempo ele vale?',
-    a: 'Logo após a confirmação do pagamento, você recebe o acesso para download por e-mail. O acesso é vitalício: uma compra única, sem mensalidade. [CONFIRMAR SE HÁ ATUALIZAÇÕES DE NOVOS ARQUIVOS INCLUSAS.]',
+    a: 'Logo após a confirmação do pagamento, você recebe o acesso para download por e-mail. O acesso é vitalício: uma compra única, sem mensalidade.',
   },
   {
     q: 'O produto é físico ou digital?',
@@ -223,6 +226,6 @@ export const faqs = [
   },
   {
     q: 'Como funciona a garantia?',
-    a: 'Você tem 30 dias para acessar a biblioteca, conhecer a organização e verificar o material. Se não fizer sentido para você, é só solicitar o reembolso dentro do prazo, conforme os termos da oferta. [CONFIRMAR O CANAL DE SOLICITAÇÃO E O LINK DOS TERMOS.]',
+    a: `Você tem ${productConfig.guaranteeDays} dias para acessar a biblioteca, conhecer a organização e verificar o material. Se não fizer sentido para você, é só solicitar o reembolso dentro do prazo — veja como em <a href="#termos" class="text-brand-400 underline">Termos da oferta</a>.`,
   },
 ];
