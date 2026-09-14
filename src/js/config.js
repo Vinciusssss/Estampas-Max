@@ -35,10 +35,6 @@ export const productConfig = {
   accessDuration: 'Acesso vitalício, sem mensalidade, após a confirmação do pagamento',
   guaranteeDays: 30,
 
-  // Não há canal de suporte próprio configurado no projeto (e-mail, WhatsApp
-  // etc.). Pendência registrada no relatório final.
-  supportChannel: '',
-
   license: {
     commercialUse: 'Uso comercial permitido para os produtos físicos sublimados a partir das artes.',
     physicalProductsAllowed: true,
