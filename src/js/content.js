@@ -1,9 +1,9 @@
 // ============================================================================
 // CONTEÚDO DA LANDING PAGE — Biblioteca de artes de anime para SUBLIMAÇÃO
 // ----------------------------------------------------------------------------
-// Posicionamento: não vende "arquivos", vende a transformação —
-// "Pare de perder horas procurando artes e tenha uma biblioteca organizada
-//  para sublimar mais camisetas, canecas e brindes e atender mais pedidos."
+// Posicionamento: "Você já tem a impressora. Agora tenha as artes." — não é
+// uma pasta de arquivos, é uma biblioteca organizada que acelera a produção
+// de quem trabalha com sublimação.
 //
 // Preços, links e afirmações comerciais (quantidade de artes, garantia,
 // licença) vêm de ./config.js, a fonte única de verdade. Não duplique
@@ -38,37 +38,45 @@ export const galleryItems = [
   { file: 'D09jdW9T-Chat-GPT-Image-4-de-jul-de-2026-16-45-47.webp', title: 'Itachi Crow Illusion', tag: 'Camiseta' },
 ];
 
+// Categorias reais (derivadas das tags já usadas no acervo acima — nenhuma
+// categoria inventada).
+export const galleryCategories = [...new Set(galleryItems.map((item) => item.tag))];
+
+// SEÇÃO BENEFÍCIOS/NÚMEROS — logo após o hero, fatos confirmados (ver config.js).
+export const benefits = [
+  { value: productConfig.fileCount, label: 'Artes' },
+  { value: '300 DPI', label: 'Alta resolução' },
+  { value: '100%', label: 'Digital' },
+  { value: 'Vitalício', label: 'Acesso' },
+];
+
 // SEÇÃO PROBLEMA/DOR — o equipamento não é o problema; é ficar sem arte.
 export const problems = [
   {
-    title: 'Você perde tempo procurando arquivos',
-    text: 'Grupos de WhatsApp, sites, pastas bagunçadas e redes sociais consomem o tempo que deveria estar na prensa produzindo e vendendo.',
+    title: 'Você perde tempo procurando arte',
+    text: 'Grupos, sites e pastas bagunçadas consomem o tempo que deveria estar na prensa.',
   },
   {
-    title: 'Seu catálogo fica pequeno',
-    text: 'Poucos modelos limitam as vendas e fazem sua loja parecer sempre igual. Sem variedade, o cliente não volta.',
+    title: 'O cliente pede um tema que você não tem',
+    text: 'Sem variedade pronta, o pedido esfria enquanto você procura ou espera uma arte nova.',
   },
   {
-    title: 'Você compra artes avulsas',
-    text: 'Cada novo pedido pode exigir uma nova busca ou uma nova compra antes mesmo de sublimar a primeira peça.',
+    title: 'Arquivos espalhados e desorganizados',
+    text: 'Cada compra avulsa vira mais uma pasta perdida no computador ou no celular.',
   },
   {
-    title: 'Você perde datas e oportunidades',
-    text: 'Temas de coleção e novidades exigem variedade pronta. Sem arte na hora, a máquina e a prensa ficam paradas.',
+    title: 'Artes com qualidade baixa',
+    text: 'Resolução fraca borra na hora de sublimar e compromete o acabamento da peça.',
+  },
+  {
+    title: 'Cada pedido começa do zero',
+    text: 'Sem uma biblioteca pronta, toda produção nova exige buscar tudo de novo.',
   },
 ];
 
-// SEÇÃO STATS — quantidade de artes confirmada nas páginas de checkout
-// (mesma descrição usada pelo vendedor nos três links de pagamento).
-export const stats = [
-  { value: productConfig.fileCount, label: 'artes no acervo completo' },
-  { value: '300 DPI', label: 'alta resolução, prontas para sublimar' },
-  { value: `R$ ${productConfig.basicPlan.price.toFixed(2).replace('.', ',')}`, label: 'planos a partir de • pagamento único' },
-];
-
-// SEÇÃO COMPATIBILIDADE — produtos de sublimação que você pode produzir.
-// Itens com "photo" usam a imagem enviada (já traz título e destaques
-// desenhados nela) no lugar do card de ícone + texto.
+// SEÇÃO COMPATIBILIDADE / POSSIBILIDADES DE PRODUÇÃO — produtos que você pode
+// produzir. Itens com "photo" usam a imagem enviada (já traz título e
+// destaques desenhados nela) no lugar do card de ícone + texto.
 export const compatItems = [
   { icon: 'shirt', title: 'Camisetas', text: 'Estampe camisetas e moletons com artes de anime em alta resolução.', photo: 'Imagem do Codex 12 de set. de 2026, 23_37_50.png' },
   { icon: 'mug', title: 'Canecas', text: 'Aplique as artes em canecas de cerâmica e mágicas para presente e revenda.', photo: 'Imagem do Codex 12 de set. de 2026, 23_39_37.png' },
@@ -81,20 +89,8 @@ export const compatItems = [
   { icon: 'palette', title: 'Compatível com seu editor', text: 'Arquivos que você abre no Photoshop e no Canva, pelo computador ou pelo celular.', photo: 'Imagem do Codex 12 de set. de 2026, 23_49_05.png' },
 ];
 
-// Amostra em faixa (imagens reais existentes).
-export const sampleStripFiles = [
-  { file: 'nVjmxXDH-Imagem-1-gerada.webp', label: 'Attack on Titan' },
-  { file: 'DfJGhSX7-Imagem-1-gerada-(1).webp', label: 'Demon Slayer' },
-  { file: 'v8gny4Vb-Imagem-1-gerada-(2).webp', label: 'My Hero Academia' },
-  { file: 'QN97DFTZ-Imagem-1-gerada-(3).webp', label: 'Tokyo Ghoul' },
-  { file: 'tTHTWN5N-Imagem-1-gerada-(4).webp', label: 'Jujutsu Kaisen' },
-  { file: 'pTtTzJZQ-Imagem-1-gerada-(5).webp', label: 'Dragon Ball' },
-  { file: 'bJjJk9TH-Imagem-1-gerada-(6).webp', label: 'One Piece' },
-  { file: 'zB1BKFjj-Montagem-Naruto-3-3.webp', label: 'Naruto' },
-];
-
-// Marquees de resultado — só um exemplo por anime/produto, sem repetir a
-// mesma estampa em fotos diferentes.
+// "Veja como fica" — fotos reais de peças sublimadas prontas, mostradas
+// dentro da seção de Possibilidades de Produção (prova visual do resultado).
 export const resultsRow1 = [
   'vgsccZRW-Captura-de-Tela-2026-07-04-a-s-02-31-46.webp',
   'pVwQ7BNs-Chat-GPT-Image-4-de-jul-de-2026-16-44-48.webp',
@@ -113,51 +109,30 @@ export const resultsRow3 = [
   'd7RMSnhq-Chat-GPT-Image-5-de-jul-de-2026-17-39-06.webp',
 ];
 
-// SEÇÃO MECANISMO — como o cliente usa a biblioteca (escolher, baixar, sublimar).
+// SEÇÃO COMO FUNCIONA — 3 passos, da escolha à peça pronta.
 export const steps = [
-  { n: 1, title: 'Escolha por categoria', text: 'Abra a biblioteca organizada e encontre a arte do anime certa para o próximo pedido em segundos.' },
-  { n: 2, title: 'Baixe o arquivo', text: 'Faça o download em alta resolução (300 DPI), pelo computador ou pelo celular, quando quiser.' },
-  { n: 3, title: 'Prepare no seu software', text: 'Ajuste tamanho e posição no Photoshop ou Canva e mande imprimir no papel de sublimação.' },
-  { n: 4, title: 'Sublime e venda', text: 'Prense na camiseta, caneca, copo ou brinde e divulgue a peça pronta para vender.' },
+  { n: 1, title: 'Escolha a arte', text: 'Encontre rapidamente o estilo ou tema que quer produzir na biblioteca organizada.' },
+  { n: 2, title: 'Personalize se quiser', text: 'Use o Canva ou o Photoshop para ajustar cores, tamanho e detalhes.' },
+  { n: 3, title: 'Imprima e sublime', text: 'Leve a arte para sua produção e transforme em um produto físico pronto pra vender.' },
 ];
 
-// SEÇÃO COMPARATIVO.
+// SEÇÃO COMPARATIVO — procurar arte pela internet vs. ter o Estampas Max.
 export const comparisonBad = [
-  'Artes soltas e desorganizadas espalhadas em vários lugares',
-  'Você perde tempo procurando o arquivo certo a cada pedido',
-  'Designs genéricos que parecem iguais aos de todo mundo',
-  'Baixa resolução que borra na hora de sublimar',
-  'Sem mockups prontos para divulgar antes de produzir',
-  'Compra uma vez e fica parado, sem novidade nova',
+  'Arquivos espalhados em vários lugares',
+  'Qualidade variável, sem padrão',
+  'Tempo perdido procurando a cada pedido',
+  'Poucas opções prontas',
+  'Cada pedido começa do zero',
+  'Pastas desorganizadas',
 ];
 
 export const comparisonGood = [
-  'Biblioteca organizada por personagem, estilo e tema',
-  'Você encontra a arte certa em segundos e produz mais rápido',
-  'Artes premium prontas para camisetas, canecas e brindes',
-  'Alta resolução (300 DPI) pensada para sublimação',
-  'Mockups prontos para anunciar antes mesmo de produzir',
-  'Acervo amplo, sem depender de compras avulsas a cada novo pedido',
-];
-
-// SEÇÃO PÚBLICO-ALVO.
-export const audience = [
-  { title: 'Você já tem impressora de sublimação', text: 'e quer parar de deixar a máquina parada por falta de arte boa para produzir todos os dias.' },
-  { title: 'Você tem prensa térmica', text: 'e precisa de variedade pronta para camisetas, canecas, copos e brindes sem criar do zero.' },
-  { title: 'Você tem um negócio de personalizados', text: 'e quer ampliar o catálogo geek/anime para atender mais pedidos e diferentes clientes.' },
-  { title: 'Você vende camisetas e canecas', text: 'e quer artes profissionais e organizadas para postar, testar e vender no Instagram e no WhatsApp.' },
-  { title: 'Você quer começar na sublimação', text: 'e precisa de um acervo pronto para não travar na hora de escolher o que produzir primeiro.' },
-  { title: 'Você perde tempo caçando arte na internet', text: 'e quer uma fonte única, organizada e confiável para encontrar a próxima estampa rapidamente.' },
-];
-
-// SEÇÃO DIFERENCIAIS.
-export const differentials = [
-  { icon: 'infinity', title: 'Acesso vitalício', text: 'Uma compra única e acesso para sempre à biblioteca atual, sem mensalidade.' },
-  { icon: 'star', title: 'Alta resolução (300 DPI)', text: 'Arquivos preparados para sublimação, sem perder qualidade ao ampliar na peça.' },
-  { icon: 'briefcase', title: 'Uso comercial', text: productConfig.license.commercialUse },
-  { icon: 'palette', title: 'Edite no Canva', text: 'Ajuste cores, textos e detalhes direto no Canva, pelo computador ou pelo celular.' },
-  { icon: 'brush', title: 'Edite no Photoshop', text: 'Arquivos abertos no Photoshop para quem quer controle total da arte.' },
-  { icon: 'bolt', title: 'Download imediato', text: 'Acesso liberado logo após a confirmação do pagamento, sem espera.' },
+  'Biblioteca organizada por tema e estilo',
+  'Alta resolução (300 DPI) em todo o acervo',
+  'Você encontra a arte certa em segundos',
+  `${productConfig.fileCount} opções prontas para usar`,
+  'Artes prontas, sem começar do zero',
+  'Tudo em um só lugar, sempre à mão',
 ];
 
 // SEÇÃO PROVA SOCIAL — prints de clientes já existentes no projeto e já em
@@ -169,51 +144,55 @@ export const testimonials = [
   { file: 'Imagem do Codex 12 de set. de 2026, 22_45_37.png', alt: 'Print de conversa de cliente sobre pedidos feitos com as artes' },
 ];
 
-// SEÇÃO BÔNUS — oferta empilhada com os valores de referência e o conteúdo
-// já usados no material existente do projeto.
+// SEÇÃO BÔNUS — cada bônus como uma ferramenta real que ajuda o comprador.
+// Itens, textos e valores de referência já usados no material do projeto.
 export const bonuses = [
-  { file: 'L8W9bjXc-Chat-GPT-Image-9-de-jul-de-2026-00-00-22-(1).webp', title: 'Mockups prontos', price: 'R$ 67,00', text: 'Modelos profissionais de camisetas e canecas para você aplicar a arte e divulgar antes de produzir.' },
-  { file: '52r4R8yc-Chat-GPT-Image-9-de-jul-de-2026-00-00-23-(4).webp', title: 'Modelos de anúncios prontos', price: 'R$ 97,00', text: 'Combo de artes prontas para posts e anúncios, para divulgar seus produtos de sublimação e vender mais.' },
-  { file: 't4cqMFTL-Chat-GPT-Image-9-de-jul-de-2026-00-00-22-(2).webp', title: 'Guia de venda sem estoque', price: 'R$ 47,00', text: 'Passo a passo para vender pelo mockup e sublimar a peça só depois que o cliente comprar.' },
-  { file: 'HkNYhbxF-Chat-GPT-Image-9-de-jul-de-2026-00-00-22-(3).webp', title: 'Manual da sublimação', price: 'R$ 57,00', text: 'Guia com os cuidados de tempo, temperatura e pressão para um acabamento profissional na prensa.' },
+  { file: 'L8W9bjXc-Chat-GPT-Image-9-de-jul-de-2026-00-00-22-(1).webp', title: 'Mockups prontos', price: 'R$ 67,00', text: 'Modelos profissionais de camisetas e canecas para você aplicar a arte e divulgar antes mesmo de produzir.' },
+  { file: '52r4R8yc-Chat-GPT-Image-9-de-jul-de-2026-00-00-23-(4).webp', title: 'Modelos de anúncios prontos', price: 'R$ 97,00', text: 'Combo de artes prontas para posts e anúncios, para divulgar seus produtos e vender mais.' },
+  { file: 't4cqMFTL-Chat-GPT-Image-9-de-jul-de-2026-00-00-22-(2).webp', title: 'Guia de venda sem estoque', price: 'R$ 47,00', text: 'Passo a passo para vender pelo mockup e só sublimar a peça depois que o cliente comprar.' },
+  { file: 'HkNYhbxF-Chat-GPT-Image-9-de-jul-de-2026-00-00-22-(3).webp', title: 'Manual da sublimação', price: 'R$ 57,00', text: 'Guia com os cuidados de tempo, temperatura e pressão para um acabamento profissional.' },
 ];
 
-// SEÇÃO FAQ — perguntas específicas para quem trabalha com sublimação.
+// SEÇÃO FAQ — perguntas priorizadas para quem trabalha com sublimação.
 export const faqs = [
   {
-    q: 'Preciso saber criar artes ou mexer em programas complexos?',
-    a: 'Não. As artes já vêm prontas para usar. Você baixa o arquivo, ajusta o tamanho no Photoshop ou no Canva se quiser, imprime no papel de sublimação e prensa na peça. Não é preciso saber desenhar nem dominar programas avançados.',
+    q: 'Como recebo as artes?',
+    a: 'Logo após a confirmação do pagamento, você recebe o acesso para download por e-mail.',
   },
   {
-    q: 'Os arquivos servem para camisetas, canecas, copos e outros produtos?',
-    a: 'Sim. Por serem imagens em alta resolução (300 DPI), você redimensiona e aplica em camisetas, canecas, copos, squeezes, azulejos, bonés, ecobags, almofadas, mousepads, chaveiros e outros produtos sublimáveis.',
+    q: 'O acesso é imediato?',
+    a: 'Sim. O acesso é liberado assim que o pagamento é confirmado.',
   },
   {
-    q: 'Posso vender as peças físicas que eu produzir?',
-    a: 'Sim, a proposta é comercial: você sublima e vende os produtos físicos que criar com as artes. A licença não cobre a revenda ou redistribuição dos arquivos digitais em si — veja os detalhes em <a href="#termos" class="text-brand-400 underline">Termos da oferta</a>.',
+    q: 'Preciso pagar mensalidade?',
+    a: 'Não. É um pagamento único, com acesso vitalício à biblioteca.',
   },
   {
-    q: 'Posso revender os arquivos digitais?',
-    a: 'Não. A licença é para produzir e vender as peças físicas, e não para revender ou redistribuir os arquivos digitais.',
+    q: 'Posso editar as artes?',
+    a: 'Sim. Você pode ajustar cores, tamanho e detalhes antes de imprimir e sublimar.',
   },
   {
-    q: 'Quais formatos estão disponíveis?',
-    a: 'Os arquivos são fornecidos em alta resolução (300 DPI), editáveis no Photoshop e no Canva.',
+    q: 'Funciona no Canva?',
+    a: 'Sim, os arquivos são compatíveis com o Canva, pelo computador ou pelo celular.',
   },
   {
-    q: 'Consigo acessar pelo celular?',
-    a: 'Sim. Você acessa e baixa os arquivos pelo computador ou pelo celular e pode editar no Canva pelo aplicativo.',
+    q: 'Funciona no Photoshop?',
+    a: 'Sim, os arquivos também abrem normalmente no Photoshop.',
   },
   {
-    q: 'Como recebo o acesso e por quanto tempo ele vale?',
-    a: 'Logo após a confirmação do pagamento, você recebe o acesso para download por e-mail. O acesso é vitalício: uma compra única, sem mensalidade.',
+    q: 'As artes estão em alta resolução?',
+    a: 'Sim, todo o acervo é fornecido em 300 DPI, pronto para sublimação.',
   },
   {
-    q: 'O produto é físico ou digital?',
-    a: 'É 100% digital. Você não recebe nenhum item pelos Correios: recebe os arquivos para baixar e usar na sua produção de sublimação.',
+    q: 'Posso utilizar em diferentes produtos?',
+    a: 'Sim. As artes servem para camisetas, canecas, copos, squeezes, azulejos, bonés, ecobags, almofadas, mousepads, chaveiros e outros produtos sublimáveis.',
   },
   {
     q: 'Como funciona a garantia?',
-    a: `Você tem ${productConfig.guaranteeDays} dias para acessar a biblioteca, conhecer a organização e verificar o material. Se não fizer sentido para você, é só solicitar o reembolso dentro do prazo — veja como em <a href="#termos" class="text-brand-400 underline">Termos da oferta</a>.`,
+    a: `Você tem ${productConfig.guaranteeDays} dias para acessar a biblioteca e verificar o material. Se não fizer sentido para você, é só solicitar o reembolso dentro do prazo — veja como em <a href="#termos" class="text-brand-400 underline">Termos da oferta</a>.`,
+  },
+  {
+    q: 'Posso revender os arquivos digitais?',
+    a: 'Não. A licença é para produzir e vender as peças físicas que você sublimar, e não para revender ou redistribuir os arquivos digitais.',
   },
 ];

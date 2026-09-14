@@ -1,17 +1,15 @@
 import {
   galleryItems,
+  galleryCategories,
+  benefits,
   problems,
-  stats,
   compatItems,
-  sampleStripFiles,
   resultsRow1,
   resultsRow2,
   resultsRow3,
   steps,
   comparisonBad,
   comparisonGood,
-  audience,
-  differentials,
   testimonials,
   bonuses,
   faqs,
@@ -52,29 +50,30 @@ function pic(file, alt, { aspect = 'aspect-square', extra = '', eager = false, f
   `;
 }
 
-function renderProblems() {
-  const grid = document.getElementById('problems-grid');
-  problems.forEach((item, i) => {
+function renderBenefits() {
+  const grid = document.getElementById('benefits-grid');
+  if (!grid) return;
+  benefits.forEach((item, i) => {
     grid.appendChild(
       el(`
-        <div class="card p-6 reveal" style="transition-delay:${i * 90}ms">
-          ${iconBadge('alert', 'sm')}
-          <h3 class="font-display font-bold uppercase text-sm tracking-wide mt-4">${item.title}</h3>
-          <p class="mt-2 text-sm text-gray-400">${item.text}</p>
+        <div class="card p-4 sm:p-6 text-center reveal" style="transition-delay:${i * 80}ms">
+          <p class="text-2xl sm:text-4xl font-display font-bold text-brand-400 heading-glow">${item.value}</p>
+          <p class="mt-1 text-[11px] sm:text-sm uppercase tracking-wide text-gray-400">${item.label}</p>
         </div>
       `)
     );
   });
 }
 
-function renderStats() {
-  const grid = document.getElementById('stats-grid');
-  stats.forEach((item, i) => {
+function renderProblems() {
+  const grid = document.getElementById('problems-grid');
+  problems.forEach((item, i) => {
     grid.appendChild(
       el(`
-        <div class="text-center reveal" style="transition-delay:${i * 120}ms">
-          <p class="text-4xl sm:text-5xl font-display font-bold text-brand-400 heading-glow">${item.value}</p>
-          <p class="mt-2 text-xs sm:text-sm uppercase tracking-wide text-gray-400">${item.label}</p>
+        <div class="card p-5 sm:p-6 reveal" style="transition-delay:${i * 80}ms">
+          ${iconBadge('alert', 'sm')}
+          <h3 class="font-display font-bold uppercase text-sm tracking-wide mt-4">${item.title}</h3>
+          <p class="mt-2 text-sm text-gray-400">${item.text}</p>
         </div>
       `)
     );
@@ -127,7 +126,16 @@ function marqueeTrack(containerId, entries, options = {}) {
   bindImageFade(track);
 }
 
+function renderGalleryCategories() {
+  const wrap = document.getElementById('gallery-categories');
+  if (!wrap) return;
+  galleryCategories.forEach((cat) => {
+    wrap.appendChild(el(`<span class="card px-3 py-1.5 text-[11px] sm:text-xs font-mono uppercase tracking-wide text-brand-300">${cat}</span>`));
+  });
+}
+
 function renderGallery() {
+  renderGalleryCategories();
   marqueeTrack(
     'gallery-grid',
     galleryItems.map((item) => ({ file: item.file, label: item.title, tag: item.tag })),
@@ -141,6 +149,9 @@ function renderCompat() {
     compatItems.map((item) => ({ file: item.photo, alt: `${item.title} — ${item.text}` })),
     { cardWidth: 'w-64 sm:w-80', aspect: 'aspect-[3/2]', fit: 'object-contain', duration: 55 }
   );
+  marqueeTrack('results-row-1', resultsRow1, { duration: 26 });
+  marqueeTrack('results-row-2', resultsRow2, { duration: 26, reverse: true });
+  marqueeTrack('results-row-3', resultsRow3, { duration: 26 });
 }
 
 function renderSteps() {
@@ -175,41 +186,21 @@ function renderComparison() {
   });
 }
 
-function renderAudience() {
-  const grid = document.getElementById('audience-grid');
-  audience.forEach((item, i) => {
-    grid.appendChild(
-      el(`
-        <div class="card p-6 reveal" style="transition-delay:${i * 70}ms">
-          <h3 class="font-display font-bold text-sm uppercase tracking-wide text-brand-400">${item.title}</h3>
-          <p class="mt-2 text-sm text-gray-400">${item.text}</p>
-        </div>
-      `)
-    );
-  });
-}
-
-function renderDifferentials() {
-  const grid = document.getElementById('differentials-grid');
-  differentials.forEach((item, i) => {
-    grid.appendChild(
-      el(`
-        <div class="card p-6 text-center reveal" style="transition-delay:${i * 70}ms">
-          <div class="mx-auto">${iconBadge(item.icon)}</div>
-          <h3 class="font-display font-bold uppercase text-sm tracking-wide mt-4">${item.title}</h3>
-          <p class="mt-2 text-xs text-gray-400">${item.text}</p>
-        </div>
-      `)
-    );
-  });
-}
-
+// Depoimentos: swipe manual no mobile (1 card dominante + uma fresta do
+// próximo, para indicar que dá pra arrastar), grid normal a partir do sm.
 function renderTestimonials() {
-  marqueeTrack(
-    'testimonials-grid',
-    testimonials.map((item) => ({ file: item.file, alt: item.alt })),
-    { cardWidth: 'w-48 sm:w-56', aspect: 'aspect-[9/16]', duration: 45 }
-  );
+  const grid = document.getElementById('testimonials-grid');
+  if (!grid) return;
+  testimonials.forEach((item, i) => {
+    grid.appendChild(
+      el(`
+        <div class="card overflow-hidden reveal shrink-0 w-[82%] snap-center sm:w-auto sm:shrink" style="transition-delay:${i * 90}ms">
+          ${pic(item.file, item.alt, { aspect: 'aspect-[9/16]' })}
+        </div>
+      `)
+    );
+  });
+  bindImageFade(grid);
 }
 
 function renderBonusTotal() {
@@ -220,41 +211,35 @@ function renderBonusTotal() {
     return sum + (Number.isNaN(n) ? 0 : n);
   }, 0);
   const formatted = total.toLocaleString('pt-BR', { minimumFractionDigits: 0 });
-  totalEl.innerHTML = `Os bônus custam <span class="line-through text-gray-500 font-normal normal-case">R$ ${formatted}</span> — hoje grátis`;
+  totalEl.innerHTML = `Os bônus custam <span class="line-through text-gray-500 font-normal normal-case">R$ ${formatted}</span> — inclusos no Premium`;
 }
 
 function renderBonuses() {
-  const track = document.getElementById('bonus-grid');
-  if (!track) return;
-  track.classList.add('marquee-track', 'flex', 'w-max', 'gap-4');
-  track.style.animationDuration = '48s';
-
-  const renderSet = () =>
-    bonuses.forEach((item, i) => {
-      track.appendChild(
-        el(`
-          <div class="shrink-0 w-64 sm:w-72 card overflow-hidden flex flex-col">
-            <div class="relative">
-              ${pic(item.file, item.title)}
-              <span class="absolute top-2 left-2 z-10 bg-black/70 text-[10px] font-mono uppercase px-2 py-1 rounded text-gray-300 backdrop-blur-sm">
-                Bônus 0${i + 1}
-              </span>
-            </div>
-            <div class="p-4 flex-1 flex flex-col">
-              <h3 class="font-display font-bold text-sm">${item.title}</h3>
-              <p class="mt-2 text-xs text-gray-400 flex-1">${item.text}</p>
-              <div class="mt-3 flex items-center gap-2">
-                <span class="text-gray-500 line-through text-xs">De: ${item.price}</span>
-                <span class="text-brand-400 font-display font-bold text-sm">GRÁTIS</span>
-              </div>
+  const grid = document.getElementById('bonus-grid');
+  if (!grid) return;
+  bonuses.forEach((item, i) => {
+    grid.appendChild(
+      el(`
+        <div class="card overflow-hidden flex flex-col reveal" style="transition-delay:${i * 90}ms">
+          <div class="relative">
+            ${pic(item.file, item.title)}
+            <span class="absolute top-2 left-2 z-10 bg-black/70 text-[10px] font-mono uppercase px-2 py-1 rounded text-gray-300 backdrop-blur-sm">
+              Bônus 0${i + 1}
+            </span>
+          </div>
+          <div class="p-4 flex-1 flex flex-col">
+            <h3 class="font-display font-bold text-sm">${item.title}</h3>
+            <p class="mt-2 text-xs text-gray-400 flex-1">${item.text}</p>
+            <div class="mt-3 flex items-center gap-2">
+              <span class="text-gray-500 line-through text-xs">De: ${item.price}</span>
+              <span class="text-brand-400 font-display font-bold text-sm">GRÁTIS</span>
             </div>
           </div>
-        `)
-      );
-    });
-  renderSet();
-  renderSet();
-  bindImageFade(track);
+        </div>
+      `)
+    );
+  });
+  bindImageFade(grid);
 }
 
 function renderFaq() {
@@ -275,18 +260,12 @@ function renderFaq() {
 }
 
 export function renderContent() {
+  renderBenefits();
   renderProblems();
   renderGallery();
   renderCompat();
-  marqueeTrack('marquee-samples', sampleStripFiles);
-  marqueeTrack('marquee-results-1', resultsRow1);
-  marqueeTrack('marquee-results-2', resultsRow2, { reverse: true });
-  marqueeTrack('marquee-results-3', resultsRow3);
   renderSteps();
-  renderStats();
   renderComparison();
-  renderAudience();
-  renderDifferentials();
   renderTestimonials();
   renderBonuses();
   renderBonusTotal();
