@@ -6,8 +6,14 @@ const CHECKOUT_LINKS = {
   premium: productConfig.premiumPlan.checkoutUrl,
 };
 
+// Evita clique duplo mandando o usuário duas vezes pro checkout (ex.: toque
+// duplo acidental no celular) enquanto a navegação já está em andamento.
+let navigating = false;
+
 // Redireciona ao checkout preservando os UTMs e registrando begin_checkout.
 function goToCheckout(url, plan) {
+  if (navigating) return;
+  navigating = true;
   const finalUrl = withUtms(url);
   track('begin_checkout', { plan });
   window.location.href = finalUrl;

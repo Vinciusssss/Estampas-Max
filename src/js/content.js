@@ -78,15 +78,15 @@ export const problems = [
 // produzir. Itens com "photo" usam a imagem enviada (já traz título e
 // destaques desenhados nela) no lugar do card de ícone + texto.
 export const compatItems = [
-  { icon: 'shirt', title: 'Camisetas', text: 'Estampe camisetas e moletons com artes de anime em alta resolução.', photo: 'Imagem do Codex 12 de set. de 2026, 23_37_50.png' },
-  { icon: 'mug', title: 'Canecas', text: 'Aplique as artes em canecas de cerâmica e mágicas para presente e revenda.', photo: 'Imagem do Codex 12 de set. de 2026, 23_39_37.png' },
-  { icon: 'cup', title: 'Copos e squeezes', text: 'Personalize copos térmicos, long drinks e squeezes com sublimação total.', photo: 'Imagem do Codex 12 de set. de 2026, 23_39_44.png' },
-  { icon: 'tile', title: 'Azulejos e quadros', text: 'Sublime azulejos e placas decorativas para decoração e datas especiais.', photo: 'Imagem do Codex 12 de set. de 2026, 23_39_49.png' },
-  { icon: 'cap', title: 'Bonés', text: 'Leve os personagens para bonés e viseiras com acabamento profissional.', photo: 'Imagem do Codex 12 de set. de 2026, 23_40_02.png' },
-  { icon: 'bag', title: 'Ecobags e almofadas', text: 'Amplie o catálogo com ecobags, almofadas e itens de tecido sublimável.', photo: 'Imagem do Codex 12 de set. de 2026, 23_39_55.png' },
-  { icon: 'mousepad', title: 'Mousepads', text: 'Produza mousepads geek, um item de alto giro e fácil de sublimar.', photo: 'Imagem do Codex 12 de set. de 2026, 23_40_10.png' },
-  { icon: 'gift', title: 'Presentes e chaveiros', text: 'Chaveiros e brindes personalizados para datas comemorativas e pedidos sob medida.', photo: 'Imagem do Codex 12 de set. de 2026, 23_40_18.png' },
-  { icon: 'palette', title: 'Compatível com seu editor', text: 'Arquivos que você abre no Photoshop e no Canva, pelo computador ou pelo celular.', photo: 'Imagem do Codex 12 de set. de 2026, 23_49_05.png' },
+  { icon: 'shirt', title: 'Camisetas', text: 'Estampe camisetas e moletons com artes de anime em alta resolução.', photo: 'compat-camisetas.webp' },
+  { icon: 'mug', title: 'Canecas', text: 'Aplique as artes em canecas de cerâmica e mágicas para presente e revenda.', photo: 'compat-canecas.webp' },
+  { icon: 'cup', title: 'Copos e squeezes', text: 'Personalize copos térmicos, long drinks e squeezes com sublimação total.', photo: 'compat-copos.webp' },
+  { icon: 'tile', title: 'Azulejos e quadros', text: 'Sublime azulejos e placas decorativas para decoração e datas especiais.', photo: 'compat-azulejos.webp' },
+  { icon: 'cap', title: 'Bonés', text: 'Leve os personagens para bonés e viseiras com acabamento profissional.', photo: 'compat-bones.webp' },
+  { icon: 'bag', title: 'Ecobags e almofadas', text: 'Amplie o catálogo com ecobags, almofadas e itens de tecido sublimável.', photo: 'compat-ecobags.webp' },
+  { icon: 'mousepad', title: 'Mousepads', text: 'Produza mousepads geek, um item de alto giro e fácil de sublimar.', photo: 'compat-mousepads.webp' },
+  { icon: 'gift', title: 'Presentes e chaveiros', text: 'Chaveiros e brindes personalizados para datas comemorativas e pedidos sob medida.', photo: 'compat-chaveiros.webp' },
+  { icon: 'palette', title: 'Compatível com seu editor', text: 'Arquivos que você abre no Photoshop e no Canva, pelo computador ou pelo celular.', photo: 'compat-editor.webp' },
 ];
 
 // "Veja como fica" — fotos reais de peças sublimadas prontas, mostradas
@@ -138,10 +138,10 @@ export const comparisonGood = [
 // SEÇÃO PROVA SOCIAL — prints de clientes já existentes no projeto e já em
 // uso na página em produção.
 export const testimonials = [
-  { file: 'Imagem do Codex 12 de set. de 2026, 22_29_25.png', alt: 'Print de conversa de cliente sobre os anúncios feitos com as artes' },
-  { file: 'Imagem do Codex 12 de set. de 2026, 22_38_21.png', alt: 'Print de conversa de cliente sobre vendas de canecas com as artes' },
-  { file: 'Imagem do Codex 12 de set. de 2026, 22_38_28.png', alt: 'Print de conversa de cliente sobre camiseta feita com as artes' },
-  { file: 'Imagem do Codex 12 de set. de 2026, 22_45_37.png', alt: 'Print de conversa de cliente sobre pedidos feitos com as artes' },
+  { file: 'testimonial-1.webp', alt: 'Print de conversa de cliente sobre os anúncios feitos com as artes' },
+  { file: 'testimonial-2.webp', alt: 'Print de conversa de cliente sobre vendas de canecas com as artes' },
+  { file: 'testimonial-3.webp', alt: 'Print de conversa de cliente sobre camiseta feita com as artes' },
+  { file: 'testimonial-4.webp', alt: 'Print de conversa de cliente sobre pedidos feitos com as artes' },
 ];
 
 // SEÇÃO BÔNUS — cada bônus como uma ferramenta real que ajuda o comprador.

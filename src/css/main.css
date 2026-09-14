@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+/* Fontes carregadas via <link> no <head> (index.html), não por @import aqui —
+   @import em CSS bloqueia a descoberta do arquivo de fonte até o CSS
+   principal terminar de baixar/parsear, criando um waterfall desnecessário. */
 
 @tailwind base;
 @tailwind components;
@@ -91,15 +93,16 @@
     background: none;
   }
 
-  /* Scroll reveal */
+  /* Scroll reveal — só opacidade, de propósito: um translateY aqui desloca a
+     caixa do elemento a cada card revelado (dezenas por página) e a métrica
+     de CLS conta esse deslocamento mesmo sendo via transform/compositor, o
+     que somava um CLS alto sem o usuário perceber "pulo" nenhum. */
   .reveal {
     opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+    transition: opacity 0.6s ease-out;
   }
   .reveal.is-visible {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
@@ -126,4 +129,16 @@
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .marquee-track-reverse,
+  .cta-button::before,
+  .img-wrap::before {
+    animation: none;
+  }
+  .reveal {
+    transition: none;
+  }
 }

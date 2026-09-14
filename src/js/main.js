@@ -6,6 +6,24 @@ import { initSmoothScroll } from './smoothScroll.js';
 import { initReveal } from './reveal.js';
 import { captureUtms, track } from './tracking.js';
 
+// Rede de segurança global: qualquer <img> que falhar (404, rede instável)
+// fica escondida em vez de mostrar o ícone quebrado do navegador. As imagens
+// renderizadas por render.js (pic/img-fade) já tratam isso individualmente;
+// isto cobre a imagem do hero (HTML estático) e qualquer <img> futura.
+// 'error' não faz bubble, por isso precisa de captura (terceiro argumento).
+function initImageFallback() {
+  document.addEventListener(
+    'error',
+    (e) => {
+      const target = e.target;
+      if (target instanceof HTMLImageElement) {
+        target.style.display = 'none';
+      }
+    },
+    true
+  );
+}
+
 // Rastreia cliques nos CTAs que rolam para a oferta (hero, catálogo, etc.).
 function initCtaTracking() {
   document.querySelectorAll('[data-cta]').forEach((el) => {
@@ -57,6 +75,7 @@ function initMobileCta() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  initImageFallback();
   captureUtms();
   renderContent();
   initFaq();

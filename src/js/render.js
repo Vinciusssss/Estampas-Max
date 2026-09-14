@@ -29,13 +29,26 @@ function markLoaded(imgEl) {
   imgEl.parentElement?.classList.add('is-loaded');
 }
 
+// Se a imagem falhar (404, rede instável etc.), esconde o <img> quebrado em
+// vez de deixar o ícone feio do navegador — o wrapper (.img-wrap) já reserva
+// o espaço certo via aspect-ratio e mostra um fundo neutro no lugar, sem
+// layout shift.
+function handleImageError(imgEl) {
+  imgEl.style.display = 'none';
+  markLoaded(imgEl);
+}
+
 function bindImageFade(root) {
   root.querySelectorAll('img.img-fade').forEach((imgEl) => {
     if (imgEl.complete && imgEl.naturalWidth > 0) {
       markLoaded(imgEl);
+    } else if (imgEl.complete) {
+      // complete=true com naturalWidth=0 é o sinal de que já falhou (ex.:
+      // cache negativo de um 404) antes mesmo do listener ser anexado.
+      handleImageError(imgEl);
     } else {
       imgEl.addEventListener('load', () => markLoaded(imgEl), { once: true });
-      imgEl.addEventListener('error', () => markLoaded(imgEl), { once: true });
+      imgEl.addEventListener('error', () => handleImageError(imgEl), { once: true });
     }
   });
 }

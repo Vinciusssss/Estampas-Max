@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#ef4444" />
 
+    <!-- Fontes: preconnect antecipa a conexão, stylesheet real carrega em
+         paralelo com o resto (em vez de @import no CSS, que bloqueia). -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    />
+
+    <!-- Imagem do hero: maior candidata a LCP, acima da dobra. -->
+    <link rel="preload" as="image" href="/images/mockupnovo.webp" fetchpriority="high" />
+
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
     <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png" />
@@ -107,7 +119,11 @@
             src="/images/mockupnovo.webp"
             alt="Pack de 10.000 artes de anime com camisetas, moletom, caneca e bônus inclusos"
             class="w-full rounded-2xl shadow-2xl"
+            width="900"
+            height="900"
             loading="eager"
+            fetchpriority="high"
+            decoding="async"
           />
         </div>
 
