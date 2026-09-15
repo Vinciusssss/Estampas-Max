@@ -115,7 +115,13 @@ export function track(event, params = {}) {
       }
       const fbEvent = FB_STANDARD_EVENTS[event];
       if (fbEvent) {
-        window.fbq('track', fbEvent, params);
+        // Sem parâmetros, chama exatamente fbq('track', 'PageView') — sem um
+        // {} vazio como terceiro argumento — igual à sintaxe oficial da Meta.
+        if (Object.keys(params).length === 0) {
+          window.fbq('track', fbEvent);
+        } else {
+          window.fbq('track', fbEvent, params);
+        }
       } else {
         window.fbq('trackCustom', event, params);
       }
