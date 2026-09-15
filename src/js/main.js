@@ -33,7 +33,8 @@ function initCtaTracking() {
   });
 }
 
-// Dispara view_offer quando a seção de planos entra na tela (uma vez).
+// Dispara view_offer (Meta Pixel: ViewContent) quando a seção de planos
+// entra na tela, uma única vez.
 function initOfferView() {
   const offer = document.getElementById('pricing');
   if (!offer || !('IntersectionObserver' in window)) return;
@@ -41,7 +42,11 @@ function initOfferView() {
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          track('view_offer');
+          track('view_offer', {
+            content_name: 'Estampas MAX',
+            content_type: 'product',
+            currency: 'BRL',
+          });
           obs.disconnect();
         }
       });

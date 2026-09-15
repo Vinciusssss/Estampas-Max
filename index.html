@@ -95,8 +95,47 @@
         y.parentNode.insertBefore(t, y);
       })(window, document, 'clarity', 'script', 'yi9x909ivr');
     </script>
+
+    <!--
+      Meta Pixel (base oficial) — Pixel ID 848150931641472.
+      Só faz fbq('init', ...) aqui, de propósito: o PageView é disparado uma
+      única vez por src/js/tracking.js (evento view_landing_page, chamado uma
+      vez em main.js), não pelo snippet base. Não adicione fbq('track',
+      'PageView') aqui — isso duplicaria o evento.
+    -->
+    <script type="text/javascript">
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = '2.0';
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '848150931641472');
+    </script>
   </head>
   <body>
+    <!-- Meta Pixel: fallback para navegadores sem JavaScript (o PageView
+         "de verdade", via fbq, dispara em src/js/tracking.js). -->
+    <noscript>
+      <img
+        height="1"
+        width="1"
+        style="display: none"
+        src="https://www.facebook.com/tr?id=848150931641472&ev=PageView&noscript=1"
+        alt=""
+      />
+    </noscript>
+
     <!-- Announcement bar -->
     <div class="bg-brand-500 text-white text-center text-xs sm:text-sm font-bold uppercase tracking-wide py-2 px-4 flex items-center justify-center gap-2">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" /></svg>

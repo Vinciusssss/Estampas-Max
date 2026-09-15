@@ -10,12 +10,14 @@ const CHECKOUT_LINKS = {
 // duplo acidental no celular) enquanto a navegação já está em andamento.
 let navigating = false;
 
-// Redireciona ao checkout preservando os UTMs e registrando begin_checkout.
-function goToCheckout(url, plan) {
+// Redireciona ao checkout preservando os UTMs. Dispara begin_checkout
+// (Meta Pixel: InitiateCheckout) só aqui — ou seja, só num clique real de
+// CTA que realmente leva ao checkout, nunca por só visualizar a página.
+function goToCheckout(url, plan, value) {
   if (navigating) return;
   navigating = true;
   const finalUrl = withUtms(url);
-  track('begin_checkout', { plan });
+  track('begin_checkout', { plan, value, currency: 'BRL' });
   window.location.href = finalUrl;
 }
 
@@ -38,7 +40,7 @@ export function initPricing() {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       track('click_cta_starter', { plan: 'basic' });
-      goToCheckout(CHECKOUT_LINKS.basic, 'basic');
+      goToCheckout(CHECKOUT_LINKS.basic, 'basic', productConfig.basicPlan.price);
     });
   });
 
@@ -50,7 +52,7 @@ export function initPricing() {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       track('click_cta_premium', { plan: 'premium' });
-      goToCheckout(CHECKOUT_LINKS.premium, 'premium');
+      goToCheckout(CHECKOUT_LINKS.premium, 'premium', productConfig.premiumPlan.price);
     });
   });
 }

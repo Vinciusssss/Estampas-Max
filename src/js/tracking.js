@@ -2,17 +2,34 @@
 // RASTREAMENTO DE CONVERSÃO + PRESERVAÇÃO DE UTM
 // ----------------------------------------------------------------------------
 // Camada agnóstica: empurra eventos para window.dataLayer e, se existirem,
-// para gtag() (GA4/Google Ads) e fbq() (Meta Pixel). Assim, ao instalar GTM,
-// Meta Pixel, GA4 ou UTMify depois, os eventos abaixo já estarão disparando —
-// nenhum script externo é adicionado aqui (não havia rastreamento no projeto).
+// para gtag() (GA4/Google Ads) e fbq() (Meta Pixel — carregado em index.html).
 //
-// Eventos padronizados:
-//   view_landing_page | view_offer | click_cta_hero | click_cta_catalog
-//   click_cta_premium | click_cta_starter | begin_checkout | purchase
+// Eventos padronizados (o nome interno à esquerda é o que os call sites usam;
+// o mapeamento para os eventos oficiais do Meta Pixel acontece só aqui):
+//   view_landing_page -> PageView        (main.js, uma vez ao carregar)
+//   view_offer        -> ViewContent     (main.js, uma vez quando a oferta entra na tela)
+//   begin_checkout    -> InitiateCheckout (pricing.js, só no clique real do CTA de checkout)
+//   purchase          -> Purchase        (não é chamado por nenhum código desta landing page —
+//                                          fica mapeado para quando houver confirmação real de
+//                                          pagamento, ex.: página de obrigado após webhook)
+//   click_cta_*       -> evento customizado (trackCustom), não é um evento padrão do Pixel
 // ============================================================================
 
 const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
 const STORAGE_KEY = 'ap_utms';
+
+// Nomes internos que já viraram um evento padrão do Meta Pixel — dispara uma
+// única vez por carregamento de página, não importa quantas vezes o call
+// site chame track() para esse mesmo nome (proteção extra além do controle
+// que cada call site já faz — ex.: IntersectionObserver que se desconecta).
+const FB_STANDARD_EVENTS = {
+  view_landing_page: 'PageView',
+  view_offer: 'ViewContent',
+  begin_checkout: 'InitiateCheckout',
+  purchase: 'Purchase',
+};
+const firedOnce = new Set();
+const FIRE_ONCE_EVENTS = new Set(['view_landing_page', 'view_offer']);
 
 // Lê os UTMs da URL na primeira visita e guarda para o resto da navegação.
 export function captureUtms() {
@@ -58,28 +75,51 @@ export function withUtms(rawUrl) {
   }
 }
 
-// Dispara um evento de conversão nas camadas disponíveis.
+// Dispara um evento de conversão nas camadas disponíveis. Nunca deixa uma
+// falha em gtag/fbq (bloqueado por ad-blocker, script ainda carregando,
+// etc.) interromper o código que chamou track() — por isso cada integração
+// externa roda no seu próprio try/catch.
 export function track(event, params = {}) {
   const payload = { event, ...params };
+
   try {
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push(payload);
   } catch (_) {
     /* noop */
   }
-  if (typeof window.gtag === 'function') {
-    window.gtag('event', event, params);
+
+  try {
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', event, params);
+    }
+  } catch (_) {
+    /* noop — não deixa o GA quebrar o restante do fluxo */
   }
-  if (typeof window.fbq === 'function') {
-    // Mapeia os eventos-chave para os nomes padrão do Meta Pixel.
-    if (event === 'begin_checkout') window.fbq('track', 'InitiateCheckout', params);
-    else if (event === 'purchase') window.fbq('track', 'Purchase', params);
-    else if (event === 'view_offer') window.fbq('track', 'ViewContent', params);
-    else window.fbq('trackCustom', event, params);
+
+  try {
+    if (typeof window.fbq === 'function') {
+      if (FIRE_ONCE_EVENTS.has(event)) {
+        if (firedOnce.has(event)) return payload;
+        firedOnce.add(event);
+      }
+      const fbEvent = FB_STANDARD_EVENTS[event];
+      if (fbEvent) {
+        window.fbq('track', fbEvent, params);
+      } else {
+        window.fbq('trackCustom', event, params);
+      }
+    }
+  } catch (_) {
+    /* noop — Pixel bloqueado, ainda carregando ou indisponível não pode
+       quebrar a navegação real (ex.: o redirecionamento ao checkout) */
   }
+
   if (import.meta.env?.DEV) {
     // Ajuda a validar os eventos no console durante o desenvolvimento.
     // eslint-disable-next-line no-console
     console.debug('[track]', event, params);
   }
+
+  return payload;
 }
