@@ -98,10 +98,15 @@
 
     <!--
       Meta Pixel (base oficial) — Pixel ID 848150931641472.
-      Só faz fbq('init', ...) aqui, de propósito: o PageView é disparado uma
-      única vez por src/js/tracking.js (evento view_landing_page, chamado uma
-      vez em main.js), não pelo snippet base. Não adicione fbq('track',
-      'PageView') aqui — isso duplicaria o evento.
+      fbq('track', 'PageView') fica no MESMO bloco síncrono do fbq('init', ...)
+      de propósito — isso é o padrão oficial da Meta. Antes ele disparava
+      separado, de dentro de src/js/main.js (um <script type="module">,
+      carregado depois): eventos chamados antes do fbevents.js terminar de
+      carregar entram numa fila interna que só é confiavelmente reproduzida
+      quando 'init' e o primeiro 'track' estão no mesmo script — daí o Pixel
+      ter parado de registrar PageView (o SDK carregava e inicializava, mas o
+      evento em si nunca saía). Não mova este fbq('track', 'PageView') para
+      outro arquivo/script sem entender essa armadilha do SDK.
     -->
     <script type="text/javascript">
       !(function (f, b, e, v, n, t, s) {
@@ -121,6 +126,8 @@
         s.parentNode.insertBefore(t, s);
       })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
       fbq('init', '848150931641472');
+      fbq('consent', 'grant');
+      fbq('track', 'PageView');
     </script>
   </head>
   <body>
