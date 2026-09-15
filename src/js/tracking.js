@@ -8,11 +8,18 @@
 // o mapeamento para os eventos oficiais do Meta Pixel acontece só aqui):
 //   view_landing_page -> PageView        (main.js, uma vez ao carregar)
 //   view_offer        -> ViewContent     (main.js, uma vez quando a oferta entra na tela)
-//   begin_checkout    -> InitiateCheckout (pricing.js, só no clique real do CTA de checkout)
 //   purchase          -> Purchase        (não é chamado por nenhum código desta landing page —
 //                                          fica mapeado para quando houver confirmação real de
 //                                          pagamento, ex.: página de obrigado após webhook)
 //   click_cta_*       -> evento customizado (trackCustom), não é um evento padrão do Pixel
+//
+// begin_checkout NÃO é mapeado para InitiateCheckout (nem enviado ao Pixel de
+// nenhuma outra forma): o GGCheckout já tem o mesmo Pixel ID configurado e
+// dispara o InitiateCheckout dele quando a página de checkout abre. Se a
+// landing também disparasse, o Meta receberia dois InitiateCheckout para uma
+// única intenção de compra. begin_checkout continua indo pro dataLayer/GA
+// normalmente — só fica de fora do Meta Pixel especificamente. Quem sinaliza
+// o clique pro Meta são os eventos customizados click_cta_premium/click_cta_basic.
 // ============================================================================
 
 const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
@@ -25,11 +32,14 @@ const STORAGE_KEY = 'ap_utms';
 const FB_STANDARD_EVENTS = {
   view_landing_page: 'PageView',
   view_offer: 'ViewContent',
-  begin_checkout: 'InitiateCheckout',
   purchase: 'Purchase',
 };
 const firedOnce = new Set();
 const FIRE_ONCE_EVENTS = new Set(['view_landing_page', 'view_offer']);
+
+// Eventos que não devem chegar ao Meta Pixel de forma alguma (nem como
+// evento padrão, nem como customizado) — ver nota sobre begin_checkout acima.
+const FB_EXCLUDED_EVENTS = new Set(['begin_checkout']);
 
 // Lê os UTMs da URL na primeira visita e guarda para o resto da navegação.
 export function captureUtms() {
@@ -98,7 +108,7 @@ export function track(event, params = {}) {
   }
 
   try {
-    if (typeof window.fbq === 'function') {
+    if (typeof window.fbq === 'function' && !FB_EXCLUDED_EVENTS.has(event)) {
       if (FIRE_ONCE_EVENTS.has(event)) {
         if (firedOnce.has(event)) return payload;
         firedOnce.add(event);

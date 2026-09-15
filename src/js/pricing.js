@@ -10,9 +10,9 @@ const CHECKOUT_LINKS = {
 // duplo acidental no celular) enquanto a navegação já está em andamento.
 let navigating = false;
 
-// Redireciona ao checkout preservando os UTMs. Dispara begin_checkout
-// (Meta Pixel: InitiateCheckout) só aqui — ou seja, só num clique real de
-// CTA que realmente leva ao checkout, nunca por só visualizar a página.
+// Redireciona ao checkout preservando os UTMs. begin_checkout aqui alimenta
+// dataLayer/GA; não vai para o Meta Pixel (o GGCheckout já dispara o
+// InitiateCheckout dele ao abrir — ver nota em tracking.js).
 function goToCheckout(url, plan, value) {
   if (navigating) return;
   navigating = true;
@@ -39,7 +39,7 @@ export function initPricing() {
     }
     btn.addEventListener('click', (e) => {
       e.preventDefault();
-      track('click_cta_starter', { plan: 'basic' });
+      track('click_cta_basic', { plan: 'basic' });
       goToCheckout(CHECKOUT_LINKS.basic, 'basic', productConfig.basicPlan.price);
     });
   });
