@@ -6,30 +6,19 @@ const CHECKOUT_LINKS = {
   premium: productConfig.premiumPlan.checkoutUrl,
 };
 
-// Dá tempo do Meta Pixel (e das outras integrações) realmente despacharem a
-// requisição do evento de clique antes da navegação começar. window.location.href
-// troca de documento no mesmo tick do clique; se o script do Pixel ainda
-// estiver carregando (stub em fila) ou a rede estiver lenta, a troca de
-// página pode abortar o beacon do evento no meio do caminho. 150ms é
-// imperceptível para quem está clicando, mas sobra tempo de sobra pro
-// navegador efetivamente enviar a requisição.
-const REDIRECT_DELAY_MS = 150;
-
 // Evita clique duplo mandando o usuário duas vezes pro checkout (ex.: toque
 // duplo acidental no celular) enquanto a navegação já está em andamento.
 let navigating = false;
 
-// Redireciona ao checkout preservando os UTMs. begin_checkout aqui alimenta
-// dataLayer/GA; não vai para o Meta Pixel (o GGCheckout já dispara o
-// InitiateCheckout dele ao abrir — ver nota em tracking.js).
+// Redireciona ao checkout preservando os UTMs. Dispara begin_checkout
+// (Meta Pixel: InitiateCheckout) só aqui — ou seja, só num clique real de
+// CTA que realmente leva ao checkout, nunca por só visualizar a página.
 function goToCheckout(url, plan, value) {
   if (navigating) return;
   navigating = true;
   const finalUrl = withUtms(url);
   track('begin_checkout', { plan, value, currency: 'BRL' });
-  setTimeout(() => {
-    window.location.href = finalUrl;
-  }, REDIRECT_DELAY_MS);
+  window.location.href = finalUrl;
 }
 
 // Sem link de checkout configurado: desativa o botão em vez de redirecionar
@@ -50,7 +39,7 @@ export function initPricing() {
     }
     btn.addEventListener('click', (e) => {
       e.preventDefault();
-      track('click_cta_basic', { plan: 'basic', value: productConfig.basicPlan.price, currency: 'BRL' });
+      track('click_cta_starter', { plan: 'basic' });
       goToCheckout(CHECKOUT_LINKS.basic, 'basic', productConfig.basicPlan.price);
     });
   });
@@ -62,7 +51,7 @@ export function initPricing() {
     }
     btn.addEventListener('click', (e) => {
       e.preventDefault();
-      track('click_cta_premium', { plan: 'premium', value: productConfig.premiumPlan.price, currency: 'BRL' });
+      track('click_cta_premium', { plan: 'premium' });
       goToCheckout(CHECKOUT_LINKS.premium, 'premium', productConfig.premiumPlan.price);
     });
   });

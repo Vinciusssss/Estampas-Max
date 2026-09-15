@@ -47,11 +47,8 @@ function initCtaTracking() {
   });
 }
 
-// Dispara view_offer (dataLayer/GA) e o ViewContent do Meta Pixel quando a
-// seção de planos entra na tela, uma única vez. O fbq('track', 'ViewContent',
-// ...) é chamado direto aqui (não pelo dispatcher genérico de tracking.js) —
-// ver a nota no topo de tracking.js sobre por que o Pixel fica com chamadas
-// diretas por enquanto.
+// Dispara view_offer (Meta Pixel: ViewContent) quando a seção de planos
+// entra na tela, uma única vez.
 function initOfferView() {
   const offer = document.getElementById('pricing');
   if (!offer || !('IntersectionObserver' in window)) return;
@@ -59,19 +56,11 @@ function initOfferView() {
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          const contentParams = {
+          track('view_offer', {
             content_name: 'Estampas MAX',
             content_type: 'product',
             currency: 'BRL',
-          };
-          track('view_offer', contentParams);
-          try {
-            if (typeof window.fbq === 'function') {
-              window.fbq('track', 'ViewContent', contentParams);
-            }
-          } catch (_) {
-            /* noop — Pixel bloqueado ou indisponível não pode quebrar a página */
-          }
+          });
           obs.disconnect();
         }
       });

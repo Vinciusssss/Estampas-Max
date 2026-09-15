@@ -4,35 +4,32 @@
 // Camada agnóstica: empurra eventos para window.dataLayer e, se existirem,
 // para gtag() (GA4/Google Ads) e fbq() (Meta Pixel — carregado em index.html).
 //
-// Eventos padronizados (só valem pro dataLayer/gtag — ver nota sobre o Meta
-// Pixel logo abaixo):
-//   view_landing_page, view_offer, begin_checkout, click_cta_*, purchase
-//
-// META PIXEL — implementação simplificada de propósito (etapa de correção
-// de uma regressão real): PageView e ViewContent são chamados DIRETO com
-// window.fbq(...), fora deste dispatcher genérico — ver index.html (PageView,
-// junto do fbq('init', ...)) e main.js (ViewContent, no IntersectionObserver
-// da oferta). Chamar fbq('track', ...) através deste track() genérico, de
-// dentro de um <script type="module"> carregado depois, fazia o evento cair
-// numa fila interna do SDK que não é reproduzida de forma confiável — o
-// Pixel inicializava (fbq('init', ...) funcionava) mas o evento em si nunca
-// saía. Por isso NENHUM evento passa por aqui rumo ao fbq por enquanto:
-// nem os dois de cima (já disparados direto), nem InitiateCheckout/Purchase
-// (ficam com o GGCheckout) nem os cliques customizados (fora de escopo por
-// ora). Reavaliar esta lista só depois de confirmar PageView/ViewContent
-// estáveis no Gerenciador de Eventos da Meta.
+// Eventos padronizados (o nome interno à esquerda é o que os call sites usam;
+// o mapeamento para os eventos oficiais do Meta Pixel acontece só aqui):
+//   view_landing_page -> PageView        (main.js, uma vez ao carregar)
+//   view_offer        -> ViewContent     (main.js, uma vez quando a oferta entra na tela)
+//   begin_checkout    -> não vai para o Pixel (GGCheckout já dispara o
+//                                          InitiateCheckout dele com o mesmo Pixel ID)
+//   purchase          -> Purchase        (não é chamado por nenhum código desta landing page —
+//                                          fica mapeado para quando houver confirmação real de
+//                                          pagamento, ex.: página de obrigado após webhook)
+//   click_cta_*       -> evento customizado (trackCustom), não é um evento padrão do Pixel
 // ============================================================================
 
 const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
 const STORAGE_KEY = 'ap_utms';
 
-const FB_EXCLUDED_EVENTS = new Set([
-  'view_landing_page',
-  'view_offer',
-  'begin_checkout',
-  'click_cta_premium',
-  'click_cta_basic',
-]);
+// Nomes internos que já viraram um evento padrão do Meta Pixel — dispara uma
+// única vez por carregamento de página, não importa quantas vezes o call
+// site chame track() para esse mesmo nome (proteção extra além do controle
+// que cada call site já faz — ex.: IntersectionObserver que se desconecta).
+const FB_STANDARD_EVENTS = {
+  view_landing_page: 'PageView',
+  view_offer: 'ViewContent',
+  purchase: 'Purchase',
+};
+const firedOnce = new Set();
+const FIRE_ONCE_EVENTS = new Set(['view_landing_page', 'view_offer']);
 
 // Lê os UTMs da URL na primeira visita e guarda para o resto da navegação.
 export function captureUtms() {
@@ -101,11 +98,17 @@ export function track(event, params = {}) {
   }
 
   try {
-    // PageView e ViewContent NÃO passam por aqui (ver nota no topo do
-    // arquivo) — isto só encaminha os demais cliques customizados que já
-    // existiam (ex.: click_cta_hero, ao rolar até a oferta pelo hero).
-    if (typeof window.fbq === 'function' && !FB_EXCLUDED_EVENTS.has(event)) {
-      window.fbq('trackCustom', event, params);
+    if (typeof window.fbq === 'function') {
+      if (FIRE_ONCE_EVENTS.has(event)) {
+        if (firedOnce.has(event)) return payload;
+        firedOnce.add(event);
+      }
+      const fbEvent = FB_STANDARD_EVENTS[event];
+      if (fbEvent) {
+        window.fbq('track', fbEvent, params);
+      } else {
+        window.fbq('trackCustom', event, params);
+      }
     }
   } catch (_) {
     /* noop — Pixel bloqueado, ainda carregando ou indisponível não pode
