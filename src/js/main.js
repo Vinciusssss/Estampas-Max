@@ -6,17 +6,31 @@ import { initSmoothScroll } from './smoothScroll.js';
 import { initReveal } from './reveal.js';
 import { captureUtms, track } from './tracking.js';
 
-// Rede de segurança global: qualquer <img> que falhar (404, rede instável)
-// fica escondida em vez de mostrar o ícone quebrado do navegador. As imagens
-// renderizadas por render.js (pic/img-fade) já tratam isso individualmente;
-// isto cobre a imagem do hero (HTML estático) e qualquer <img> futura.
+// Rede de segurança global: qualquer <img> que falhar tenta carregar de novo
+// (uma falha passageira de rede/CDN não deve esconder a imagem pra sempre)
+// antes de finalmente ficar escondida em vez do ícone quebrado do navegador.
+// As imagens renderizadas por render.js (classe img-fade) já têm sua própria
+// lógica de retentativa — isto cobre a imagem do hero (HTML estático) e
+// qualquer <img> futura fora desse padrão.
 // 'error' não faz bubble, por isso precisa de captura (terceiro argumento).
+const IMAGE_FALLBACK_MAX_RETRIES = 2;
+const IMAGE_FALLBACK_RETRY_DELAY_MS = 700;
+
 function initImageFallback() {
   document.addEventListener(
     'error',
     (e) => {
       const target = e.target;
-      if (target instanceof HTMLImageElement) {
+      if (!(target instanceof HTMLImageElement) || target.classList.contains('img-fade')) return;
+      const attempt = Number(target.dataset.retryAttempt || 0);
+      if (attempt < IMAGE_FALLBACK_MAX_RETRIES) {
+        const nextAttempt = attempt + 1;
+        target.dataset.retryAttempt = String(nextAttempt);
+        const cleanSrc = target.src.split('?')[0];
+        setTimeout(() => {
+          target.src = `${cleanSrc}?retry=${nextAttempt}`;
+        }, IMAGE_FALLBACK_RETRY_DELAY_MS * nextAttempt);
+      } else {
         target.style.display = 'none';
       }
     },

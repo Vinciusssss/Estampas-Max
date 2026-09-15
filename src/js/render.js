@@ -29,13 +29,38 @@ function markLoaded(imgEl) {
   imgEl.parentElement?.classList.add('is-loaded');
 }
 
-// Se a imagem falhar (404, rede instável etc.), esconde o <img> quebrado em
-// vez de deixar o ícone feio do navegador — o wrapper (.img-wrap) já reserva
-// o espaço certo via aspect-ratio e mostra um fundo neutro no lugar, sem
-// layout shift.
+// Se a imagem falhar (rede instável, hiccup passageiro de CDN etc.), tenta
+// carregar de novo (com um pouco de espera) antes de desistir — uma falha de
+// rede transitória não deve esconder a imagem pra sempre. Só depois de
+// esgotar as tentativas é que o <img> quebrado é escondido (o wrapper
+// .img-wrap já reserva o espaço certo via aspect-ratio e mostra um fundo
+// neutro no lugar, sem layout shift nem ícone feio de imagem quebrada).
+const MAX_IMAGE_RETRIES = 2;
+const IMAGE_RETRY_DELAY_MS = 700;
+
 function handleImageError(imgEl) {
   imgEl.style.display = 'none';
   markLoaded(imgEl);
+}
+
+function attachImageHandlers(imgEl, attempt) {
+  imgEl.addEventListener('load', () => markLoaded(imgEl), { once: true });
+  imgEl.addEventListener(
+    'error',
+    () => {
+      if (attempt >= MAX_IMAGE_RETRIES) {
+        handleImageError(imgEl);
+        return;
+      }
+      const nextAttempt = attempt + 1;
+      const cleanSrc = imgEl.src.split('?')[0];
+      setTimeout(() => {
+        attachImageHandlers(imgEl, nextAttempt);
+        imgEl.src = `${cleanSrc}?retry=${nextAttempt}`;
+      }, IMAGE_RETRY_DELAY_MS * nextAttempt);
+    },
+    { once: true }
+  );
 }
 
 function bindImageFade(root) {
@@ -43,12 +68,14 @@ function bindImageFade(root) {
     if (imgEl.complete && imgEl.naturalWidth > 0) {
       markLoaded(imgEl);
     } else if (imgEl.complete) {
-      // complete=true com naturalWidth=0 é o sinal de que já falhou (ex.:
-      // cache negativo de um 404) antes mesmo do listener ser anexado.
-      handleImageError(imgEl);
+      // complete=true com naturalWidth=0 é sinal de que já falhou (ex.:
+      // cache negativo de um erro passageiro) antes do listener ser
+      // anexado — tenta de novo em vez de já desistir.
+      attachImageHandlers(imgEl, 0);
+      const cleanSrc = imgEl.src.split('?')[0];
+      imgEl.src = `${cleanSrc}?retry=1`;
     } else {
-      imgEl.addEventListener('load', () => markLoaded(imgEl), { once: true });
-      imgEl.addEventListener('error', () => handleImageError(imgEl), { once: true });
+      attachImageHandlers(imgEl, 0);
     }
   });
 }
