@@ -25,6 +25,7 @@ const paths = {
   spark: '<path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l2.5 2.5M16.5 16.5 19 19M19 5l-2.5 2.5M7.5 16.5 5 19" />',
   target: '<circle cx="12" cy="12" r="8.5" /><circle cx="12" cy="12" r="4.5" /><circle cx="12" cy="12" r="0.8" fill="currentColor" stroke="none" />',
   flame: '<path d="M12 2c1 3-3 4.5-3 8a3 3 0 0 0 6 0c1.5 1 2 2.8 2 4.2A5.2 5.2 0 0 1 12 22a5.5 5.5 0 0 1-5.5-5.5C6.5 12 9 9.5 9 7c0 1.5.7 2 1.3 2.3C10.7 6 10 4 12 2Z" />',
+  search: '<circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" />',
 };
 
 export function icon(name, className = 'w-6 h-6') {

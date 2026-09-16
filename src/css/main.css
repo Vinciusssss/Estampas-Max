@@ -51,6 +51,35 @@
     @apply border-brand-400/40 -translate-y-1 shadow-[0_10px_40px_-15px_rgba(239,68,68,0.5)];
   }
 
+  /* Cards exploráveis (amostras do acervo, bônus): cursor deixa claro que dá
+     pra tocar/clicar, já que visualmente usam o mesmo .card dos demais. */
+  .card-clickable {
+    cursor: pointer;
+  }
+  .card-clickable:focus-visible {
+    outline: 2px solid #f87171;
+    outline-offset: 3px;
+  }
+
+  /* Prévia em modal/bottom sheet dos cards exploráveis (a classe .hidden
+     que controla show/hide já é a utility do Tailwind, igual ao FAQ). */
+  .preview-modal-backdrop {
+    opacity: 0;
+    transition: opacity 0.25s ease-out;
+  }
+  .preview-modal-card {
+    transform: translateY(24px);
+    opacity: 0;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease-out;
+  }
+  .preview-modal.is-open .preview-modal-backdrop {
+    opacity: 1;
+  }
+  .preview-modal.is-open .preview-modal-card {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
   .icon-badge {
     @apply inline-flex items-center justify-center rounded-xl text-brand-300;
     background: linear-gradient(160deg, rgba(239, 68, 68, 0.28), rgba(239, 68, 68, 0.04));
@@ -139,6 +168,10 @@
     animation: none;
   }
   .reveal {
+    transition: none;
+  }
+  .preview-modal-backdrop,
+  .preview-modal-card {
     transition: none;
   }
 }

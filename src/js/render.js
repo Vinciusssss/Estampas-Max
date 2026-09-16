@@ -15,6 +15,7 @@ import {
   faqs,
 } from './content.js';
 import { icon, iconBadge } from './icons.js';
+import { initPreviewModal, openPreviewModal } from './previewModal.js';
 
 const imgSrc = (file) => `/images/${file}`;
 
@@ -22,6 +23,27 @@ function el(html) {
   const template = document.createElement('template');
   template.innerHTML = html.trim();
   return template.content.firstElementChild;
+}
+
+// Selo discreto "Ver" (com ícone de lupa) usado nos cards que abrem a prévia
+// em modal — mesmo visual dos badges de tag já existentes, só que no canto
+// oposto, para não competir com eles.
+function previewBadge() {
+  return `<span class="absolute bottom-2 right-2 z-10 inline-flex items-center gap-1 bg-black/70 text-white text-[10px] font-mono uppercase tracking-wide px-2 py-1 rounded backdrop-blur-sm">${icon('search', 'w-3 h-3')}Ver</span>`;
+}
+
+function makeClickable(cardEl, onActivate) {
+  cardEl.classList.add('card-clickable');
+  cardEl.setAttribute('role', 'button');
+  cardEl.setAttribute('tabindex', '0');
+  cardEl.setAttribute('aria-haspopup', 'dialog');
+  cardEl.addEventListener('click', onActivate);
+  cardEl.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      onActivate();
+    }
+  });
 }
 
 function markLoaded(imgEl) {
@@ -132,6 +154,7 @@ function marqueeTrack(containerId, entries, options = {}) {
     fit = 'object-cover',
     duration = 30,
     reverse = false,
+    onCardClick = null,
   } = options;
   const track = document.getElementById(containerId);
   if (!track) return;
@@ -144,8 +167,7 @@ function marqueeTrack(containerId, entries, options = {}) {
       const label = typeof entry === 'string' ? '' : entry.label;
       const tag = typeof entry === 'string' ? '' : entry.tag;
       const alt = (typeof entry === 'string' ? '' : entry.alt) || label || file;
-      track.appendChild(
-        el(`
+      const card = el(`
           <div class="shrink-0 ${cardWidth} card overflow-hidden">
             <div class="relative">
               ${pic(file, `${altPrefix}${alt}`, { aspect, fit })}
@@ -154,11 +176,15 @@ function marqueeTrack(containerId, entries, options = {}) {
                   ? `<span class="absolute top-2 left-2 z-10 bg-black/70 text-brand-300 text-[10px] font-mono uppercase tracking-wide px-2 py-1 rounded backdrop-blur-sm">${tag}</span>`
                   : ''
               }
+              ${onCardClick ? previewBadge() : ''}
             </div>
             ${label ? `<p class="p-2 text-center text-xs font-medium text-gray-300">${label}</p>` : ''}
           </div>
-        `)
-      );
+        `);
+      if (onCardClick) {
+        makeClickable(card, () => onCardClick(entry));
+      }
+      track.appendChild(card);
     });
   // duplicate the set so the CSS marquee loops seamlessly
   renderSet();
@@ -174,12 +200,27 @@ function renderGalleryCategories() {
   });
 }
 
+// Toque num card de amostra abre a prévia em vez de não fazer nada (era a
+// principal fonte de dead click observada no Clarity): mostra a arte maior
+// e só depois oferece o CTA — sem pular direto pro checkout.
 function renderGallery() {
   renderGalleryCategories();
   marqueeTrack(
     'gallery-grid',
     galleryItems.map((item) => ({ file: item.file, label: item.title, tag: item.tag })),
-    { cardWidth: 'w-32 sm:w-40', duration: 40 }
+    {
+      cardWidth: 'w-32 sm:w-40',
+      duration: 40,
+      onCardClick: (entry) =>
+        openPreviewModal({
+          image: imgSrc(entry.file),
+          alt: entry.label,
+          title: entry.label,
+          tag: entry.tag,
+          note: 'Essa é apenas uma das milhares de artes disponíveis no acervo.',
+          ctaLabel: 'Quero acessar o acervo',
+        }),
+    }
   );
 }
 
@@ -254,18 +295,23 @@ function renderBonusTotal() {
   totalEl.innerHTML = `Os bônus custam <span class="line-through text-gray-500 font-normal normal-case">R$ ${formatted}</span> — inclusos no Premium`;
 }
 
+// Cards de bônus (ex.: "Modelos de anúncios prontos") também geravam dead
+// click: pareciam produto clicável mas não tinham nenhuma ação. A prévia já
+// existente (imagem do próprio bônus, sem inventar nada) é mostrada em
+// tamanho maior, com o texto real do bônus como legenda.
 function renderBonuses() {
   const grid = document.getElementById('bonus-grid');
   if (!grid) return;
   bonuses.forEach((item, i) => {
-    grid.appendChild(
-      el(`
+    const tag = `Bônus 0${i + 1}`;
+    const card = el(`
         <div class="card overflow-hidden flex flex-col reveal" style="transition-delay:${i * 90}ms">
           <div class="relative">
             ${pic(item.file, item.title)}
             <span class="absolute top-2 left-2 z-10 bg-black/70 text-[10px] font-mono uppercase px-2 py-1 rounded text-gray-300 backdrop-blur-sm">
-              Bônus 0${i + 1}
+              ${tag}
             </span>
+            ${previewBadge()}
           </div>
           <div class="p-4 flex-1 flex flex-col">
             <h3 class="font-display font-bold text-sm">${item.title}</h3>
@@ -276,8 +322,18 @@ function renderBonuses() {
             </div>
           </div>
         </div>
-      `)
+      `);
+    makeClickable(card, () =>
+      openPreviewModal({
+        image: imgSrc(item.file),
+        alt: item.title,
+        title: item.title,
+        tag,
+        note: item.text,
+        ctaLabel: 'Quero ter acesso',
+      })
     );
+    grid.appendChild(card);
   });
   bindImageFade(grid);
 }
@@ -300,6 +356,10 @@ function renderFaq() {
 }
 
 export function renderContent() {
+  // Precisa existir antes de renderGallery/renderBonuses (que abrem o modal)
+  // e antes de initSmoothScroll/initCtaTracking em main.js, que procuram
+  // [data-scroll-to]/[data-cta] no DOM — o CTA do modal usa os dois.
+  initPreviewModal();
   renderBenefits();
   renderProblems();
   renderGallery();
