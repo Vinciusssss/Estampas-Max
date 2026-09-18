@@ -1,6 +1,7 @@
 import {
   galleryItems,
   galleryCategories,
+  categories,
   benefits,
   problems,
   compatItems,
@@ -192,6 +193,44 @@ function marqueeTrack(containerId, entries, options = {}) {
   bindImageFade(track);
 }
 
+// Painel "categorias em destaque": mostra a variedade real de temas do
+// acervo com capas locais pesquisadas e otimizadas no próprio projeto.
+function renderCategories() {
+  const grid = document.getElementById('categories-grid');
+  if (!grid) return;
+  categories.forEach((cat, i) => {
+    const card = cat.image
+      ? el(`
+          <div class="card overflow-hidden reveal" style="transition-delay:${i * 70}ms">
+            <div class="img-wrap aspect-[4/5]">
+              <img src="${imgSrc(cat.image)}" alt="${cat.label}" loading="lazy" decoding="async"
+                class="img-fade absolute inset-0 w-full h-full object-cover" />
+              <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+              <div class="absolute inset-x-0 bottom-0 p-4">
+                <div class="icon-badge w-10 h-10 mb-2">${icon(cat.icon, 'w-5 h-5')}</div>
+                <h3 class="font-display font-bold text-white">${cat.label}</h3>
+                <p class="text-xs text-gray-300 mt-0.5">${cat.blurb}</p>
+              </div>
+            </div>
+          </div>
+        `)
+      : el(`
+          <div class="card overflow-hidden reveal aspect-[4/5] flex flex-col items-center justify-center text-center p-6" style="transition-delay:${i * 70}ms">
+            ${iconBadge(cat.icon)}
+            <h3 class="font-display font-bold mt-4">${cat.label}</h3>
+            <p class="text-xs text-gray-400 mt-1">${cat.blurb}</p>
+          </div>
+        `);
+    if (cat.image) {
+      makeClickable(card, () => {
+        document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' });
+      });
+    }
+    grid.appendChild(card);
+  });
+  bindImageFade(grid);
+}
+
 function renderGalleryCategories() {
   const wrap = document.getElementById('gallery-categories');
   if (!wrap) return;
@@ -287,7 +326,10 @@ function renderTestimonials() {
 function renderBonusTotal() {
   const totalEl = document.getElementById('bonus-total');
   if (!totalEl) return;
+  // Bônus sem price (ex.: o pack de canecas) não têm valor avulso
+  // confirmado — não entram na soma para não inventar um número.
   const total = bonuses.reduce((sum, item) => {
+    if (!item.price) return sum;
     const n = parseFloat(item.price.replace('R$', '').replace('.', '').replace(',', '.').trim());
     return sum + (Number.isNaN(n) ? 0 : n);
   }, 0);
@@ -299,16 +341,22 @@ function renderBonusTotal() {
 // click: pareciam produto clicável mas não tinham nenhuma ação. A prévia já
 // existente (imagem do próprio bônus, sem inventar nada) é mostrada em
 // tamanho maior, com o texto real do bônus como legenda.
+//
+// Itens com `badge` (ex.: o pack de canecas) ganham destaque próprio: cartão
+// em largura total, borda/selo na cor da marca no lugar do selo cinza padrão
+// "Bônus 0X", e sem preço "De: R$X" (não há valor avulso confirmado para
+// esse bônus — só o texto "incluso no Premium").
 function renderBonuses() {
   const grid = document.getElementById('bonus-grid');
   if (!grid) return;
   bonuses.forEach((item, i) => {
-    const tag = `Bônus 0${i + 1}`;
+    const tag = item.badge || `Bônus 0${i + 1}`;
+    const highlight = Boolean(item.badge);
     const card = el(`
-        <div class="card overflow-hidden flex flex-col reveal" style="transition-delay:${i * 90}ms">
+        <div class="card overflow-hidden flex flex-col reveal ${highlight ? 'sm:col-span-2 border-brand-500/40' : ''}" style="transition-delay:${i * 90}ms">
           <div class="relative">
-            ${pic(item.file, item.title)}
-            <span class="absolute top-2 left-2 z-10 bg-black/70 text-[10px] font-mono uppercase px-2 py-1 rounded text-gray-300 backdrop-blur-sm">
+            ${pic(item.file, item.title, highlight ? { aspect: 'aspect-[16/9]', fit: 'object-contain' } : {})}
+            <span class="absolute top-2 left-2 z-10 text-[10px] font-mono uppercase px-2 py-1 rounded backdrop-blur-sm ${highlight ? 'bg-brand-500 text-white font-bold' : 'bg-black/70 text-gray-300'}">
               ${tag}
             </span>
             ${previewBadge()}
@@ -317,8 +365,8 @@ function renderBonuses() {
             <h3 class="font-display font-bold text-sm">${item.title}</h3>
             <p class="mt-2 text-xs text-gray-400 flex-1">${item.text}</p>
             <div class="mt-3 flex items-center gap-2">
-              <span class="text-gray-500 line-through text-xs">De: ${item.price}</span>
-              <span class="text-brand-400 font-display font-bold text-sm">GRÁTIS</span>
+              ${item.price ? `<span class="text-gray-500 line-through text-xs">De: ${item.price}</span>` : ''}
+              <span class="text-brand-400 font-display font-bold text-sm">${item.price ? 'GRÁTIS' : 'INCLUSO NO PREMIUM'}</span>
             </div>
           </div>
         </div>
@@ -360,6 +408,7 @@ export function renderContent() {
   // e antes de initSmoothScroll/initCtaTracking em main.js, que procuram
   // [data-scroll-to]/[data-cta] no DOM — o CTA do modal usa os dois.
   initPreviewModal();
+  renderCategories();
   renderBenefits();
   renderProblems();
   renderGallery();

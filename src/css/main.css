@@ -51,6 +51,20 @@
     @apply border-brand-400/40 -translate-y-1 shadow-[0_10px_40px_-15px_rgba(239,68,68,0.5)];
   }
 
+  /* Card Premium: borda em gradiente (via camadas padding-box/border-box)
+     para destacar visualmente do card Básico, além do maior contraste e
+     badge de recomendado já aplicados no HTML. */
+  .card-premium {
+    border: 1px solid transparent;
+    background:
+      linear-gradient(180deg, rgba(18, 5, 5, 0.97), rgba(18, 5, 5, 0.97)) padding-box,
+      linear-gradient(135deg, #fca5a5, #ef4444 50%, #b91c1c) border-box;
+    box-shadow: 0 25px 70px -25px rgba(239, 68, 68, 0.6);
+  }
+  .card-premium:hover {
+    box-shadow: 0 30px 80px -20px rgba(239, 68, 68, 0.7);
+  }
+
   /* Cards exploráveis (amostras do acervo, bônus): cursor deixa claro que dá
      pra tocar/clicar, já que visualmente usam o mesmo .card dos demais. */
   .card-clickable {

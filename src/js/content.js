@@ -1,9 +1,10 @@
 // ============================================================================
-// CONTEÚDO DA LANDING PAGE — Biblioteca de artes de anime para SUBLIMAÇÃO
+// CONTEÚDO DA LANDING PAGE — Biblioteca de estampas para ESTAMPAGEM
+// (anime, heróis, games, séries, desenhos e mais — ver `categories` abaixo)
 // ----------------------------------------------------------------------------
 // Posicionamento: "Você já tem a impressora. Agora tenha as artes." — não é
 // uma pasta de arquivos, é uma biblioteca organizada que acelera a produção
-// de quem trabalha com sublimação.
+// de quem trabalha com estampagem.
 //
 // Preços, links e afirmações comerciais (quantidade de artes, garantia,
 // licença) vêm de ./config.js, a fonte única de verdade. Não duplique
@@ -12,7 +13,8 @@
 
 import { productConfig } from './config.js';
 
-// Amostra do acervo (imagens reais já existentes no projeto — arte de anime).
+// Amostra da categoria Animes (imagens reais já existentes no projeto).
+// As demais categorias do acervo aparecem em `categories`, mais abaixo.
 export const galleryItems = [
   { file: 'Nf502h0H-Chat-GPT-Image-4-de-jul-de-2026-16-42-42.webp', title: 'Sukuna Oni Style', tag: 'Camiseta' },
   { file: 'wT7BRKBJ-Chat-GPT-Image-4-de-jul-de-2026-16-42-57.webp', title: 'Satoru Gojo', tag: 'Camiseta' },
@@ -42,6 +44,22 @@ export const galleryItems = [
 // categoria inventada).
 export const galleryCategories = [...new Set(galleryItems.map((item) => item.tag))];
 
+// SEÇÃO CATEGORIAS EM DESTAQUE — panorama dos temas do acervo completo (o
+// site até aqui só mostrava amostras de anime, o que fazia o acervo parecer
+// mais limitado do que é).
+//
+// Todas as categorias usam uma capa local em /public/images/categories para
+// evitar cards vazios e manter o quadro funcional mesmo sem rede.
+export const categories = [
+  { id: 'anime', label: 'Animes', blurb: 'Os favoritos que mais vendem', icon: 'flame', image: 'categories/anime.webp' },
+  { id: 'herois', label: 'Heróis', blurb: 'Universo dos super-heróis', icon: 'shield', image: 'categories/herois.webp' },
+  { id: 'games', label: 'Games', blurb: 'Cultura gamer e nerd', icon: 'gamepad', image: 'categories/games.webp' },
+  { id: 'series', label: 'Séries', blurb: 'Séries e filmes de sucesso', icon: 'film', image: 'categories/series.webp' },
+  { id: 'desenhos', label: 'Desenhos', blurb: 'Desenhos e cartoons clássicos', icon: 'palette', image: 'categories/desenhos.webp' },
+  { id: 'viloes', label: 'Vilões', blurb: 'Ícones do lado sombrio', icon: 'alert', image: 'categories/viloes.webp' },
+  { id: 'variados', label: 'Temas Variados', blurb: 'Muito mais pra explorar', icon: 'infinity', image: 'categories/variados.webp' },
+];
+
 // SEÇÃO BENEFÍCIOS/NÚMEROS — logo após o hero, fatos confirmados (ver config.js).
 export const benefits = [
   { value: productConfig.fileCount, label: 'Artes' },
@@ -66,7 +84,7 @@ export const problems = [
   },
   {
     title: 'Artes com qualidade baixa',
-    text: 'Resolução fraca borra na hora de sublimar e compromete o acabamento da peça.',
+    text: 'Resolução fraca borra na hora de estampar e compromete o acabamento da peça.',
   },
   {
     title: 'Cada pedido começa do zero',
@@ -78,18 +96,18 @@ export const problems = [
 // produzir. Itens com "photo" usam a imagem enviada (já traz título e
 // destaques desenhados nela) no lugar do card de ícone + texto.
 export const compatItems = [
-  { icon: 'shirt', title: 'Camisetas', text: 'Estampe camisetas e moletons com artes de anime em alta resolução.', photo: 'compat-camisetas.webp' },
+  { icon: 'shirt', title: 'Camisetas', text: 'Estampe camisetas e moletons com estampas de vários temas em alta resolução.', photo: 'compat-camisetas.webp' },
   { icon: 'mug', title: 'Canecas', text: 'Aplique as artes em canecas de cerâmica e mágicas para presente e revenda.', photo: 'compat-canecas.webp' },
-  { icon: 'cup', title: 'Copos e squeezes', text: 'Personalize copos térmicos, long drinks e squeezes com sublimação total.', photo: 'compat-copos.webp' },
-  { icon: 'tile', title: 'Azulejos e quadros', text: 'Sublime azulejos e placas decorativas para decoração e datas especiais.', photo: 'compat-azulejos.webp' },
+  { icon: 'cup', title: 'Copos e squeezes', text: 'Personalize copos térmicos, long drinks e squeezes com estampagem total.', photo: 'compat-copos.webp' },
+  { icon: 'tile', title: 'Azulejos e quadros', text: 'Estampe azulejos e placas decorativas para decoração e datas especiais.', photo: 'compat-azulejos.webp' },
   { icon: 'cap', title: 'Bonés', text: 'Leve os personagens para bonés e viseiras com acabamento profissional.', photo: 'compat-bones.webp' },
-  { icon: 'bag', title: 'Ecobags e almofadas', text: 'Amplie o catálogo com ecobags, almofadas e itens de tecido sublimável.', photo: 'compat-ecobags.webp' },
-  { icon: 'mousepad', title: 'Mousepads', text: 'Produza mousepads geek, um item de alto giro e fácil de sublimar.', photo: 'compat-mousepads.webp' },
+  { icon: 'bag', title: 'Ecobags e almofadas', text: 'Amplie o catálogo com ecobags, almofadas e itens de tecido estampável.', photo: 'compat-ecobags.webp' },
+  { icon: 'mousepad', title: 'Mousepads', text: 'Produza mousepads geek, um item de alto giro e fácil de estampar.', photo: 'compat-mousepads.webp' },
   { icon: 'gift', title: 'Presentes e chaveiros', text: 'Chaveiros e brindes personalizados para datas comemorativas e pedidos sob medida.', photo: 'compat-chaveiros.webp' },
   { icon: 'palette', title: 'Compatível com seu editor', text: 'Arquivos que você abre no Photoshop e no Canva, pelo computador ou pelo celular.', photo: 'compat-editor.webp' },
 ];
 
-// "Veja como fica" — fotos reais de peças sublimadas prontas, mostradas
+// "Veja como fica" — fotos reais de peças estampadas prontas, mostradas
 // dentro da seção de Possibilidades de Produção (prova visual do resultado).
 export const resultsRow1 = [
   'vgsccZRW-Captura-de-Tela-2026-07-04-a-s-02-31-46.webp',
@@ -113,7 +131,7 @@ export const resultsRow3 = [
 export const steps = [
   { n: 1, title: 'Escolha a arte', text: 'Encontre rapidamente o estilo ou tema que quer produzir na biblioteca organizada.' },
   { n: 2, title: 'Personalize se quiser', text: 'Use o Canva ou o Photoshop para ajustar cores, tamanho e detalhes.' },
-  { n: 3, title: 'Imprima e sublime', text: 'Leve a arte para sua produção e transforme em um produto físico pronto pra vender.' },
+  { n: 3, title: 'Imprima e estampe', text: 'Leve a arte para sua produção e transforme em um produto físico pronto pra vender.' },
 ];
 
 // SEÇÃO COMPARATIVO — procurar arte pela internet vs. ter o Estampas Max.
@@ -144,20 +162,36 @@ export const testimonials = [
   { file: 'testimonial-4.webp', alt: 'Print de conversa de cliente sobre pedidos feitos com as artes' },
 ];
 
-// SEÇÃO BÔNUS — cada bônus como uma ferramenta real que ajuda o comprador.
-// Itens, textos e valores de referência já usados no material do projeto.
+// SEÇÃO BÔNUS ("Bônus Premium Incluídos") — cada bônus como uma ferramenta
+// real que ajuda o comprador. Itens, textos e valores de referência já
+// usados no material do projeto. Ordem: os 3 bônus em destaque primeiro
+// (os 2 guias + o pack de canecas, este último sem preço de referência
+// "avulso" por não haver um valor confirmado para ele), depois os demais.
+//
+// O pack de canecas é ADICIONAL ao acervo principal de +40.000 estampas
+// (confirmado pelo vendedor) — nunca some os dois números como se fossem
+// o mesmo total; ver o texto "+20.000 estampas extras para canecas" usado
+// consistentemente no card Premium e aqui.
+//
+// "Guia Start" (nome que aparece na arte do hero) É o mesmo item que "Venda
+// sem Estoque" — mesmo bônus, não conte como dois bônus separados.
 export const bonuses = [
+  { file: 'HkNYhbxF-Chat-GPT-Image-9-de-jul-de-2026-00-00-22-(3).webp', title: 'Guia Completo de Estampagem do Zero', price: 'R$ 57,00', text: 'Passo a passo do zero para sublimação: equipamentos, materiais, preparação da arte, impressão, tempo, temperatura, pressão, aplicação e os erros mais comuns.' },
+  { file: 't4cqMFTL-Chat-GPT-Image-9-de-jul-de-2026-00-00-22-(2).webp', title: 'Guia Start — Venda sem Estoque', price: 'R$ 47,00', text: 'Estratégias para divulgar os produtos usando mockups e produzir somente após a venda.' },
+  { file: 'zDswMkm2-Chat-GPT-Image-4-de-jul-de-2026-16-45-32.webp', title: 'Pack com +20.000 Estampas para Canecas', badge: '+20.000 Artes para Canecas', text: '+20.000 estampas prontas para personalizar canecas, copos e outros produtos, organizadas por temas e preparadas para facilitar sua produção.' },
   { file: 'L8W9bjXc-Chat-GPT-Image-9-de-jul-de-2026-00-00-22-(1).webp', title: 'Mockups prontos', price: 'R$ 67,00', text: 'Modelos profissionais de camisetas e canecas para você aplicar a arte e divulgar antes mesmo de produzir.' },
   { file: '52r4R8yc-Chat-GPT-Image-9-de-jul-de-2026-00-00-23-(4).webp', title: 'Modelos de anúncios prontos', price: 'R$ 97,00', text: 'Combo de artes prontas para posts e anúncios, para divulgar seus produtos e vender mais.' },
-  { file: 't4cqMFTL-Chat-GPT-Image-9-de-jul-de-2026-00-00-22-(2).webp', title: 'Guia de venda sem estoque', price: 'R$ 47,00', text: 'Passo a passo para vender pelo mockup e só sublimar a peça depois que o cliente comprar.' },
-  { file: 'HkNYhbxF-Chat-GPT-Image-9-de-jul-de-2026-00-00-22-(3).webp', title: 'Manual da sublimação', price: 'R$ 57,00', text: 'Guia com os cuidados de tempo, temperatura e pressão para um acabamento profissional.' },
 ];
 
-// SEÇÃO FAQ — perguntas priorizadas para quem trabalha com sublimação.
+// SEÇÃO FAQ — perguntas priorizadas para quem trabalha com estampagem.
 export const faqs = [
   {
     q: 'Como recebo as artes?',
     a: 'Logo após a confirmação do pagamento, você recebe o acesso para download por e-mail.',
+  },
+  {
+    q: 'O que é a Área de Membros Estampas Max?',
+    a: 'É a área organizada por categorias (Início, Categorias, Mais Baixados e Favoritos) onde você acessa, organiza e baixa todo o acervo de estampas e os bônus do plano Premium, tudo em um só lugar.',
   },
   {
     q: 'O acesso é imediato?',
@@ -169,7 +203,7 @@ export const faqs = [
   },
   {
     q: 'Posso editar as artes?',
-    a: 'Sim. Você pode ajustar cores, tamanho e detalhes antes de imprimir e sublimar.',
+    a: 'Sim. Você pode ajustar cores, tamanho e detalhes antes de imprimir e estampar.',
   },
   {
     q: 'Funciona no Canva?',
@@ -181,11 +215,11 @@ export const faqs = [
   },
   {
     q: 'As artes estão em alta resolução?',
-    a: 'Sim, todo o acervo é fornecido em 300 DPI, pronto para sublimação.',
+    a: 'Sim, todo o acervo é fornecido em 300 DPI, pronto para estampagem.',
   },
   {
     q: 'Posso utilizar em diferentes produtos?',
-    a: 'Sim. As artes servem para camisetas, canecas, copos, squeezes, azulejos, bonés, ecobags, almofadas, mousepads, chaveiros e outros produtos sublimáveis.',
+    a: 'Sim. As artes servem para camisetas, canecas, copos, squeezes, azulejos, bonés, ecobags, almofadas, mousepads, chaveiros e outros produtos personalizáveis.',
   },
   {
     q: 'Como funciona a garantia?',
@@ -193,6 +227,6 @@ export const faqs = [
   },
   {
     q: 'Posso revender os arquivos digitais?',
-    a: 'Não. A licença é para produzir e vender as peças físicas que você sublimar, e não para revender ou redistribuir os arquivos digitais.',
+    a: 'Não. A licença é para produzir e vender as peças físicas que você estampar, e não para revender ou redistribuir os arquivos digitais.',
   },
 ];
