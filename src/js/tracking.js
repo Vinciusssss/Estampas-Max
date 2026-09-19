@@ -1,8 +1,13 @@
 // ============================================================================
 // RASTREAMENTO DE CONVERSÃO + PRESERVAÇÃO DE UTM
 // ----------------------------------------------------------------------------
-// Camada agnóstica: empurra eventos para window.dataLayer e, se existirem,
-// para gtag() (GA4/Google Ads) e fbq() (Meta Pixel — carregado em index.html).
+// Ferramentas realmente usadas nesta página: Meta Pixel (fbq, carregado em
+// index.html) e Microsoft Clarity (carregado direto em index.html, sem
+// passar por este módulo). Não há GA4/Google Ads nem Google Tag Manager
+// instalados — por isso track() não chama gtag(). window.dataLayer.push
+// continua aqui só como um registro genérico (array simples, sem nenhuma
+// ferramenta lendo dele hoje); se um GTM for instalado no futuro, ele já
+// encontra os eventos nesse formato.
 //
 // Eventos padronizados (o nome interno à esquerda é o que os call sites usam;
 // o mapeamento para os eventos oficiais do Meta Pixel acontece só aqui):
@@ -76,9 +81,9 @@ export function withUtms(rawUrl) {
 }
 
 // Dispara um evento de conversão nas camadas disponíveis. Nunca deixa uma
-// falha em gtag/fbq (bloqueado por ad-blocker, script ainda carregando,
-// etc.) interromper o código que chamou track() — por isso cada integração
-// externa roda no seu próprio try/catch.
+// falha em fbq (bloqueado por ad-blocker, script ainda carregando, etc.)
+// interromper o código que chamou track() — por isso a integração externa
+// roda no seu próprio try/catch.
 export function track(event, params = {}) {
   const payload = { event, ...params };
 
@@ -87,14 +92,6 @@ export function track(event, params = {}) {
     window.dataLayer.push(payload);
   } catch (_) {
     /* noop */
-  }
-
-  try {
-    if (typeof window.gtag === 'function') {
-      window.gtag('event', event, params);
-    }
-  } catch (_) {
-    /* noop — não deixa o GA quebrar o restante do fluxo */
   }
 
   try {

@@ -12,11 +12,13 @@ export function initFaq() {
       items.forEach((other) => {
         other.querySelector('[data-faq-answer]').classList.add('hidden');
         other.querySelector('[data-faq-icon]').classList.remove('rotate-45');
+        other.querySelector('[data-faq-question]').setAttribute('aria-expanded', 'false');
       });
 
       if (!isOpen) {
         panel.classList.remove('hidden');
         icon.classList.add('rotate-45');
+        button.setAttribute('aria-expanded', 'true');
       }
     });
   });

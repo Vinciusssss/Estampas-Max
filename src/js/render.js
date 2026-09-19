@@ -162,14 +162,19 @@ function marqueeTrack(containerId, entries, options = {}) {
   track.classList.add(reverse ? 'marquee-track-reverse' : 'marquee-track', 'flex', 'w-max', 'gap-4');
   track.style.animationDuration = `${duration}s`;
 
-  const renderSet = () =>
+  // isDuplicate = segunda cópia visual, só para o loop contínuo do CSS
+  // marquee ficar sem costura. Ela some da árvore de acessibilidade
+  // (aria-hidden) e do teclado (sem role/tabindex de makeClickable), mas
+  // continua clicável no mouse/touch — sem isso, clicar na metade duplicada
+  // (visualmente idêntica à primeira) não faria nada, um dead click novo.
+  const renderSet = (isDuplicate) =>
     entries.forEach((entry) => {
       const file = typeof entry === 'string' ? entry : entry.file;
       const label = typeof entry === 'string' ? '' : entry.label;
       const tag = typeof entry === 'string' ? '' : entry.tag;
       const alt = (typeof entry === 'string' ? '' : entry.alt) || label || file;
       const card = el(`
-          <div class="shrink-0 ${cardWidth} card overflow-hidden">
+          <div class="shrink-0 ${cardWidth} card overflow-hidden"${isDuplicate ? ' aria-hidden="true"' : ''}>
             <div class="relative">
               ${pic(file, `${altPrefix}${alt}`, { aspect, fit })}
               ${
@@ -183,18 +188,29 @@ function marqueeTrack(containerId, entries, options = {}) {
           </div>
         `);
       if (onCardClick) {
-        makeClickable(card, () => onCardClick(entry));
+        if (isDuplicate) {
+          card.classList.add('card-clickable');
+          card.addEventListener('click', () => onCardClick(entry));
+        } else {
+          makeClickable(card, () => onCardClick(entry));
+        }
       }
       track.appendChild(card);
     });
   // duplicate the set so the CSS marquee loops seamlessly
-  renderSet();
-  renderSet();
+  renderSet(false);
+  renderSet(true);
   bindImageFade(track);
 }
 
 // Painel "categorias em destaque": mostra a variedade real de temas do
 // acervo com capas locais pesquisadas e otimizadas no próprio projeto.
+//
+// Não são filtros de verdade — a galeria abaixo só tem amostras reais da
+// categoria Animes (as demais categorias não têm um recorte próprio de
+// imagens ainda). Por isso os cards não têm aparência de botão/clicável
+// (sem role, tabindex ou cursor de link): evita o dead click de um card
+// "Heróis" que levaria pra uma galeria de Animes, sem de fato filtrar nada.
 function renderCategories() {
   const grid = document.getElementById('categories-grid');
   if (!grid) return;
@@ -221,11 +237,6 @@ function renderCategories() {
             <p class="text-xs text-gray-400 mt-1">${cat.blurb}</p>
           </div>
         `);
-    if (cat.image) {
-      makeClickable(card, () => {
-        document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' });
-      });
-    }
     grid.appendChild(card);
   });
   bindImageFade(grid);
@@ -323,20 +334,6 @@ function renderTestimonials() {
   bindImageFade(grid);
 }
 
-function renderBonusTotal() {
-  const totalEl = document.getElementById('bonus-total');
-  if (!totalEl) return;
-  // Bônus sem price (ex.: o pack de canecas) não têm valor avulso
-  // confirmado — não entram na soma para não inventar um número.
-  const total = bonuses.reduce((sum, item) => {
-    if (!item.price) return sum;
-    const n = parseFloat(item.price.replace('R$', '').replace('.', '').replace(',', '.').trim());
-    return sum + (Number.isNaN(n) ? 0 : n);
-  }, 0);
-  const formatted = total.toLocaleString('pt-BR', { minimumFractionDigits: 0 });
-  totalEl.innerHTML = `Os bônus custam <span class="line-through text-gray-500 font-normal normal-case">R$ ${formatted}</span> — inclusos no Premium`;
-}
-
 // Cards de bônus (ex.: "Modelos de anúncios prontos") também geravam dead
 // click: pareciam produto clicável mas não tinham nenhuma ação. A prévia já
 // existente (imagem do próprio bônus, sem inventar nada) é mostrada em
@@ -388,15 +385,16 @@ function renderBonuses() {
 
 function renderFaq() {
   const list = document.getElementById('faq-list');
-  faqs.forEach((item) => {
+  faqs.forEach((item, i) => {
+    const panelId = `faq-answer-${i}`;
     list.appendChild(
       el(`
         <div data-faq-item class="card overflow-hidden">
-          <button data-faq-question class="w-full flex items-center justify-between gap-4 p-5 text-left font-medium">
+          <button data-faq-question class="w-full flex items-center justify-between gap-4 p-5 text-left font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-400 focus-visible:outline-offset-[-2px]" aria-expanded="false" aria-controls="${panelId}">
             <span>${item.q}</span>
-            <span data-faq-icon class="shrink-0 text-brand-400 transition-transform duration-300">${icon('plus', 'w-5 h-5')}</span>
+            <span data-faq-icon class="shrink-0 text-brand-400 transition-transform duration-300" aria-hidden="true">${icon('plus', 'w-5 h-5')}</span>
           </button>
-          <div data-faq-answer class="hidden px-5 pb-5 text-sm text-gray-400">${item.a}</div>
+          <div id="${panelId}" data-faq-answer class="hidden px-5 pb-5 text-sm text-gray-400">${item.a}</div>
         </div>
       `)
     );
@@ -417,6 +415,5 @@ export function renderContent() {
   renderComparison();
   renderTestimonials();
   renderBonuses();
-  renderBonusTotal();
   renderFaq();
 }

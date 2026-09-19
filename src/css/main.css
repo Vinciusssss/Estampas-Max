@@ -28,7 +28,7 @@
   }
 
   .section-title {
-    @apply font-display font-bold uppercase tracking-tight;
+    @apply font-display font-bold tracking-tight;
     font-size: clamp(1.75rem, 1.35rem + 3vw, 3rem);
     line-height: 1.15;
   }
@@ -110,7 +110,9 @@
     animation: marquee-reverse 34s linear infinite;
   }
   .pause-on-hover:hover .marquee-track,
-  .pause-on-hover:hover .marquee-track-reverse {
+  .pause-on-hover:hover .marquee-track-reverse,
+  .pause-on-hover:focus-within .marquee-track,
+  .pause-on-hover:focus-within .marquee-track-reverse {
     animation-play-state: paused;
   }
 

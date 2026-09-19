@@ -97,7 +97,28 @@ export function initPreviewModal() {
   ctaEl.addEventListener('click', () => closePreviewModal({ keepHistoryEntry: true }));
 
   document.addEventListener('keydown', (e) => {
-    if (isOpen && e.key === 'Escape') closePreviewModal();
+    if (!isOpen) return;
+    if (e.key === 'Escape') {
+      closePreviewModal();
+      return;
+    }
+    // Focus trap: Tab/Shift+Tab só circula entre os elementos focáveis do
+    // próprio modal, sem escapar para o conteúdo por trás.
+    if (e.key === 'Tab') {
+      const focusable = Array.from(
+        modalEl.querySelectorAll('button, a[href], [tabindex]:not([tabindex="-1"])')
+      ).filter((el) => el.offsetParent !== null);
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
   });
 
   // Botão/gesto "voltar" do navegador fecha o modal em vez de sair da

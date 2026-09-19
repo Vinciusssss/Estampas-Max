@@ -15,15 +15,17 @@ import { productConfig } from './config.js';
 
 // Amostra da categoria Animes (imagens reais já existentes no projeto).
 // As demais categorias do acervo aparecem em `categories`, mais abaixo.
+// Sem tags de popularidade não comprovada ("Mais pedida" etc.) — só o tipo
+// de produto/estilo da arte. Sem personagens repetidos com o mesmo título
+// (a coleção original tinha Tanjiro, Naruto e Saitama duplicados).
 export const galleryItems = [
   { file: 'Nf502h0H-Chat-GPT-Image-4-de-jul-de-2026-16-42-42.webp', title: 'Sukuna Oni Style', tag: 'Camiseta' },
   { file: 'wT7BRKBJ-Chat-GPT-Image-4-de-jul-de-2026-16-42-57.webp', title: 'Satoru Gojo', tag: 'Camiseta' },
   { file: 'gkn0L906-Chat-GPT-Image-4-de-jul-de-2026-16-43-00.webp', title: 'Ryomen Sukuna', tag: 'Camiseta' },
   { file: 'qMz76f76-Chat-GPT-Image-4-de-jul-de-2026-16-43-03.webp', title: 'Naruto Uzumaki', tag: 'Alta resolução' },
   { file: 'qMz76f7X-Chat-GPT-Image-4-de-jul-de-2026-16-43-06.webp', title: 'Tanjiro Kamado', tag: 'Streetwear' },
-  { file: 'xTcdNrd3-Chat-GPT-Image-4-de-jul-de-2026-16-43-15.webp', title: 'Eren Yeager', tag: 'Mais pedida' },
+  { file: 'xTcdNrd3-Chat-GPT-Image-4-de-jul-de-2026-16-43-15.webp', title: 'Eren Yeager', tag: 'Streetwear' },
   { file: '9Frfw3f6-Chat-GPT-Image-4-de-jul-de-2026-16-43-25.webp', title: 'Monkey D. Luffy', tag: 'Camiseta' },
-  { file: 'sDv2GF2b-Chat-GPT-Image-4-de-jul-de-2026-16-43-31.webp', title: 'Tanjiro Kamado', tag: 'Novo' },
   { file: 'dtL0ZM0S-Chat-GPT-Image-4-de-jul-de-2026-16-43-43.webp', title: 'Subaru Natsuki', tag: 'Alta resolução' },
   { file: '5N6tQctr-Chat-GPT-Image-4-de-jul-de-2026-16-43-47.webp', title: 'Yujiro Hanma', tag: 'Streetwear' },
   { file: 'ncCL98LS-Chat-GPT-Image-4-de-jul-de-2026-16-43-50.webp', title: 'Escanor', tag: 'Camiseta' },
@@ -31,11 +33,9 @@ export const galleryItems = [
   { file: 'Nf502h0x-Chat-GPT-Image-4-de-jul-de-2026-16-43-58.webp', title: 'Frieza', tag: 'Camiseta' },
   { file: 'kXB5Rr4r-Chat-GPT-Image-4-de-jul-de-2026-16-44-02.webp', title: 'Madara Uchiha', tag: 'Camiseta' },
   { file: 'm2tr1xDW-Chat-GPT-Image-4-de-jul-de-2026-16-44-09.webp', title: 'Sasuke Uchiha', tag: 'Streetwear' },
-  { file: 'Fs8HjPdr-Chat-GPT-Image-4-de-jul-de-2026-16-45-42.webp', title: 'Luffy Sun God Red', tag: 'Mais pedida' },
+  { file: 'Fs8HjPdr-Chat-GPT-Image-4-de-jul-de-2026-16-45-42.webp', title: 'Luffy Sun God Red', tag: 'Alta resolução' },
   { file: '2yb9ZdXv-Chat-GPT-Image-4-de-jul-de-2026-16-42-49.webp', title: 'Saber Fate Stay', tag: 'Camiseta' },
   { file: 'ZnBsdPDw-Chat-GPT-Image-4-de-jul-de-2026-16-43-11.webp', title: 'Saitama', tag: 'Camiseta' },
-  { file: 'fytq97gH-Chat-GPT-Image-4-de-jul-de-2026-16-43-21.webp', title: 'Naruto Uzumaki', tag: 'Camiseta' },
-  { file: '1Xn7q0Y2-Chat-GPT-Image-4-de-jul-de-2026-16-43-35.webp', title: 'Saitama', tag: 'Mais pedida' },
   { file: '8cJX6d0g-Chat-GPT-Image-4-de-jul-de-2026-16-43-40.webp', title: 'Killua Zoldyck', tag: 'Camiseta' },
   { file: 'D09jdW9T-Chat-GPT-Image-4-de-jul-de-2026-16-45-47.webp', title: 'Itachi Crow Illusion', tag: 'Camiseta' },
 ];
@@ -71,24 +71,24 @@ export const benefits = [
 // SEÇÃO PROBLEMA/DOR — o equipamento não é o problema; é ficar sem arte.
 export const problems = [
   {
-    title: 'Você perde tempo procurando arte',
-    text: 'Grupos, sites e pastas bagunçadas consomem o tempo que deveria estar na prensa.',
+    title: 'Você procura em grupos e pastas diferentes',
+    text: 'Cada busca vira uma caça em vários lugares, tempo que deveria estar na prensa.',
   },
   {
-    title: 'O cliente pede um tema que você não tem',
+    title: 'O cliente pede um tema que você ainda não tem',
     text: 'Sem variedade pronta, o pedido esfria enquanto você procura ou espera uma arte nova.',
   },
   {
-    title: 'Arquivos espalhados e desorganizados',
-    text: 'Cada compra avulsa vira mais uma pasta perdida no computador ou no celular.',
-  },
-  {
-    title: 'Artes com qualidade baixa',
+    title: 'Você encontra arquivos com qualidade inconsistente',
     text: 'Resolução fraca borra na hora de estampar e compromete o acabamento da peça.',
   },
   {
-    title: 'Cada pedido começa do zero',
+    title: 'Cada pedido começa praticamente do zero',
     text: 'Sem uma biblioteca pronta, toda produção nova exige buscar tudo de novo.',
+  },
+  {
+    title: 'Sua produção fica limitada pela falta de variedade',
+    text: 'Poucas opções prontas significam menos temas para oferecer e menos pedidos atendidos.',
   },
 ];
 
@@ -103,7 +103,7 @@ export const compatItems = [
   { icon: 'cap', title: 'Bonés', text: 'Leve os personagens para bonés e viseiras com acabamento profissional.', photo: 'compat-bones.webp' },
   { icon: 'bag', title: 'Ecobags e almofadas', text: 'Amplie o catálogo com ecobags, almofadas e itens de tecido estampável.', photo: 'compat-ecobags.webp' },
   { icon: 'mousepad', title: 'Mousepads', text: 'Produza mousepads geek, um item de alto giro e fácil de estampar.', photo: 'compat-mousepads.webp' },
-  { icon: 'gift', title: 'Presentes e chaveiros', text: 'Chaveiros e brindes personalizados para datas comemorativas e pedidos sob medida.', photo: 'compat-chaveiros.webp' },
+  { icon: 'gift', title: 'Chaveiros e brindes', text: 'Chaveiros e brindes personalizados para datas comemorativas e pedidos sob medida.', photo: 'compat-chaveiros.webp' },
   { icon: 'palette', title: 'Compatível com seu editor', text: 'Arquivos que você abre no Photoshop e no Canva, pelo computador ou pelo celular.', photo: 'compat-editor.webp' },
 ];
 
@@ -168,17 +168,18 @@ export const testimonials = [
 // (os 2 guias + o pack de canecas, este último sem preço de referência
 // "avulso" por não haver um valor confirmado para ele), depois os demais.
 //
-// O pack de canecas é ADICIONAL ao acervo principal de +40.000 estampas
-// (confirmado pelo vendedor) — nunca some os dois números como se fossem
-// o mesmo total; ver o texto "+20.000 estampas extras para canecas" usado
-// consistentemente no card Premium e aqui.
+// O pack de canecas (productConfig.bonusMugFileCount, +20.000) é ADICIONAL
+// ao acervo principal do Premium (productConfig.premiumPlan.fileCount,
+// +40.000) — confirmado pelo vendedor em 2026-09-19, inclusive numa arte
+// oficial do mockup que já mostra os dois números separados. Nunca some os
+// dois como se fossem um total único.
 //
 // "Guia Start" (nome que aparece na arte do hero) É o mesmo item que "Venda
 // sem Estoque" — mesmo bônus, não conte como dois bônus separados.
 export const bonuses = [
   { file: 'HkNYhbxF-Chat-GPT-Image-9-de-jul-de-2026-00-00-22-(3).webp', title: 'Guia Completo de Estampagem do Zero', price: 'R$ 57,00', text: 'Passo a passo do zero para sublimação: equipamentos, materiais, preparação da arte, impressão, tempo, temperatura, pressão, aplicação e os erros mais comuns.' },
   { file: 't4cqMFTL-Chat-GPT-Image-9-de-jul-de-2026-00-00-22-(2).webp', title: 'Guia Start — Venda sem Estoque', price: 'R$ 47,00', text: 'Estratégias para divulgar os produtos usando mockups e produzir somente após a venda.' },
-  { file: 'zDswMkm2-Chat-GPT-Image-4-de-jul-de-2026-16-45-32.webp', title: 'Pack com +20.000 Estampas para Canecas', badge: '+20.000 Artes para Canecas', text: '+20.000 estampas prontas para personalizar canecas, copos e outros produtos, organizadas por temas e preparadas para facilitar sua produção.' },
+  { file: 'zDswMkm2-Chat-GPT-Image-4-de-jul-de-2026-16-45-32.webp', title: `Pack com ${productConfig.bonusMugFileCount} Estampas para Canecas`, badge: `${productConfig.bonusMugFileCount} Artes para Canecas`, text: `${productConfig.bonusMugFileCount} estampas prontas para personalizar canecas, copos e outros produtos, organizadas por temas e preparadas para facilitar sua produção.` },
   { file: 'L8W9bjXc-Chat-GPT-Image-9-de-jul-de-2026-00-00-22-(1).webp', title: 'Mockups prontos', price: 'R$ 67,00', text: 'Modelos profissionais de camisetas e canecas para você aplicar a arte e divulgar antes mesmo de produzir.' },
   { file: '52r4R8yc-Chat-GPT-Image-9-de-jul-de-2026-00-00-23-(4).webp', title: 'Modelos de anúncios prontos', price: 'R$ 97,00', text: 'Combo de artes prontas para posts e anúncios, para divulgar seus produtos e vender mais.' },
 ];
@@ -186,12 +187,12 @@ export const bonuses = [
 // SEÇÃO FAQ — perguntas priorizadas para quem trabalha com estampagem.
 export const faqs = [
   {
-    q: 'Como recebo as artes?',
-    a: 'Logo após a confirmação do pagamento, você recebe o acesso para download por e-mail.',
+    q: 'Quantas estampas recebo em cada plano?',
+    a: `O Plano Básico tem ${productConfig.basicPlan.fileCount} estampas. O Plano Premium tem ${productConfig.premiumPlan.fileCount} estampas, mais o pack extra de canecas e os demais bônus.`,
   },
   {
-    q: 'O que é a Área de Membros Estampas Max?',
-    a: 'É a área organizada por categorias (Início, Categorias, Mais Baixados e Favoritos) onde você acessa, organiza e baixa todo o acervo de estampas e os bônus do plano Premium, tudo em um só lugar.',
+    q: 'Como recebo as artes?',
+    a: 'Logo após a confirmação do pagamento, você recebe o acesso para download por e-mail.',
   },
   {
     q: 'O acesso é imediato?',
@@ -200,6 +201,18 @@ export const faqs = [
   {
     q: 'Preciso pagar mensalidade?',
     a: 'Não. É um pagamento único, com acesso vitalício à biblioteca.',
+  },
+  {
+    q: 'Por quanto tempo tenho acesso?',
+    a: 'O acesso é vitalício, sem data para expirar e sem mensalidade, após a confirmação do pagamento.',
+  },
+  {
+    q: 'O que está incluído no Premium?',
+    a: `O acervo de ${productConfig.premiumPlan.fileCount} estampas, o pack extra de estampas para canecas, os guias (Estampagem do Zero e Guia Start), os mockups e modelos de anúncios prontos, e a Área de Membros Estampas Max.`,
+  },
+  {
+    q: 'O que é a Área de Membros Estampas Max?',
+    a: 'É a área organizada por categorias (Início, Categorias, Mais Baixados e Favoritos) onde você acessa, organiza e baixa todo o acervo de estampas e os bônus do plano Premium, tudo em um só lugar.',
   },
   {
     q: 'Posso editar as artes?',
@@ -218,7 +231,7 @@ export const faqs = [
     a: 'Sim, todo o acervo é fornecido em 300 DPI, pronto para estampagem.',
   },
   {
-    q: 'Posso utilizar em diferentes produtos?',
+    q: 'Posso usar as artes em produtos físicos?',
     a: 'Sim. As artes servem para camisetas, canecas, copos, squeezes, azulejos, bonés, ecobags, almofadas, mousepads, chaveiros e outros produtos personalizáveis.',
   },
   {
@@ -228,5 +241,9 @@ export const faqs = [
   {
     q: 'Posso revender os arquivos digitais?',
     a: 'Não. A licença é para produzir e vender as peças físicas que você estampar, e não para revender ou redistribuir os arquivos digitais.',
+  },
+  {
+    q: 'O que acontece se eu perder meu acesso?',
+    a: 'Guarde o e-mail de confirmação da compra — ele é o seu comprovante e traz o link de acesso à biblioteca. Recomendamos salvá-lo em um lugar seguro logo após a compra.',
   },
 ];

@@ -15,7 +15,7 @@
     />
 
     <!-- Imagem do hero: maior candidata a LCP, acima da dobra. -->
-    <link rel="preload" as="image" href="/images/mockupnovo.webp" fetchpriority="high" />
+    <link rel="preload" as="image" href="/images/mockupnovo-40k-bonus.webp" fetchpriority="high" />
 
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
@@ -49,18 +49,25 @@
     />
     <meta name="twitter:image" content="https://estampasmax.vercel.app/images/og-image.webp" />
 
-    <!-- Dados estruturados do produto (nome, marca e preços conforme productConfig em src/js/config.js). -->
+    <!--
+      Dados estruturados do produto — nomes, quantidades e preços conforme
+      productConfig em src/js/config.js. IMPORTANTE: em 2026-09-19 os
+      checkouts mostravam "+10.000"/"+5.000"; o vendedor depois confirmou
+      "+40.000"/"+20.000 de bônus" como os números corretos (nova arte do
+      mockup já atualizada). Antes de divulgar tráfego pago, confirme que
+      os dois checkoutUrl também foram atualizados para bater com isto.
+    -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "Product",
-        "name": "Acervo Premium de Estampas — Biblioteca de Estampas para Estampagem",
+        "name": "Estampas MAX — Biblioteca de Estampas para Estampagem",
         "description": "Biblioteca organizada de estampas em alta resolução (300 DPI) — anime, heróis, games, séries, desenhos e mais — para estampagem em camisetas, canecas, copos e brindes personalizados.",
         "brand": { "@type": "Brand", "name": "Estampas Max" },
         "offers": [
           {
             "@type": "Offer",
-            "name": "Plano Básico",
+            "name": "Estampas MAX Essencial | +5.000 Estampas",
             "price": "19.90",
             "priceCurrency": "BRL",
             "availability": "https://schema.org/InStock",
@@ -68,7 +75,7 @@
           },
           {
             "@type": "Offer",
-            "name": "Plano Premium",
+            "name": "Estampas MAX | +40.000 Estampas",
             "price": "34.90",
             "priceCurrency": "BRL",
             "availability": "https://schema.org/InStock",
@@ -139,7 +146,7 @@
     <!-- Announcement bar -->
     <div class="bg-brand-500 text-white text-center text-xs sm:text-sm font-bold uppercase tracking-wide py-2 px-4 flex items-center justify-center gap-2">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" /></svg>
-      Para quem trabalha com estampagem • Pagamento único • Acesso imediato
+      Pagamento único • Acesso após a confirmação • Garantia de 30 dias
     </div>
 
     <!-- ============================================================ -->
@@ -148,16 +155,16 @@
     <header class="relative overflow-hidden px-4 py-6 sm:py-16 md:py-20 text-center">
       <div class="mx-auto max-w-4xl">
         <span class="inline-flex items-center gap-1.5 rounded-full border border-brand-500/30 bg-brand-500/10 px-3 py-1 text-[11px] sm:text-xs font-mono uppercase tracking-wide text-brand-300">
-          Pack digital para estampagem
+          Para quem trabalha com estampagem
         </span>
 
         <h1 class="section-title heading-glow mt-3 leading-[1.1]">
-          <span class="text-brand-400">+40.000</span> Estampas para Todo Tipo de Estampagem
+          Você já tem a prensa. <span class="text-brand-400">Agora tenha as artes.</span>
         </h1>
 
         <p class="mt-3 text-gray-300 max-w-xl mx-auto text-sm sm:text-lg">
-          Anime, heróis, games, séries, desenhos e muito mais — prontas para camisetas, canecas e
-          outros produtos. Acesso digital após a compra.
+          Uma biblioteca de <strong class="text-white font-semibold">+40.000 estampas</strong> organizadas,
+          prontas para camisetas, canecas, copos, bonés, ecobags e outros produtos personalizados.
         </p>
 
         <div class="mt-3 flex flex-wrap justify-center gap-1.5">
@@ -171,7 +178,7 @@
 
         <div class="mx-auto mt-4 sm:mt-8 max-w-[220px] sm:max-w-3xl">
           <img
-            src="/images/mockupnovo.webp"
+            src="/images/mockupnovo-40k-bonus.webp"
             alt="Kit Estampas Max com estampas para camisetas, caneca e bônus digitais inclusos"
             class="w-full drop-shadow-2xl"
             width="1254"
@@ -182,10 +189,11 @@
           />
         </div>
 
-        <div class="mt-4 sm:mt-6 grid grid-cols-3 gap-2 sm:flex sm:flex-wrap sm:justify-center sm:gap-3 text-[11px] sm:text-sm text-gray-300">
-          <span class="card px-2 py-2 sm:px-3"><span class="text-brand-400">✓</span> +40.000 estampas</span>
+        <div class="mt-4 sm:mt-6 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:justify-center sm:gap-3 text-[11px] sm:text-sm text-gray-300">
           <span class="card px-2 py-2 sm:px-3"><span class="text-brand-400">✓</span> Acesso imediato</span>
           <span class="card px-2 py-2 sm:px-3"><span class="text-brand-400">✓</span> Pagamento único</span>
+          <span class="card px-2 py-2 sm:px-3"><span class="text-brand-400">✓</span> Alta resolução</span>
+          <span class="card px-2 py-2 sm:px-3"><span class="text-brand-400">✓</span> Garantia de 30 dias</span>
         </div>
 
         <div class="mt-5 sm:mt-6">
@@ -193,9 +201,9 @@
         </div>
 
         <button data-plan="premium" class="cta-button w-full sm:w-auto mt-4 sm:mt-8 text-sm sm:text-base">
-          Quero acessar as +40.000 estampas
+          Quero acessar a biblioteca completa
         </button>
-        <p class="mt-3 text-xs text-gray-500">Compra segura • Produto digital • Acesso após a compra</p>
+        <p class="mt-3 text-xs text-gray-500">Produto digital • Pagamento único • Acesso após a confirmação</p>
       </div>
     </header>
 
@@ -205,12 +213,13 @@
     <section class="px-4 py-12 sm:py-16 border-b border-white/5">
       <div class="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
         <p class="section-eyebrow">O que tem no acervo</p>
-        <h2 class="section-title mt-2">Um Acervo Para Todos os Estilos.</h2>
+        <h2 class="section-title mt-2">Escolha o tema. Encontre a próxima arte.</h2>
         <p class="mt-4 text-gray-400">
-          De animes a heróis, games, séries e muito mais — tudo pronto pra você estampar e vender.
+          Explore os estilos mais procurados e veja uma amostra do que está disponível na biblioteca.
         </p>
       </div>
       <div id="categories-grid" class="max-w-5xl mx-auto grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4"></div>
+      <p class="text-center text-xs text-gray-500 mt-6">Cards ilustrativos — role até "Veja uma amostra do acervo" para ver as artes.</p>
     </section>
 
     <!-- ============================================================ -->
@@ -226,9 +235,13 @@
     <section class="px-4 py-12 sm:py-20 md:py-24 border-b border-white/5">
       <div class="max-w-4xl mx-auto text-center mb-10 sm:mb-12">
         <p class="section-eyebrow">O equipamento não é o problema</p>
-        <h2 class="section-title mt-2">O Problema É Ficar Sem Arte na Hora de Produzir</h2>
+        <h2 class="section-title mt-2">Pare de Perder Tempo Procurando Arte</h2>
       </div>
       <div id="problems-grid" class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"></div>
+      <p class="text-center text-sm text-gray-400 max-w-2xl mx-auto mt-10">
+        Com uma biblioteca organizada, você encontra mais rápido, produz com mais segurança e
+        consegue atender mais tipos de pedidos.
+      </p>
     </section>
 
     <!-- ============================================================ -->
@@ -236,11 +249,11 @@
     <!-- ============================================================ -->
     <section class="px-4 py-12 sm:py-20 md:py-24 bg-white/[0.02] border-b border-white/5" id="gallery">
       <div class="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
-        <p class="section-eyebrow">Amostra de uma das categorias</p>
-        <h2 class="section-title mt-2">Não É Só uma Pasta de Arquivos.</h2>
+        <p class="section-eyebrow">Amostra do acervo</p>
+        <h2 class="section-title mt-2">Veja uma Amostra do Acervo</h2>
         <p class="mt-4 text-gray-400">
-        Aqui você vê um recorte da categoria Animes — heróis, games, séries e desenhos também
-          fazem parte. É uma biblioteca feita para você encontrar rapidamente a próxima arte que vai produzir.
+          As imagens abaixo são apenas uma pequena seleção da categoria Animes. O acesso completo
+          inclui muito mais temas, estilos e arquivos organizados para facilitar sua produção.
         </p>
       </div>
 
@@ -251,7 +264,7 @@
       </div>
 
       <div class="text-center mt-10 sm:mt-12">
-        <a href="#pricing" data-scroll-to="pricing" data-cta="gallery" class="cta-button w-full sm:w-auto">Quero ter acesso ao acervo</a>
+        <a href="#pricing" data-scroll-to="pricing" data-cta="gallery" class="cta-button w-full sm:w-auto">Quero acessar o acervo completo</a>
       </div>
     </section>
 
@@ -269,6 +282,10 @@
       <div class="pause-on-hover overflow-hidden">
         <div id="compat-grid"></div>
       </div>
+      <p class="text-center text-xs text-gray-500 max-w-xl mx-auto mt-6">
+        A aplicação final depende do material, da técnica de estampagem e da preparação correta do
+        arquivo.
+      </p>
 
       <div class="mt-14 sm:mt-16">
         <p class="section-eyebrow text-center mb-4">Veja como fica na prática</p>
@@ -330,6 +347,9 @@
       <div class="max-w-5xl mx-auto text-center mb-10 sm:mb-12">
         <p class="section-eyebrow">Quem já usa</p>
         <h2 class="section-title mt-2">Quem Já Usa o Estampas Max</h2>
+        <p class="mt-4 text-gray-400 max-w-xl mx-auto">
+          Conversas reais, compartilhadas pelos próprios clientes.
+        </p>
       </div>
       <div
         id="testimonials-grid"
@@ -346,7 +366,10 @@
         <h2 class="section-title mt-2">Bônus Premium Incluídos</h2>
       </div>
       <div id="bonus-grid" class="max-w-5xl mx-auto grid sm:grid-cols-2 gap-5"></div>
-      <p id="bonus-total" class="text-center mt-8 font-display font-bold text-brand-400 uppercase tracking-wide"></p>
+      <p class="text-center mt-8 text-sm text-gray-400">
+        Todos os itens acima são <strong class="text-brand-400">exclusivos do plano Premium</strong>,
+        sem custo adicional.
+      </p>
     </section>
 
     <!-- ============================================================ -->
@@ -355,7 +378,52 @@
     <section id="pricing" class="px-4 py-12 sm:py-20 md:py-24 bg-white/[0.02] border-b border-white/5">
       <div class="max-w-5xl mx-auto text-center mb-10 sm:mb-12">
         <p class="section-eyebrow">Escolha seu acesso</p>
-        <h2 class="section-title mt-2">Escolha o Seu Plano de Acesso</h2>
+        <h2 class="section-title mt-2">Escolha o Acesso Ideal para Sua Produção</h2>
+      </div>
+
+      <div class="max-w-2xl mx-auto mb-10 sm:mb-12 overflow-x-auto">
+        <table class="w-full text-sm border-collapse">
+          <caption class="sr-only">Comparativo entre o Plano Básico e o Plano Premium</caption>
+          <thead>
+            <tr class="border-b border-white/10 text-left text-gray-400">
+              <th scope="col" class="py-2 pr-3 font-mono text-xs uppercase tracking-wide font-normal">Recurso</th>
+              <th scope="col" class="py-2 px-3 font-mono text-xs uppercase tracking-wide font-normal text-center">Básico</th>
+              <th scope="col" class="py-2 pl-3 font-mono text-xs uppercase tracking-wide font-normal text-center text-brand-400">Premium</th>
+            </tr>
+          </thead>
+          <tbody class="text-gray-300">
+            <tr class="border-b border-white/5">
+              <th scope="row" class="py-2.5 pr-3 text-left font-normal text-gray-400">Estampas</th>
+              <td class="py-2.5 px-3 text-center">+5.000</td>
+              <td class="py-2.5 pl-3 text-center text-white font-medium">+40.000</td>
+            </tr>
+            <tr class="border-b border-white/5">
+              <th scope="row" class="py-2.5 pr-3 text-left font-normal text-gray-400">Pack extra de canecas</th>
+              <td class="py-2.5 px-3 text-center text-gray-600">Não</td>
+              <td class="py-2.5 pl-3 text-center text-brand-400">Sim</td>
+            </tr>
+            <tr class="border-b border-white/5">
+              <th scope="row" class="py-2.5 pr-3 text-left font-normal text-gray-400">Guias e ferramentas de venda</th>
+              <td class="py-2.5 px-3 text-center text-gray-600">Não</td>
+              <td class="py-2.5 pl-3 text-center text-brand-400">Sim</td>
+            </tr>
+            <tr class="border-b border-white/5">
+              <th scope="row" class="py-2.5 pr-3 text-left font-normal text-gray-400">Área de membros</th>
+              <td class="py-2.5 px-3 text-center text-gray-600">Não</td>
+              <td class="py-2.5 pl-3 text-center text-brand-400">Sim</td>
+            </tr>
+            <tr class="border-b border-white/5">
+              <th scope="row" class="py-2.5 pr-3 text-left font-normal text-gray-400">Garantia</th>
+              <td class="py-2.5 px-3 text-center">30 dias</td>
+              <td class="py-2.5 pl-3 text-center">30 dias</td>
+            </tr>
+            <tr>
+              <th scope="row" class="py-2.5 pr-3 text-left font-normal text-gray-400">Pagamento</th>
+              <td class="py-2.5 px-3 text-center">Único</td>
+              <td class="py-2.5 pl-3 text-center">Único</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
       <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-6 md:items-center">
@@ -366,10 +434,9 @@
             <svg viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5 inline-block -mt-0.5"><path d="M12 2c1 3-3 4.5-3 8a3 3 0 0 0 6 0c1.5 1 2 2.8 2 4.2A5.2 5.2 0 0 1 12 22a5.5 5.5 0 0 1-5.5-5.5C6.5 12 9 9.5 9 7c0 1.5.7 2 1.3 2.3C10.7 6 10 4 12 2Z" /></svg>
           </span>
           <p class="text-xs uppercase tracking-wide text-brand-400 font-mono mt-2">Recomendado • Acervo completo</p>
-          <h3 class="text-2xl sm:text-3xl font-display font-bold mt-1">Premium Completo</h3>
+          <h3 class="text-2xl sm:text-3xl font-display font-bold mt-1">Plano Premium</h3>
           <p class="mt-2 text-sm text-gray-400">
-            Todo o acervo, o pack extra de canecas, os guias, as ferramentas de venda e a Área de
-            Membros Estampas Max, num único pagamento.
+            Para quem quer ter variedade, ferramentas e todo o material em um só lugar.
           </p>
           <div class="mt-6 flex items-end gap-2">
             <span class="text-4xl sm:text-5xl font-display font-bold text-brand-400 heading-glow">R$ 34,90</span>
@@ -388,7 +455,7 @@
                 Acervo de estampas
               </p>
               <ul class="mt-3 space-y-2.5 text-sm text-gray-200">
-                <li class="flex gap-2"><span class="text-brand-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M4 12.5 9 17.5 20 6.5" /></svg></span> Mais de 40.000 estampas em alta resolução (300 DPI)</li>
+                <li class="flex gap-2"><span class="text-brand-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M4 12.5 9 17.5 20 6.5" /></svg></span> +40.000 estampas em alta resolução (300 DPI)</li>
                 <li class="flex gap-2"><span class="text-brand-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M4 12.5 9 17.5 20 6.5" /></svg></span> Anime, heróis, games, séries, desenhos e outros temas</li>
                 <li class="flex gap-2"><span class="text-brand-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M4 12.5 9 17.5 20 6.5" /></svg></span> Artes para camisetas, canecas e outros produtos personalizados</li>
                 <li class="flex flex-wrap items-center gap-2"><span class="text-brand-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M4 12.5 9 17.5 20 6.5" /></svg></span> +20.000 estampas extras para canecas <span class="inline-block text-[9px] font-mono uppercase font-bold bg-brand-500 text-white px-1.5 py-0.5 rounded">Bônus exclusivo</span></li>
@@ -446,7 +513,7 @@
           </div>
 
           <button data-plan="premium" class="cta-button mt-8 w-full">
-            Quero liberar o Premium completo
+            Quero liberar o Premium
           </button>
         </div>
 
@@ -455,18 +522,19 @@
           <p class="text-xs uppercase tracking-wide text-gray-500 font-mono">Entrada</p>
           <h3 class="text-2xl font-display font-bold mt-1 text-gray-200">Plano Básico</h3>
           <p class="mt-2 text-sm text-gray-400">
-            Uma seleção inicial de estampas para testar. Não inclui o acervo completo, os guias, as
-            ferramentas de venda nem a Área de Membros do Premium.
+            Uma opção de entrada para quem quer começar com uma seleção menor de arquivos. Não
+            inclui o acervo completo, os guias, as ferramentas de venda nem a Área de Membros do
+            Premium.
           </p>
           <div class="mt-6 flex items-end gap-2">
             <span class="text-4xl font-display font-bold text-gray-300">R$ 19,90</span>
           </div>
           <p class="text-xs text-gray-500 font-mono uppercase">Pagamento único • Acesso vitalício</p>
           <ul class="mt-6 space-y-3 text-sm text-gray-400 flex-1">
-            <li class="flex gap-2"><span class="text-gray-500"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M4 12.5 9 17.5 20 6.5" /></svg></span> Seleção inicial de estampas em alta resolução</li>
+            <li class="flex gap-2"><span class="text-gray-500"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M4 12.5 9 17.5 20 6.5" /></svg></span> +5.000 estampas em alta resolução</li>
             <li class="flex gap-2"><span class="text-gray-500"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M4 12.5 9 17.5 20 6.5" /></svg></span> Editáveis no Canva e no Photoshop</li>
             <li class="flex gap-2"><span class="text-gray-500"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M4 12.5 9 17.5 20 6.5" /></svg></span> Acesso imediato e vitalício</li>
-            <li class="flex gap-2 text-gray-500"><span class="text-red-500/70"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M6 6 18 18M18 6 6 18" /></svg></span> Não inclui o acervo completo (+40.000 estampas)</li>
+            <li class="flex gap-2 text-gray-500"><span class="text-red-500/70"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M6 6 18 18M18 6 6 18" /></svg></span> Não inclui o acervo completo do Premium (+40.000 estampas)</li>
             <li class="flex gap-2 text-gray-500"><span class="text-red-500/70"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M6 6 18 18M18 6 6 18" /></svg></span> Sem o pack de +20.000 estampas extras para canecas</li>
             <li class="flex gap-2 text-gray-500"><span class="text-red-500/70"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M6 6 18 18M18 6 6 18" /></svg></span> Sem os guias (Estampagem do Zero e Guia Start)</li>
             <li class="flex gap-2 text-gray-500"><span class="text-red-500/70"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M6 6 18 18M18 6 6 18" /></svg></span> Sem mockups e modelos de anúncios prontos</li>
@@ -493,8 +561,8 @@
         </div>
         <h2 class="section-title mt-4 text-2xl sm:text-3xl">Você Tem 30 Dias para Conhecer o Estampas Max</h2>
         <p class="mt-3 text-sm text-gray-400 max-w-xl mx-auto">
-          Acesse a biblioteca, conheça a organização e verifique o material. Se não fizer sentido
-          para você, é só solicitar o reembolso dentro do prazo, conforme os
+          Você tem 30 dias para acessar o material e verificar se ele atende às suas necessidades.
+          Caso queira solicitar o reembolso, siga as regras e o procedimento informados nos
           <a href="#termos" data-scroll-to="termos" class="text-brand-400 underline">termos da oferta</a>.
         </p>
         <div class="mt-6 flex flex-wrap justify-center gap-2 sm:gap-3 text-[11px] sm:text-sm text-gray-300">
@@ -521,11 +589,11 @@
     <!-- ============================================================ -->
     <section class="px-4 py-12 sm:py-20 md:py-24 bg-white/[0.02] border-y border-brand-500/10 text-center">
       <h2 class="section-title max-w-3xl mx-auto">
-        Você Já Tem a Impressora.
-        <span class="text-brand-400">Agora Tenha as Artes.</span>
+        Você já tem a prensa.
+        <span class="text-brand-400">Agora tenha as artes.</span>
       </h2>
       <p class="mt-4 text-gray-400 max-w-xl mx-auto">
-        Tenha mais de 40.000 opções prontas para transformar suas ideias em produtos personalizados.
+        Tenha +40.000 opções prontas para transformar suas ideias em produtos personalizados.
       </p>
       <a href="#pricing" data-scroll-to="pricing" data-cta="final" class="cta-button w-full sm:w-auto mt-8">Quero acessar o Estampas Max</a>
       <p class="mt-3 text-xs text-gray-500">Pagamento único • Acesso imediato • Garantia de 30 dias</p>
@@ -545,21 +613,30 @@
             por e-mail. Nenhum item físico é enviado pelos Correios.
           </p>
           <p class="mt-2">
-            Licença de uso: você pode produzir e vender os produtos físicos que estampar a partir das
-            artes. A licença não permite revender ou redistribuir os arquivos digitais.
+            Licença de uso: você pode utilizar as artes para criar e vender produtos físicos
+            personalizados, conforme as regras da licença. A licença não permite revender,
+            redistribuir ou disponibilizar os arquivos digitais separadamente.
+          </p>
+          <p class="mt-2">
+            Personagens de terceiros: o acervo pode incluir referências visuais a personagens de
+            animes, jogos, filmes e HQs de terceiros. O uso comercial dessas artes é de
+            responsabilidade do comprador, que deve observar a legislação de direitos autorais e de
+            marcas aplicável ao seu país e ao seu tipo de produção.
           </p>
           <p class="mt-2">
             Garantia: a compra tem 30 dias de garantia a partir da confirmação do pagamento para
-            solicitar reembolso.
+            solicitar reembolso, conforme o procedimento do gateway de pagamento.
           </p>
         </div>
         <div>
           <h3 class="font-display font-bold text-white uppercase text-sm tracking-wide">Política de privacidade</h3>
           <p class="mt-2">
-            Os dados de origem da visita (UTMs) ficam salvos apenas no armazenamento local do seu
-            navegador, para identificar o canal que te trouxe até aqui, e não são enviados a
-            servidores próprios. Os dados de pagamento são digitados diretamente na página do gateway
-            de pagamento; esta página não tem acesso a eles.
+            Esta página usa o Meta Pixel (rastreamento de conversão para anúncios) e o Microsoft
+            Clarity (mapas de calor e gravações de sessão, para entender como a página é usada). Os
+            dados de origem da visita (UTMs) ficam salvos no armazenamento local do seu navegador,
+            para identificar o canal que te trouxe até aqui, e podem ser encaminhados ao gateway de
+            pagamento junto com o link de checkout. Os dados de pagamento são digitados diretamente
+            na página do gateway de pagamento; esta página não tem acesso a eles.
           </p>
         </div>
       </div>
@@ -583,7 +660,7 @@
       class="md:hidden fixed inset-x-0 bottom-0 z-40 translate-y-full transition-transform duration-300 bg-ink-950/95 backdrop-blur border-t border-brand-500/30 px-4 pt-2.5 pb-[max(0.625rem,env(safe-area-inset-bottom))]"
     >
       <a href="#pricing" data-scroll-to="pricing" data-cta="mobile_bar" class="cta-button w-full py-3 text-sm flex items-center justify-center gap-2">
-        Acessar +40.000 artes <span class="opacity-80 font-normal">· R$ 34,90</span>
+        Acessar a biblioteca <span class="opacity-80 font-normal">· R$ 34,90</span>
       </a>
     </div>
   </body>
