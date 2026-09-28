@@ -8,10 +8,7 @@
 
 @layer base {
   body {
-    @apply bg-black text-white font-body antialiased;
-    background-image: radial-gradient(circle at 12% -10%, rgba(239, 68, 68, 0.1), transparent 40%),
-      radial-gradient(circle at 90% 10%, rgba(220, 38, 38, 0.08), transparent 35%);
-    background-attachment: fixed;
+    @apply bg-paper text-ink-900 font-body antialiased;
   }
   h1, h2, h3, h4 {
     @apply font-display;
@@ -19,64 +16,72 @@
 }
 
 @layer components {
-  .heading-glow {
-    text-shadow: 0 0 30px rgba(248, 113, 113, 0.4);
-  }
-
   .section-eyebrow {
-    @apply text-xs sm:text-sm font-mono uppercase tracking-[0.2em] text-brand-400;
+    @apply text-xs font-mono uppercase tracking-[0.15em] text-brand-600;
+  }
+  .section-eyebrow-on-dark {
+    @apply text-xs font-mono uppercase tracking-[0.15em] text-brand-300;
   }
 
   .section-title {
     @apply font-display font-bold tracking-tight;
-    font-size: clamp(1.75rem, 1.35rem + 3vw, 3rem);
+    font-size: clamp(1.65rem, 1.3rem + 2.6vw, 2.75rem);
     line-height: 1.15;
   }
 
+  /* Botão principal: sólido, sem brilho/shimmer — confiança em vez de
+     urgência. Um único tom de destaque, contraste alto. */
   .cta-button {
-    @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-lg bg-gradient-to-r from-brand-600 via-brand-500 to-brand-400 px-6 py-4
-      font-display font-bold uppercase tracking-wide text-white shadow-[0_0_25px_rgba(239,68,68,0.45)]
-      transition duration-300 hover:scale-[1.03] hover:shadow-[0_0_40px_rgba(248,113,113,0.6)] active:scale-[0.98];
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-brand-500 px-6 py-4
+      font-display font-semibold text-white shadow-sm
+      transition duration-200 hover:bg-brand-600 active:scale-[0.98];
   }
-  .cta-button::before {
-    content: '';
-    @apply absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent;
-    animation: shimmer 2.8s ease-in-out infinite;
+  .cta-button-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-ink-900/15 px-6 py-4
+      font-display font-semibold text-ink-900 transition duration-200 hover:bg-ink-900/5 active:scale-[0.98];
+  }
+  .cta-button-on-dark {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-white/20 px-6 py-4
+      font-display font-semibold text-white transition duration-200 hover:bg-white/10 active:scale-[0.98];
   }
 
+  /* Card padrão (sobre fundo claro): borda sutil, sombra discreta, radius
+     moderado — nada de brilho colorido ou bordas em gradiente. */
   .card {
-    @apply rounded-2xl border border-brand-500/15 bg-white/[0.025] backdrop-blur-sm transition duration-300;
+    @apply rounded-xl border border-ink-900/10 bg-white transition duration-200;
+    box-shadow: 0 1px 2px rgba(20, 19, 16, 0.04);
   }
   .card:hover {
-    @apply border-brand-400/40 -translate-y-1 shadow-[0_10px_40px_-15px_rgba(239,68,68,0.5)];
+    @apply border-ink-900/20;
+    box-shadow: 0 8px 24px -12px rgba(20, 19, 16, 0.18);
   }
 
-  /* Card Premium: borda em gradiente (via camadas padding-box/border-box)
-     para destacar visualmente do card Básico, além do maior contraste e
-     badge de recomendado já aplicados no HTML. */
+  /* Card sobre fundo escuro (seções grafite): superfície um tom mais clara
+     que o fundo, sem sombra colorida. */
+  .card-on-dark {
+    @apply rounded-xl border border-white/10 bg-white/5 transition duration-200;
+  }
+  .card-on-dark:hover {
+    @apply border-white/20 bg-white/[0.07];
+  }
+
+  /* Card Premium: fica claro (papel) sobre a seção escura de oferta — o
+     contraste é o que destaca, não brilho ou gradiente. */
   .card-premium {
-    border: 1px solid transparent;
-    background:
-      linear-gradient(180deg, rgba(18, 5, 5, 0.97), rgba(18, 5, 5, 0.97)) padding-box,
-      linear-gradient(135deg, #fca5a5, #ef4444 50%, #b91c1c) border-box;
-    box-shadow: 0 25px 70px -25px rgba(239, 68, 68, 0.6);
-  }
-  .card-premium:hover {
-    box-shadow: 0 30px 80px -20px rgba(239, 68, 68, 0.7);
+    @apply rounded-xl bg-paper text-ink-900 border border-brand-500/30;
+    box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.45);
   }
 
-  /* Cards exploráveis (amostras do acervo, bônus): cursor deixa claro que dá
-     pra tocar/clicar, já que visualmente usam o mesmo .card dos demais. */
   .card-clickable {
     cursor: pointer;
   }
   .card-clickable:focus-visible {
-    outline: 2px solid #f87171;
+    outline: 2px solid #a15243;
     outline-offset: 3px;
   }
 
-  /* Prévia em modal/bottom sheet dos cards exploráveis (a classe .hidden
-     que controla show/hide já é a utility do Tailwind, igual ao FAQ). */
+  /* Prévia em modal/bottom sheet (a classe .hidden que controla show/hide já
+     é a utility do Tailwind, igual ao FAQ). */
   .preview-modal-backdrop {
     opacity: 0;
     transition: opacity 0.25s ease-out;
@@ -95,46 +100,29 @@
   }
 
   .icon-badge {
-    @apply inline-flex items-center justify-center rounded-xl text-brand-300;
-    background: linear-gradient(160deg, rgba(239, 68, 68, 0.28), rgba(239, 68, 68, 0.04));
-    border: 1px solid rgba(248, 113, 113, 0.3);
-    box-shadow: 0 0 22px -6px rgba(248, 113, 113, 0.55) inset;
+    @apply inline-flex items-center justify-center rounded-lg text-brand-600 bg-brand-500/10 border border-brand-500/20;
+  }
+  .icon-badge-on-dark {
+    @apply inline-flex items-center justify-center rounded-lg text-brand-300 bg-white/10 border border-white/15;
   }
 }
 
 @layer utilities {
-  .marquee-track {
-    animation: marquee 30s linear infinite;
-  }
-  .marquee-track-reverse {
-    animation: marquee-reverse 34s linear infinite;
-  }
-  .pause-on-hover:hover .marquee-track,
-  .pause-on-hover:hover .marquee-track-reverse,
-  .pause-on-hover:focus-within .marquee-track,
-  .pause-on-hover:focus-within .marquee-track-reverse {
-    animation-play-state: paused;
-  }
-
-  /* Image loading: skeleton shimmer until the real image fades in */
+  /* Image loading: skeleton neutro até a imagem real aparecer */
   .img-fade {
-    @apply opacity-0 transition-opacity duration-700 ease-out;
+    @apply opacity-0 transition-opacity duration-500 ease-out;
   }
   .img-fade.is-loaded {
     @apply opacity-100;
   }
   .img-wrap {
-    @apply relative isolate overflow-hidden bg-white/[0.04];
+    @apply relative isolate overflow-hidden bg-ink-900/[0.06];
   }
   .img-wrap::before {
     content: '';
-    @apply absolute inset-0 -z-10;
-    background: linear-gradient(100deg, rgba(239, 68, 68, 0.06) 30%, rgba(239, 68, 68, 0.18) 50%, rgba(239, 68, 68, 0.06) 70%);
-    background-size: 200% 100%;
-    animation: shimmer-skeleton 1.6s ease-in-out infinite;
+    @apply absolute inset-0 -z-10 bg-ink-900/[0.04];
   }
   .img-wrap.is-loaded::before {
-    animation: none;
     background: none;
   }
 
@@ -144,45 +132,14 @@
      que somava um CLS alto sem o usuário perceber "pulo" nenhum. */
   .reveal {
     opacity: 0;
-    transition: opacity 0.6s ease-out;
+    transition: opacity 0.5s ease-out;
   }
   .reveal.is-visible {
     opacity: 1;
   }
 }
 
-@keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-@keyframes marquee-reverse {
-  0% { transform: translateX(-50%); }
-  100% { transform: translateX(0); }
-}
-
-@keyframes shimmer {
-  0% { transform: translateX(-120%); }
-  60%, 100% { transform: translateX(120%); }
-}
-
-@keyframes shimmer-skeleton {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .marquee-track,
-  .marquee-track-reverse,
-  .cta-button::before,
-  .img-wrap::before {
-    animation: none;
-  }
   .reveal {
     transition: none;
   }
