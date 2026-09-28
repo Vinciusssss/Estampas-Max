@@ -29,9 +29,13 @@ const paths = {
   gamepad: '<rect x="2" y="7" width="20" height="11" rx="5" /><path d="M7 10v4M5 12h4" /><circle cx="15.5" cy="10.5" r="1" fill="currentColor" stroke="none" /><circle cx="18" cy="13" r="1" fill="currentColor" stroke="none" />',
 };
 
+// aria-hidden: todo uso de icon() no projeto é decorativo — sempre ao lado de
+// texto visível ou dentro de um controle que já tem aria-label próprio (ex.:
+// botão de fechar o modal). Sem isso, leitores de tela anunciam um SVG sem
+// nome em cada ícone, poluindo a navegação.
 export function icon(name, className = 'w-6 h-6') {
   const inner = paths[name] || paths.star;
-  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="${className}">${inner}</svg>`;
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="${className}" aria-hidden="true" focusable="false">${inner}</svg>`;
 }
 
 export function iconBadge(name, size = 'md') {

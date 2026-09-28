@@ -14,30 +14,30 @@ import { productConfig } from './config.js';
 // Sem tags de popularidade não comprovada ("Mais pedida" etc.) — só o tipo
 // de produto/estilo da arte. Sem personagens repetidos com o mesmo título.
 export const galleryItems = [
-  { file: 'Nf502h0H-Chat-GPT-Image-4-de-jul-de-2026-16-42-42.webp', title: 'Sukuna Oni Style', tag: 'Camiseta' },
-  { file: 'wT7BRKBJ-Chat-GPT-Image-4-de-jul-de-2026-16-42-57.webp', title: 'Satoru Gojo', tag: 'Camiseta' },
-  { file: 'gkn0L906-Chat-GPT-Image-4-de-jul-de-2026-16-43-00.webp', title: 'Ryomen Sukuna', tag: 'Camiseta' },
-  { file: 'qMz76f76-Chat-GPT-Image-4-de-jul-de-2026-16-43-03.webp', title: 'Naruto Uzumaki', tag: 'Alta resolução' },
-  { file: 'qMz76f7X-Chat-GPT-Image-4-de-jul-de-2026-16-43-06.webp', title: 'Tanjiro Kamado', tag: 'Streetwear' },
-  { file: 'xTcdNrd3-Chat-GPT-Image-4-de-jul-de-2026-16-43-15.webp', title: 'Eren Yeager', tag: 'Streetwear' },
-  { file: '9Frfw3f6-Chat-GPT-Image-4-de-jul-de-2026-16-43-25.webp', title: 'Monkey D. Luffy', tag: 'Camiseta' },
-  { file: 'dtL0ZM0S-Chat-GPT-Image-4-de-jul-de-2026-16-43-43.webp', title: 'Subaru Natsuki', tag: 'Alta resolução' },
-  { file: 'ncCL98LS-Chat-GPT-Image-4-de-jul-de-2026-16-43-50.webp', title: 'Escanor', tag: 'Camiseta' },
-  { file: 'BQXvPWvg-Chat-GPT-Image-4-de-jul-de-2026-16-43-54.webp', title: 'Izuku Midoriya (Deku)', tag: 'Streetwear' },
-  { file: 'kXB5Rr4r-Chat-GPT-Image-4-de-jul-de-2026-16-44-02.webp', title: 'Madara Uchiha', tag: 'Camiseta' },
-  { file: 'D09jdW9T-Chat-GPT-Image-4-de-jul-de-2026-16-45-47.webp', title: 'Itachi Crow Illusion', tag: 'Camiseta' },
+  { file: 'Nf502h0H-Chat-GPT-Image-4-de-jul-de-2026-16-42-42.webp', thumb: 'Nf502h0H-Chat-GPT-Image-4-de-jul-de-2026-16-42-42-thumb.webp', title: 'Sukuna Oni Style', tag: 'Camiseta' },
+  { file: 'wT7BRKBJ-Chat-GPT-Image-4-de-jul-de-2026-16-42-57.webp', thumb: 'wT7BRKBJ-Chat-GPT-Image-4-de-jul-de-2026-16-42-57-thumb.webp', title: 'Satoru Gojo', tag: 'Camiseta' },
+  { file: 'gkn0L906-Chat-GPT-Image-4-de-jul-de-2026-16-43-00.webp', thumb: 'gkn0L906-Chat-GPT-Image-4-de-jul-de-2026-16-43-00-thumb.webp', title: 'Ryomen Sukuna', tag: 'Camiseta' },
+  { file: 'qMz76f76-Chat-GPT-Image-4-de-jul-de-2026-16-43-03.webp', thumb: 'qMz76f76-Chat-GPT-Image-4-de-jul-de-2026-16-43-03-thumb.webp', title: 'Naruto Uzumaki', tag: 'Alta resolução' },
+  { file: 'qMz76f7X-Chat-GPT-Image-4-de-jul-de-2026-16-43-06.webp', thumb: 'qMz76f7X-Chat-GPT-Image-4-de-jul-de-2026-16-43-06-thumb.webp', title: 'Tanjiro Kamado', tag: 'Streetwear' },
+  { file: 'xTcdNrd3-Chat-GPT-Image-4-de-jul-de-2026-16-43-15.webp', thumb: 'xTcdNrd3-Chat-GPT-Image-4-de-jul-de-2026-16-43-15-thumb.webp', title: 'Eren Yeager', tag: 'Streetwear' },
+  { file: '9Frfw3f6-Chat-GPT-Image-4-de-jul-de-2026-16-43-25.webp', thumb: '9Frfw3f6-Chat-GPT-Image-4-de-jul-de-2026-16-43-25-thumb.webp', title: 'Monkey D. Luffy', tag: 'Camiseta' },
+  { file: 'dtL0ZM0S-Chat-GPT-Image-4-de-jul-de-2026-16-43-43.webp', thumb: 'dtL0ZM0S-Chat-GPT-Image-4-de-jul-de-2026-16-43-43-thumb.webp', title: 'Subaru Natsuki', tag: 'Alta resolução' },
+  { file: 'ncCL98LS-Chat-GPT-Image-4-de-jul-de-2026-16-43-50.webp', thumb: 'ncCL98LS-Chat-GPT-Image-4-de-jul-de-2026-16-43-50-thumb.webp', title: 'Escanor', tag: 'Camiseta' },
+  { file: 'BQXvPWvg-Chat-GPT-Image-4-de-jul-de-2026-16-43-54.webp', thumb: 'BQXvPWvg-Chat-GPT-Image-4-de-jul-de-2026-16-43-54-thumb.webp', title: 'Izuku Midoriya (Deku)', tag: 'Streetwear' },
+  { file: 'kXB5Rr4r-Chat-GPT-Image-4-de-jul-de-2026-16-44-02.webp', thumb: 'kXB5Rr4r-Chat-GPT-Image-4-de-jul-de-2026-16-44-02-thumb.webp', title: 'Madara Uchiha', tag: 'Camiseta' },
+  { file: 'D09jdW9T-Chat-GPT-Image-4-de-jul-de-2026-16-45-47.webp', thumb: 'D09jdW9T-Chat-GPT-Image-4-de-jul-de-2026-16-45-47-thumb.webp', title: 'Itachi Crow Illusion', tag: 'Camiseta' },
 ];
 
 // Categorias reais do acervo (nenhuma inventada). Capas locais em
 // /public/images/categories.
 export const categories = [
-  { id: 'anime', label: 'Animes', blurb: 'Os favoritos que mais vendem', icon: 'flame', image: 'categories/anime.webp' },
-  { id: 'herois', label: 'Heróis', blurb: 'Universo dos super-heróis', icon: 'shield', image: 'categories/herois.webp' },
-  { id: 'games', label: 'Games', blurb: 'Cultura gamer e nerd', icon: 'gamepad', image: 'categories/games.webp' },
-  { id: 'series', label: 'Séries', blurb: 'Séries e filmes de sucesso', icon: 'film', image: 'categories/series.webp' },
-  { id: 'desenhos', label: 'Desenhos', blurb: 'Desenhos e cartoons clássicos', icon: 'palette', image: 'categories/desenhos.webp' },
-  { id: 'viloes', label: 'Vilões', blurb: 'Ícones do lado sombrio', icon: 'alert', image: 'categories/viloes.webp' },
-  { id: 'variados', label: 'Temas Variados', blurb: 'Muito mais pra explorar', icon: 'infinity', image: 'categories/variados.webp' },
+  { id: 'anime', label: 'Animes', blurb: 'Os favoritos que mais vendem', icon: 'flame', image: 'categories/anime-480.webp', thumb: 'categories/anime-480-thumb.webp' },
+  { id: 'herois', label: 'Heróis', blurb: 'Universo dos super-heróis', icon: 'shield', image: 'categories/herois-480.webp', thumb: 'categories/herois-480-thumb.webp' },
+  { id: 'games', label: 'Games', blurb: 'Cultura gamer e nerd', icon: 'gamepad', image: 'categories/games-480.webp', thumb: 'categories/games-480-thumb.webp' },
+  { id: 'series', label: 'Séries', blurb: 'Séries e filmes de sucesso', icon: 'film', image: 'categories/series-480.webp', thumb: 'categories/series-480-thumb.webp' },
+  { id: 'desenhos', label: 'Desenhos', blurb: 'Desenhos e cartoons clássicos', icon: 'palette', image: 'categories/desenhos-480.webp', thumb: 'categories/desenhos-480-thumb.webp' },
+  { id: 'viloes', label: 'Vilões', blurb: 'Ícones do lado sombrio', icon: 'alert', image: 'categories/viloes-480.webp', thumb: 'categories/viloes-480-thumb.webp' },
+  { id: 'variados', label: 'Temas Variados', blurb: 'Muito mais pra explorar', icon: 'infinity', image: 'categories/variados-480.webp', thumb: 'categories/variados-480-thumb.webp' },
 ];
 
 // FAIXA DE CONFIANÇA — 4 fatos, sem virar cards chamativos (ver render.js).
@@ -73,12 +73,12 @@ export const solution = [
 // biblioteca. Itens com "photo" usam a imagem enviada (já traz título e
 // destaques desenhados nela) no lugar do card de ícone + texto.
 export const compatItems = [
-  { icon: 'shirt', title: 'Camisetas', text: 'Estampe camisetas e moletons com estampas de vários temas em alta resolução.', photo: 'compat-camisetas.webp' },
-  { icon: 'mug', title: 'Canecas', text: 'Aplique as artes em canecas de cerâmica e mágicas para presente e revenda.', photo: 'compat-canecas.webp' },
-  { icon: 'cup', title: 'Copos e squeezes', text: 'Personalize copos térmicos, long drinks e squeezes com estampagem total.', photo: 'compat-copos.webp' },
-  { icon: 'cap', title: 'Bonés', text: 'Leve os personagens para bonés e viseiras com acabamento profissional.', photo: 'compat-bones.webp' },
-  { icon: 'bag', title: 'Ecobags e almofadas', text: 'Amplie o catálogo com ecobags, almofadas e itens de tecido estampável.', photo: 'compat-ecobags.webp' },
-  { icon: 'mousepad', title: 'Mousepads', text: 'Produza mousepads geek, um item de alto giro e fácil de estampar.', photo: 'compat-mousepads.webp' },
+  { icon: 'shirt', title: 'Camisetas', text: 'Estampe camisetas e moletons com estampas de vários temas em alta resolução.', photo: 'compat-camisetas-480.webp' },
+  { icon: 'mug', title: 'Canecas', text: 'Aplique as artes em canecas de cerâmica e mágicas para presente e revenda.', photo: 'compat-canecas-480.webp' },
+  { icon: 'cup', title: 'Copos e squeezes', text: 'Personalize copos térmicos, long drinks e squeezes com estampagem total.', photo: 'compat-copos-480.webp' },
+  { icon: 'cap', title: 'Bonés', text: 'Leve os personagens para bonés e viseiras com acabamento profissional.', photo: 'compat-bones-480.webp' },
+  { icon: 'bag', title: 'Ecobags e almofadas', text: 'Amplie o catálogo com ecobags, almofadas e itens de tecido estampável.', photo: 'compat-ecobags-480.webp' },
+  { icon: 'mousepad', title: 'Mousepads', text: 'Produza mousepads geek, um item de alto giro e fácil de estampar.', photo: 'compat-mousepads-480.webp' },
 ];
 
 // SEÇÃO COMO FUNCIONA — 3 passos, da escolha à peça pronta.
@@ -91,10 +91,10 @@ export const steps = [
 // SEÇÃO PROVA SOCIAL — prints de clientes já existentes no projeto e já em
 // uso na página em produção.
 export const testimonials = [
-  { file: 'testimonial-1.webp', alt: 'Print de conversa de cliente sobre os anúncios feitos com as artes' },
-  { file: 'testimonial-2.webp', alt: 'Print de conversa de cliente sobre vendas de canecas com as artes' },
-  { file: 'testimonial-3.webp', alt: 'Print de conversa de cliente sobre camiseta feita com as artes' },
-  { file: 'testimonial-4.webp', alt: 'Print de conversa de cliente sobre pedidos feitos com as artes' },
+  { file: 'testimonial-1-640.webp', alt: 'Print de conversa de cliente sobre os anúncios feitos com as artes' },
+  { file: 'testimonial-2-640.webp', alt: 'Print de conversa de cliente sobre vendas de canecas com as artes' },
+  { file: 'testimonial-3-640.webp', alt: 'Print de conversa de cliente sobre camiseta feita com as artes' },
+  { file: 'testimonial-4-640.webp', alt: 'Print de conversa de cliente sobre pedidos feitos com as artes' },
 ];
 
 // SEÇÃO BÔNUS — cada bônus como uma ferramenta real que ajuda o comprador.
@@ -107,11 +107,11 @@ export const testimonials = [
 // "Guia Start" (nome que aparece na arte do hero) É o mesmo item que "Venda
 // sem Estoque" — mesmo bônus, não conte como dois bônus separados.
 export const bonuses = [
-  { file: 'HkNYhbxF-Chat-GPT-Image-9-de-jul-de-2026-00-00-22-(3).webp', title: 'Guia Completo de Estampagem do Zero', price: 'R$ 57,00', text: 'Passo a passo do zero para sublimação: equipamentos, materiais, preparação da arte, impressão, tempo, temperatura, pressão, aplicação e os erros mais comuns.' },
-  { file: 't4cqMFTL-Chat-GPT-Image-9-de-jul-de-2026-00-00-22-(2).webp', title: 'Guia Start — Venda sem Estoque', price: 'R$ 47,00', text: 'Estratégias para divulgar os produtos usando mockups e produzir somente após a venda.' },
-  { file: 'zDswMkm2-Chat-GPT-Image-4-de-jul-de-2026-16-45-32.webp', title: `Pack com ${productConfig.bonusMugFileCount} Estampas para Canecas`, badge: `${productConfig.bonusMugFileCount} extras`, text: `${productConfig.bonusMugFileCount} estampas prontas para personalizar canecas, copos e outros produtos, organizadas por temas e preparadas para facilitar sua produção.` },
-  { file: 'L8W9bjXc-Chat-GPT-Image-9-de-jul-de-2026-00-00-22-(1).webp', title: 'Mockups prontos', price: 'R$ 67,00', text: 'Modelos profissionais de camisetas e canecas para você aplicar a arte e divulgar antes mesmo de produzir.' },
-  { file: '52r4R8yc-Chat-GPT-Image-9-de-jul-de-2026-00-00-23-(4).webp', title: 'Modelos de anúncios prontos', price: 'R$ 97,00', text: 'Combo de artes prontas para posts e anúncios, para divulgar seus produtos e vender mais.' },
+  { file: 'HkNYhbxF-Chat-GPT-Image-9-de-jul-de-2026-00-00-22-(3)-640.webp', title: 'Guia Completo de Estampagem do Zero', price: 'R$ 57,00', text: 'Passo a passo do zero para sublimação: equipamentos, materiais, preparação da arte, impressão, tempo, temperatura, pressão, aplicação e os erros mais comuns.' },
+  { file: 't4cqMFTL-Chat-GPT-Image-9-de-jul-de-2026-00-00-22-(2)-640.webp', title: 'Guia Start — Venda sem Estoque', price: 'R$ 47,00', text: 'Estratégias para divulgar os produtos usando mockups e produzir somente após a venda.' },
+  { file: 'zDswMkm2-Chat-GPT-Image-4-de-jul-de-2026-16-45-32-640.webp', title: `Pack com ${productConfig.bonusMugFileCount} Estampas para Canecas`, badge: `${productConfig.bonusMugFileCount} extras`, text: `${productConfig.bonusMugFileCount} estampas prontas para personalizar canecas, copos e outros produtos, organizadas por temas e preparadas para facilitar sua produção.` },
+  { file: 'L8W9bjXc-Chat-GPT-Image-9-de-jul-de-2026-00-00-22-(1)-640.webp', title: 'Mockups prontos', price: 'R$ 67,00', text: 'Modelos profissionais de camisetas e canecas para você aplicar a arte e divulgar antes mesmo de produzir.' },
+  { file: '52r4R8yc-Chat-GPT-Image-9-de-jul-de-2026-00-00-23-(4)-640.webp', title: 'Modelos de anúncios prontos', price: 'R$ 97,00', text: 'Combo de artes prontas para posts e anúncios, para divulgar seus produtos e vender mais.' },
 ];
 
 // SEÇÃO FAQ — consolidada em 8 grupos temáticos (quantidade, acesso,

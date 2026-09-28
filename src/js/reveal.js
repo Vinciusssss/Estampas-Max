@@ -1,53 +1,46 @@
+// Só marca introduções de <section> — nunca do <header> (hero). O hero
+// precisa pintar imediatamente no HTML/CSS inicial, sem esperar JS: título,
+// preço, CTA e mockup são o provável elemento de LCP, e um .reveal (opacity:0
+// até o JS rodar) neles é exatamente o tipo de coisa que faz o Lighthouse não
+// conseguir identificar nenhum elemento de LCP válido (NO_LCP).
 function autoTagSectionIntros() {
-  document.querySelectorAll('section > div:first-of-type, header > div:first-of-type').forEach((el) => {
+  document.querySelectorAll('section > div:first-of-type').forEach((el) => {
     if (!el.classList.contains('reveal') && !el.id) {
       el.classList.add('reveal');
     }
   });
 }
 
-// Revela elementos por posição de scroll em vez de depender só do
-// IntersectionObserver. Assim o conteúdo nunca fica preso invisível se o
-// observer não disparar (ex.: em painéis de preview embutidos), continua
-// funcionando sem JS de observer e ainda faz a animação de entrada.
+// IntersectionObserver em vez de listener de scroll: sem leitura de
+// getBoundingClientRect() a cada frame, sem trabalho de layout no thread
+// principal durante o scroll.
 export function initReveal() {
   autoTagSectionIntros();
   const targets = Array.from(document.querySelectorAll('.reveal'));
   if (targets.length === 0) return;
 
-  let pending = targets;
-  let ticking = false;
+  if (!('IntersectionObserver' in window)) {
+    targets.forEach((el) => el.classList.add('is-visible'));
+    return;
+  }
 
-  const reveal = () => {
-    ticking = false;
-    const trigger = window.innerHeight * 0.92; // revela um pouco antes de entrar
-    pending = pending.filter((el) => {
-      const top = el.getBoundingClientRect().top;
-      if (top < trigger) {
-        el.classList.add('is-visible');
-        return false; // já revelado, remove da lista
-      }
-      return true;
-    });
-    if (pending.length === 0) {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-    }
-  };
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0, rootMargin: '0px 0px -8% 0px' }
+  );
+  targets.forEach((el) => observer.observe(el));
 
-  const onScroll = () => {
-    if (!ticking) {
-      ticking = true;
-      window.requestAnimationFrame(reveal);
-    }
-  };
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
-  reveal(); // primeira passada: revela o que já está na tela ao carregar
-
-  // Rede de segurança: garante que tudo apareça mesmo em cenários atípicos.
+  // Rede de segurança: garante que tudo apareça mesmo em cenários atípicos
+  // (ex.: elemento fora do fluxo normal que o observer nunca dispara).
   setTimeout(() => {
-    pending.forEach((el) => el.classList.add('is-visible'));
+    targets.forEach((el) => el.classList.add('is-visible'));
+    observer.disconnect();
   }, 2500);
 }

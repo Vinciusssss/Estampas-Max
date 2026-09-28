@@ -5,17 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#141310" />
 
-    <!-- Fontes: preconnect antecipa a conexão, stylesheet real carrega em
-         paralelo com o resto (em vez de @import no CSS, que bloqueia). -->
+    <!-- Fontes: só os pesos realmente usados no projeto (Inter 400/500/700,
+         Space Grotesk 400/600/700 — ver tailwind.config.js/main.css para onde
+         cada peso aparece). JetBrains Mono saiu da lista: os rótulos "mono"
+         da página agora usam a pilha de fontes monoespaçadas do sistema
+         (zero requisição de rede). O stylesheet carrega via preload+onload
+         (troca de media para "all" só depois de baixado) para não bloquear a
+         primeira renderização — display=swap evita texto invisível enquanto
+         isso, e o <noscript> cobre quem navega sem JavaScript. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap"
     />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap"
+      />
+    </noscript>
 
-    <!-- Imagem do hero: maior candidata a LCP, acima da dobra. -->
-    <link rel="preload" as="image" href="/images/mockupnovo-40k-bonus.webp" fetchpriority="high" />
+    <!-- Imagem do hero: maior candidata a LCP, acima da dobra. imagesrcset
+         espelha o srcset/sizes usado nos dois <img> do herói (mobile e
+         desktop) para o preload buscar exatamente o arquivo que vai ser
+         exibido, em vez de um tamanho único fixo. -->
+    <link
+      rel="preload"
+      as="image"
+      imagesrcset="/images/mockupnovo-40k-bonus-480.webp 480w, /images/mockupnovo-40k-bonus-720.webp 720w, /images/mockupnovo-40k-bonus-1080.webp 1080w"
+      imagesizes="(max-width: 639px) 240px, (max-width: 1023px) 384px, 528px"
+      fetchpriority="high"
+    />
 
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
@@ -87,50 +115,70 @@
 
     <script type="module" src="/src/js/main.js"></script>
 
-    <!-- Microsoft Clarity -->
-    <script type="text/javascript">
-      (function (c, l, a, r, i, t, y) {
+    <!--
+      Meta Pixel e Microsoft Clarity — rastreamento necessário, mas adiado.
+      Os "stubs" abaixo (fbq/clarity) ficam disponíveis imediatamente: toda
+      chamada feita antes do script real carregar (view_landing_page,
+      view_offer, click_cta_*, disparadas por src/js/tracking.js) entra na
+      fila interna deles (n.queue / c[a].q) e é processada assim que o script
+      de verdade chega — nenhum evento se perde. O DOWNLOAD do script real
+      (fbevents.js ~252 KiB, Clarity ~28 KiB) é o que fica pesado para o
+      thread principal, por isso só começa depois do evento load + um
+      requestIdleCallback (com fallback em setTimeout para navegadores sem
+      suporte), tirando esse trabalho do caminho crítico até o LCP.
+      Pixel ID 848150931641472. Não adicione fbq('track','PageView') aqui —
+      isso duplicaria o view_landing_page disparado em src/js/main.js.
+    -->
+    <script>
+      (function (f) {
+        if (f.fbq) return;
+        var n = (f.fbq = function () {
+          n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+        });
+        f._fbq = f._fbq || n;
+        n.push = n;
+        n.loaded = true;
+        n.version = '2.0';
+        n.queue = [];
+      })(window);
+      fbq('init', '848150931641472');
+
+      (function (c, a) {
         c[a] =
           c[a] ||
           function () {
             (c[a].q = c[a].q || []).push(arguments);
           };
-        t = l.createElement(r);
-        t.async = 1;
-        t.src = 'https://www.clarity.ms/tag/' + i;
-        y = l.getElementsByTagName(r)[0];
-        y.parentNode.insertBefore(t, y);
-      })(window, document, 'clarity', 'script', 'yi9x909ivr');
-    </script>
+      })(window, 'clarity');
 
-    <!--
-      Meta Pixel (base oficial) — Pixel ID 848150931641472.
-      Só faz fbq('init', ...) aqui, de propósito: o PageView é disparado uma
-      única vez por src/js/tracking.js (evento view_landing_page, chamado uma
-      vez em main.js), não pelo snippet base. Não adicione fbq('track',
-      'PageView') aqui — isso duplicaria o evento.
-    -->
-    <script type="text/javascript">
-      !(function (f, b, e, v, n, t, s) {
-        if (f.fbq) return;
-        n = f.fbq = function () {
-          n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
-        };
-        if (!f._fbq) f._fbq = n;
-        n.push = n;
-        n.loaded = !0;
-        n.version = '2.0';
-        n.queue = [];
-        t = b.createElement(e);
-        t.async = !0;
-        t.src = v;
-        s = b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t, s);
-      })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', '848150931641472');
+      function loadDeferredTrackingScripts() {
+        var fb = document.createElement('script');
+        fb.async = true;
+        fb.src = 'https://connect.facebook.net/en_US/fbevents.js';
+        document.head.appendChild(fb);
+
+        var clarity = document.createElement('script');
+        clarity.async = true;
+        clarity.src = 'https://www.clarity.ms/tag/yi9x909ivr';
+        document.head.appendChild(clarity);
+      }
+      window.addEventListener('load', function () {
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(loadDeferredTrackingScripts, { timeout: 3000 });
+        } else {
+          setTimeout(loadDeferredTrackingScripts, 1500);
+        }
+      });
     </script>
   </head>
   <body>
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:rounded-lg focus:bg-brand-500 focus:px-4 focus:py-2 focus:font-display focus:font-semibold focus:text-sm focus:text-white"
+    >
+      Pular para o conteúdo principal
+    </a>
+
     <!-- Meta Pixel: fallback para navegadores sem JavaScript (o PageView
          "de verdade", via fbq, dispara em src/js/tracking.js). -->
     <noscript>
@@ -163,11 +211,13 @@
 
           <div class="mt-3 sm:mt-8 lg:hidden">
             <img
-              src="/images/mockupnovo-40k-bonus.webp"
+              src="/images/mockupnovo-40k-bonus-720.webp"
+              srcset="/images/mockupnovo-40k-bonus-480.webp 480w, /images/mockupnovo-40k-bonus-720.webp 720w"
+              sizes="(max-width: 639px) 240px, 384px"
               alt="Kit Estampas MAX com camisetas, caneca e bônus digitais inclusos"
-              class="w-full max-w-[240px] sm:max-w-sm mx-auto"
-              width="1254"
-              height="1254"
+              class="w-full max-w-[240px] sm:max-w-sm mx-auto aspect-square"
+              width="720"
+              height="720"
               loading="eager"
               fetchpriority="high"
               decoding="async"
@@ -192,11 +242,13 @@
 
         <div class="hidden lg:block">
           <img
-            src="/images/mockupnovo-40k-bonus.webp"
+            src="/images/mockupnovo-40k-bonus-720.webp"
+            srcset="/images/mockupnovo-40k-bonus-720.webp 720w, /images/mockupnovo-40k-bonus-1080.webp 1080w"
+            sizes="528px"
             alt="Kit Estampas MAX com camisetas, caneca e bônus digitais inclusos"
-            class="w-full"
-            width="1254"
-            height="1254"
+            class="w-full aspect-square"
+            width="720"
+            height="720"
             loading="eager"
             fetchpriority="high"
             decoding="async"
@@ -205,6 +257,7 @@
       </div>
     </header>
 
+    <main id="main-content">
     <!-- ============================================================ -->
     <!-- 2. FAIXA DE CONFIANÇA -->
     <!-- ============================================================ -->
@@ -237,7 +290,7 @@
       <div id="categories-grid" class="max-w-5xl mx-auto grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mb-4"></div>
       <div id="gallery-grid" class="max-w-5xl mx-auto grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-3"></div>
 
-      <p class="text-center text-xs text-gray-500 mt-6">As artes acima são uma amostra da categoria Animes — clique em qualquer uma para ver em tamanho maior.</p>
+      <p class="text-center text-xs text-gray-400 mt-6">As artes acima são uma amostra da categoria Animes — clique em qualquer uma para ver em tamanho maior.</p>
 
       <div class="text-center mt-10">
         <a href="#pricing" data-scroll-to="pricing" data-cta="gallery" class="cta-button-on-dark">Quero acessar o acervo completo</a>
@@ -295,7 +348,7 @@
           <div class="mt-6 flex items-end gap-2">
             <span class="text-4xl sm:text-5xl font-display font-bold text-ink-900">R$ 34,90</span>
           </div>
-          <p class="text-xs text-gray-500 uppercase tracking-wide">Pagamento único · acesso vitalício</p>
+          <p class="text-xs text-gray-600 uppercase tracking-wide">Pagamento único · acesso vitalício</p>
 
           <ul class="mt-7 space-y-3 text-sm text-ink-900 flex-1">
             <li class="flex gap-2"><span class="text-brand-600">✓</span> +40.000 estampas em alta resolução</li>
@@ -320,12 +373,12 @@
           <div class="mt-6 flex items-end gap-2">
             <span class="text-3xl font-display font-bold text-gray-200">R$ 19,90</span>
           </div>
-          <p class="text-xs text-gray-500 uppercase tracking-wide">Pagamento único · acesso vitalício</p>
+          <p class="text-xs text-gray-400 uppercase tracking-wide">Pagamento único · acesso vitalício</p>
 
           <ul class="mt-6 space-y-2.5 text-sm text-gray-300 flex-1">
-            <li class="flex gap-2"><span class="text-gray-500">✓</span> +5.000 estampas em alta resolução</li>
-            <li class="flex gap-2"><span class="text-gray-500">✓</span> Editáveis no Canva e no Photoshop</li>
-            <li class="flex gap-2 text-gray-500"><span class="text-gray-600">–</span> Sem os bônus e a Área de Membros do Premium</li>
+            <li class="flex gap-2"><span class="text-gray-400">✓</span> +5.000 estampas em alta resolução</li>
+            <li class="flex gap-2"><span class="text-gray-400">✓</span> Editáveis no Canva e no Photoshop</li>
+            <li class="flex gap-2 text-gray-400"><span class="text-gray-400">–</span> Sem os bônus e a Área de Membros do Premium</li>
           </ul>
           <button data-plan="basic" class="cta-button-on-dark mt-8 w-full">
             Começar pelo plano inicial
@@ -333,7 +386,7 @@
         </div>
       </div>
 
-      <p class="text-center text-xs text-gray-500 mt-10 max-w-lg mx-auto">
+      <p class="text-center text-xs text-gray-400 mt-10 max-w-lg mx-auto">
         Pagamento único e seguro via gateway parceiro. Sem mensalidades. Acesso enviado para o seu
         e-mail após a confirmação. Produto 100% digital.
       </p>
@@ -421,6 +474,7 @@
         </div>
       </div>
     </section>
+    </main>
 
     <!-- ============================================================ -->
     <!-- 11. RODAPÉ -->

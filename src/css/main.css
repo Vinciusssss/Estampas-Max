@@ -34,15 +34,18 @@
   .cta-button {
     @apply inline-flex items-center justify-center gap-2 rounded-lg bg-brand-500 px-6 py-4
       font-display font-semibold text-white shadow-sm
-      transition duration-200 hover:bg-brand-600 active:scale-[0.98];
+      transition duration-200 hover:bg-brand-600 active:scale-[0.98]
+      focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-700;
   }
   .cta-button-secondary {
     @apply inline-flex items-center justify-center gap-2 rounded-lg border border-ink-900/15 px-6 py-4
-      font-display font-semibold text-ink-900 transition duration-200 hover:bg-ink-900/5 active:scale-[0.98];
+      font-display font-semibold text-ink-900 transition duration-200 hover:bg-ink-900/5 active:scale-[0.98]
+      focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500;
   }
   .cta-button-on-dark {
     @apply inline-flex items-center justify-center gap-2 rounded-lg border border-white/20 px-6 py-4
-      font-display font-semibold text-white transition duration-200 hover:bg-white/10 active:scale-[0.98];
+      font-display font-semibold text-white transition duration-200 hover:bg-white/10 active:scale-[0.98]
+      focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-300;
   }
 
   /* Card padrão (sobre fundo claro): borda sutil, sombra discreta, radius
@@ -129,10 +132,14 @@
   /* Scroll reveal — só opacidade, de propósito: um translateY aqui desloca a
      caixa do elemento a cada card revelado (dezenas por página) e a métrica
      de CLS conta esse deslocamento mesmo sendo via transform/compositor, o
-     que somava um CLS alto sem o usuário perceber "pulo" nenhum. */
+     que somava um CLS alto sem o usuário perceber "pulo" nenhum. Duração
+     curta (0.15s) de propósito também: uma transição longa deixa uma janela
+     grande em que o texto está com opacidade parcial — contraste
+     insuficiente nesse instante, capturado por auditorias de acessibilidade
+     que tiram um retrato da página durante o scroll automatizado. */
   .reveal {
     opacity: 0;
-    transition: opacity 0.5s ease-out;
+    transition: opacity 0.15s ease-out;
   }
   .reveal.is-visible {
     opacity: 1;

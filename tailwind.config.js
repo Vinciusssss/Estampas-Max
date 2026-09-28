@@ -28,7 +28,11 @@ export default {
       fontFamily: {
         display: ['"Space Grotesk"', 'sans-serif'],
         body: ['Inter', 'sans-serif'],
-        mono: ['"JetBrains Mono"', 'monospace'],
+        // Pilha de fontes do sistema em vez de baixar JetBrains Mono: usada
+        // só em rótulos pequenos decorativos (eyebrows, tags, badges), onde
+        // a fonte mono do sistema já cumpre o efeito visual sem custo de
+        // rede nem trabalho extra no caminho crítico de renderização.
+        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', '"Liberation Mono"', 'monospace'],
       },
     },
   },

@@ -97,11 +97,12 @@ function bindImageFade(root) {
   });
 }
 
-function pic(file, alt, { aspect = 'aspect-square', extra = '', eager = false, fit = 'object-cover' } = {}) {
+function pic(file, alt, { aspect = 'aspect-square', extra = '', eager = false, fit = 'object-cover', srcset = '', sizes = '' } = {}) {
   const loading = eager ? 'eager' : 'lazy';
+  const srcsetAttr = srcset ? `srcset="${srcset}" sizes="${sizes}"` : '';
   return `
     <div class="img-wrap ${aspect} ${extra}">
-      <img src="${imgSrc(file)}" alt="${alt}" loading="${loading}" decoding="async"
+      <img src="${imgSrc(file)}" ${srcsetAttr} alt="${alt}" loading="${loading}" decoding="async"
         class="img-fade absolute inset-0 w-full h-full ${fit}" />
     </div>
   `;
@@ -116,7 +117,7 @@ function renderTrustStrip() {
       el(`
         <div class="flex flex-col sm:flex-row items-center justify-center gap-0.5 sm:gap-2 px-4 py-1 text-center">
           <span class="font-display font-bold text-ink-900 text-sm sm:text-base">${item.value}</span>
-          <span class="text-[11px] sm:text-xs uppercase tracking-wide text-gray-500">${item.label}</span>
+          <span class="text-[11px] sm:text-xs uppercase tracking-wide text-gray-600">${item.label}</span>
         </div>
       `)
     );
@@ -156,7 +157,10 @@ function renderCategories() {
     const card = el(`
         <div class="rounded-xl overflow-hidden reveal relative" style="transition-delay:${i * 60}ms">
           <div class="img-wrap aspect-[4/5]">
-            <img src="${imgSrc(cat.image)}" alt="${cat.label}" loading="lazy" decoding="async"
+            <img src="${imgSrc(cat.thumb)}"
+              srcset="${imgSrc(cat.thumb)} 240w, ${imgSrc(cat.image)} 480w"
+              sizes="(min-width: 1024px) 220px, (min-width: 640px) 260px, 170px"
+              alt="${cat.label}" loading="lazy" decoding="async"
               class="img-fade absolute inset-0 w-full h-full object-cover" />
             <div class="absolute inset-0 bg-gradient-to-t from-ink-950/90 via-ink-950/25 to-transparent"></div>
             <div class="absolute inset-x-0 bottom-0 p-3 sm:p-4">
@@ -180,7 +184,11 @@ function renderGallery() {
   galleryItems.forEach((item, i) => {
     const card = el(`
         <div class="relative rounded-xl overflow-hidden reveal" style="transition-delay:${i * 40}ms">
-          ${pic(item.file, item.title, { aspect: 'aspect-square' })}
+          ${pic(item.thumb, item.title, {
+            aspect: 'aspect-square',
+            srcset: `${imgSrc(item.thumb)} 320w, ${imgSrc(item.file)} 640w`,
+            sizes: '(min-width: 1024px) 155px, (min-width: 640px) 170px, 110px',
+          })}
           <span class="absolute top-2 left-2 z-10 bg-ink-950/70 text-brand-300 text-[10px] font-mono uppercase tracking-wide px-2 py-1 rounded backdrop-blur-sm">${item.tag}</span>
           ${previewBadge()}
         </div>

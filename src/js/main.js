@@ -72,25 +72,43 @@ function initOfferView() {
   obs.observe(offer);
 }
 
-// Mostra a barra de CTA fixa no mobile depois de sair do topo e a esconde
+// Mostra a barra de CTA fixa no mobile depois de sair do herói e a esconde
 // quando a própria seção de preços está visível (para não cobrir os botões).
+// IntersectionObserver em vez de listener de scroll: nada de
+// getBoundingClientRect() nem leitura de layout a cada evento — o browser
+// cuida disso fora do thread principal.
 function initMobileCta() {
   const bar = document.querySelector('[data-mobile-cta]');
-  if (!bar) return;
+  const hero = document.querySelector('header');
   const pricing = document.getElementById('pricing');
+  if (!bar || !('IntersectionObserver' in window)) return;
 
-  const onScroll = () => {
-    const scrolled = window.scrollY > window.innerHeight * 0.6;
-    let overPricing = false;
-    if (pricing) {
-      const r = pricing.getBoundingClientRect();
-      overPricing = r.top < window.innerHeight && r.bottom > 0;
-    }
-    bar.classList.toggle('translate-y-full', !scrolled || overPricing);
+  let pastHero = false;
+  let overPricing = false;
+
+  const update = () => {
+    bar.classList.toggle('translate-y-full', !pastHero || overPricing);
   };
 
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  if (hero) {
+    new IntersectionObserver(
+      ([entry]) => {
+        pastHero = !entry.isIntersecting;
+        update();
+      },
+      { threshold: 0 }
+    ).observe(hero);
+  }
+
+  if (pricing) {
+    new IntersectionObserver(
+      ([entry]) => {
+        overPricing = entry.isIntersecting;
+        update();
+      },
+      { threshold: 0 }
+    ).observe(pricing);
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
