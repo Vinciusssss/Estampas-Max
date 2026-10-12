@@ -36,7 +36,6 @@ export const categories = [
   { id: 'games', label: 'Games', blurb: 'Cultura gamer e nerd', icon: 'gamepad', image: 'categories/games-480.webp', thumb: 'categories/games-480-thumb.webp' },
   { id: 'series', label: 'Séries', blurb: 'Séries e filmes de sucesso', icon: 'film', image: 'categories/series-480.webp', thumb: 'categories/series-480-thumb.webp' },
   { id: 'desenhos', label: 'Desenhos', blurb: 'Desenhos e cartoons clássicos', icon: 'palette', image: 'categories/desenhos-480.webp', thumb: 'categories/desenhos-480-thumb.webp' },
-  { id: 'viloes', label: 'Vilões', blurb: 'Ícones do lado sombrio', icon: 'alert', image: 'categories/viloes-480.webp', thumb: 'categories/viloes-480-thumb.webp' },
   { id: 'variados', label: 'Temas Variados', blurb: 'Muito mais pra explorar', icon: 'infinity', image: 'categories/variados-480.webp', thumb: 'categories/variados-480-thumb.webp' },
 ];
 

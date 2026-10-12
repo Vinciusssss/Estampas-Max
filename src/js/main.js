@@ -2,6 +2,7 @@ import '../css/main.css';
 import { renderContent } from './render.js';
 import { initFaq } from './faq.js';
 import { initPricing } from './pricing.js';
+import { initTerms } from './terms.js';
 import { initSmoothScroll } from './smoothScroll.js';
 import { initReveal } from './reveal.js';
 import { captureUtms, track } from './tracking.js';
@@ -117,6 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderContent();
   initFaq();
   initPricing();
+  initTerms();
   initSmoothScroll();
   initReveal();
   initCtaTracking();
