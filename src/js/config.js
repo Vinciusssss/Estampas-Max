@@ -24,7 +24,7 @@ export const productConfig = {
   category: 'Arquivos digitais para estampagem',
 
   basicPlan: {
-    name: 'Plano Básico',
+    name: 'Pacote Básico',
     price: 19.9,
     description: 'Seleção de estampas em alta resolução',
     checkoutUrl: 'https://ggcheckout.app/checkout/v5/69Kb1LZWvLKUF9mAbonM',
@@ -35,7 +35,7 @@ export const productConfig = {
   },
 
   premiumPlan: {
-    name: 'Plano Premium',
+    name: 'Pacote Premium',
     price: 34.9,
     description: 'Acervo de estampas variadas, com bônus inclusos',
     checkoutUrl: 'https://ggcheckout.app/checkout/v5/en8qOP9zZTJ4Koni7Pro',

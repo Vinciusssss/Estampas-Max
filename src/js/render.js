@@ -143,57 +143,62 @@ function renderSolution() {
   });
 }
 
-// Painel de categorias — mostra a variedade real de temas do acervo com
-// capas locais. Não são filtros de verdade — a galeria abaixo só tem
+// Painel de categorias — composição tipográfica, sem imagens (ver
+// content.js). Não são filtros de verdade — a galeria abaixo só tem
 // amostras reais da categoria Animes (as demais categorias não têm um
-// recorte próprio de imagens ainda). Por isso os cards não têm aparência de
-// botão/clicável (sem role, tabindex ou cursor de link): evita o dead click
-// de um card "Heróis" que levaria pra uma galeria de Animes, sem de fato
-// filtrar nada.
+// recorte próprio ainda). Por isso os chips não têm aparência de
+// botão/clicável (sem role, tabindex, cursor de link nem handler de
+// clique): evita o dead click de um chip "Heróis" que levaria pra uma
+// galeria de Animes, sem de fato filtrar nada. O hover fica só como
+// feedback visual — não promete uma ação que não existe.
 function renderCategories() {
   const grid = document.getElementById('categories-grid');
   if (!grid) return;
   categories.forEach((cat, i) => {
-    const card = el(`
-        <div class="rounded-xl overflow-hidden reveal relative" style="transition-delay:${i * 60}ms">
-          <div class="img-wrap aspect-[4/5]">
-            <img src="${imgSrc(cat.thumb)}"
-              srcset="${imgSrc(cat.thumb)} 240w, ${imgSrc(cat.image)} 480w"
-              sizes="(min-width: 1024px) 220px, (min-width: 640px) 260px, 170px"
-              alt="${cat.label}" loading="lazy" decoding="async"
-              class="img-fade absolute inset-0 w-full h-full object-cover" />
-            <div class="absolute inset-0 bg-gradient-to-t from-ink-950/90 via-ink-950/25 to-transparent"></div>
-            <div class="absolute inset-x-0 bottom-0 p-3 sm:p-4">
-              <h3 class="font-display font-bold text-white text-sm sm:text-base">${cat.label}</h3>
-              <p class="text-[11px] sm:text-xs text-gray-300 mt-0.5">${cat.blurb}</p>
-            </div>
+    const stateClasses = cat.active
+      ? 'border-brand-400 bg-brand-500/10 text-brand-200'
+      : 'border-white/15 text-gray-300 hover:border-white/30 hover:text-white';
+    grid.appendChild(
+      el(`
+        <div
+          class="reveal rounded-full sm:rounded-xl border ${stateClasses} transition duration-200 px-4 py-2 sm:px-4 sm:py-3.5 flex items-center sm:items-start gap-2 sm:gap-2.5"
+          style="transition-delay:${i * 50}ms"
+        >
+          ${icon(cat.icon, 'w-4 h-4 sm:w-5 sm:h-5 shrink-0')}
+          <div>
+            <p class="font-display font-semibold text-sm">${cat.label}</p>
+            <p class="hidden sm:block text-[11px] opacity-70 mt-0.5">${cat.blurb}</p>
           </div>
         </div>
-      `);
-    grid.appendChild(card);
+      `)
+    );
   });
-  bindImageFade(grid);
 }
 
-// Prévia da biblioteca: grid estático (sem carrossel automático) — clicar
-// numa arte abre a prévia em modal em vez de não fazer nada (dead click
-// observado no Clarity): mostra a arte maior e só depois oferece o CTA.
+// Prévia da biblioteca — carrossel real (scroll-snap + src/js/carousel.js):
+// um slide central maior, vizinhos espiando nas bordas no desktop, um por
+// vez no celular. Clicar numa arte abre a prévia em modal em vez de não
+// fazer nada (dead click observado no Clarity): mostra a arte maior e só
+// depois oferece o CTA. [data-carousel-slide]/.carousel-slide são o que o
+// carousel.js observa para saber qual slide está em foco.
 function renderGallery() {
   const grid = document.getElementById('gallery-grid');
   if (!grid) return;
   galleryItems.forEach((item, i) => {
-    const card = el(`
-        <div class="relative rounded-xl overflow-hidden reveal" style="transition-delay:${i * 40}ms">
-          ${pic(item.thumb, item.title, {
-            aspect: 'aspect-square',
-            srcset: `${imgSrc(item.thumb)} 320w, ${imgSrc(item.file)} 640w`,
-            sizes: '(min-width: 1024px) 155px, (min-width: 640px) 170px, 110px',
-          })}
-          <span class="absolute top-2 left-2 z-10 bg-ink-950/70 text-brand-300 text-[10px] font-mono uppercase tracking-wide px-2 py-1 rounded backdrop-blur-sm">${item.tag}</span>
-          ${previewBadge()}
+    const slide = el(`
+        <div data-carousel-slide class="carousel-slide ${i === 0 ? 'is-active' : ''} shrink-0 snap-center w-[78%] sm:w-[48%] lg:w-[32%]">
+          <div class="relative rounded-xl overflow-hidden reveal" style="transition-delay:${i * 40}ms">
+            ${pic(item.thumb, item.title, {
+              aspect: 'aspect-square',
+              srcset: `${imgSrc(item.thumb)} 320w, ${imgSrc(item.file)} 640w`,
+              sizes: '(min-width: 1024px) 320px, (min-width: 640px) 300px, 260px',
+            })}
+            <span class="absolute top-2 left-2 z-10 bg-ink-950/70 text-brand-300 text-[10px] font-mono uppercase tracking-wide px-2 py-1 rounded backdrop-blur-sm">${item.tag}</span>
+            ${previewBadge()}
+          </div>
         </div>
       `);
-    makeClickable(card, () =>
+    makeClickable(slide.firstElementChild, () =>
       openPreviewModal({
         image: imgSrc(item.file),
         alt: item.title,
@@ -203,22 +208,24 @@ function renderGallery() {
         ctaLabel: 'Quero acessar o acervo',
       })
     );
-    grid.appendChild(card);
+    grid.appendChild(slide);
   });
   bindImageFade(grid);
 }
 
-// Aplicações: grid estático editorial (sem carrossel automático).
+// Aplicações: grid estático editorial, vitrine de produtos (sem carrossel
+// automático) — proporção e altura de card consistentes entre os itens.
 function renderCompat() {
   const grid = document.getElementById('compat-grid');
   if (!grid) return;
   compatItems.forEach((item, i) => {
     grid.appendChild(
       el(`
-        <div class="card overflow-hidden reveal" style="transition-delay:${i * 50}ms">
+        <div class="card overflow-hidden reveal flex flex-col hover:-translate-y-0.5" style="transition-delay:${i * 50}ms">
           ${pic(item.photo, `${item.title} — ${item.text}`, { aspect: 'aspect-[4/3]', fit: 'object-contain', extra: 'bg-white' })}
-          <div class="p-4">
+          <div class="p-4 flex-1">
             <h3 class="font-display font-bold text-sm">${item.title}</h3>
+            <p class="mt-1.5 text-xs text-gray-600 line-clamp-2">${item.text}</p>
           </div>
         </div>
       `)
@@ -254,8 +261,9 @@ function renderTestimonials() {
   testimonials.forEach((item, i) => {
     grid.appendChild(
       el(`
-        <div class="rounded-xl overflow-hidden reveal shrink-0 w-[82%] snap-center sm:w-auto sm:shrink border border-ink-900/10" style="transition-delay:${i * 80}ms">
+        <div class="relative rounded-xl overflow-hidden reveal shrink-0 w-[82%] snap-center sm:w-auto sm:shrink border border-ink-900/10" style="transition-delay:${i * 80}ms">
           ${pic(item.file, item.alt, { aspect: 'aspect-[9/16]' })}
+          <span class="absolute top-2 left-2 z-10 bg-ink-950/70 text-brand-300 text-[10px] font-mono uppercase tracking-wide px-2 py-1 rounded backdrop-blur-sm">${item.caption}</span>
         </div>
       `)
     );
@@ -263,9 +271,12 @@ function renderTestimonials() {
   bindImageFade(grid);
 }
 
-// Bônus: "incluso no Premium" aparece uma única vez no cabeçalho da seção
-// (ver index.html) — os cards só mostram nome + valor prático, sem repetir
-// a frase em cada item.
+// Bônus: cabeçalho da seção (ver index.html) já avisa "incluso no Premium"
+// uma vez, mas o briefing pede o destaque também em cada card — mantido
+// curto (selo mono) pra não virar repetição cansativa. Os 4 primeiros levam
+// um selo numerado (1-4, ordem fixada em content.js); o pack de canecas
+// fecha a grade maior e separado, com o selo "+20.000 extras" que já
+// existia e texto próprio (é um bônus ADICIONAL, não um dos 4 numerados).
 function renderBonuses() {
   const grid = document.getElementById('bonus-grid');
   if (!grid) return;
@@ -275,12 +286,14 @@ function renderBonuses() {
         <div class="card overflow-hidden flex flex-col reveal ${highlight ? 'sm:col-span-2' : ''}" style="transition-delay:${i * 80}ms">
           <div class="relative bg-white ${highlight ? '' : 'p-6 sm:p-0'}">
             ${pic(item.file, item.title, highlight ? { aspect: 'aspect-[16/9]', fit: 'object-contain', extra: 'bg-white' } : {})}
+            ${item.number ? `<span class="absolute top-2 left-2 z-10 w-6 h-6 rounded-full bg-ink-900 text-white text-xs font-display font-bold flex items-center justify-center">${item.number}</span>` : ''}
             ${item.badge ? `<span class="absolute top-2 left-2 z-10 bg-brand-500 text-white text-[10px] font-mono uppercase font-bold px-2 py-1 rounded">${item.badge}</span>` : ''}
             ${previewBadge()}
           </div>
           <div class="p-4 flex-1">
             <h3 class="font-display font-bold text-sm">${item.title}</h3>
             <p class="mt-2 text-xs text-gray-600">${item.text}</p>
+            <span class="inline-block mt-2 text-[10px] font-mono uppercase tracking-wide text-brand-600">${highlight ? 'Bônus adicional do Pacote Premium' : 'Incluso no Pacote Premium'}</span>
           </div>
         </div>
       `);

@@ -3,6 +3,8 @@ import { renderContent } from './render.js';
 import { initFaq } from './faq.js';
 import { initPricing } from './pricing.js';
 import { initTerms } from './terms.js';
+import { initNav } from './nav.js';
+import { initCarousel } from './carousel.js';
 import { initSmoothScroll } from './smoothScroll.js';
 import { initReveal } from './reveal.js';
 import { captureUtms, track } from './tracking.js';
@@ -119,6 +121,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initFaq();
   initPricing();
   initTerms();
+  initNav();
+  initCarousel();
   initSmoothScroll();
   initReveal();
   initCtaTracking();

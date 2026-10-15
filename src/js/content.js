@@ -28,15 +28,16 @@ export const galleryItems = [
   { file: 'D09jdW9T-Chat-GPT-Image-4-de-jul-de-2026-16-45-47.webp', thumb: 'D09jdW9T-Chat-GPT-Image-4-de-jul-de-2026-16-45-47-thumb.webp', title: 'Itachi Crow Illusion', tag: 'Camiseta' },
 ];
 
-// Categorias reais do acervo (nenhuma inventada). Capas locais em
-// /public/images/categories.
+// Categorias reais do acervo (nenhuma inventada). Composição tipográfica,
+// sem imagens — "anime" fica marcada como destaque porque é a categoria que
+// a prévia da biblioteca logo abaixo realmente mostra.
 export const categories = [
-  { id: 'anime', label: 'Animes', blurb: 'Os favoritos que mais vendem', icon: 'flame', image: 'categories/anime-480.webp', thumb: 'categories/anime-480-thumb.webp' },
-  { id: 'herois', label: 'Heróis', blurb: 'Universo dos super-heróis', icon: 'shield', image: 'categories/herois-480.webp', thumb: 'categories/herois-480-thumb.webp' },
-  { id: 'games', label: 'Games', blurb: 'Cultura gamer e nerd', icon: 'gamepad', image: 'categories/games-480.webp', thumb: 'categories/games-480-thumb.webp' },
-  { id: 'series', label: 'Séries', blurb: 'Séries e filmes de sucesso', icon: 'film', image: 'categories/series-480.webp', thumb: 'categories/series-480-thumb.webp' },
-  { id: 'desenhos', label: 'Desenhos', blurb: 'Desenhos e cartoons clássicos', icon: 'palette', image: 'categories/desenhos-480.webp', thumb: 'categories/desenhos-480-thumb.webp' },
-  { id: 'variados', label: 'Temas Variados', blurb: 'Muito mais pra explorar', icon: 'infinity', image: 'categories/variados-480.webp', thumb: 'categories/variados-480-thumb.webp' },
+  { id: 'anime', label: 'Animes', blurb: 'Os favoritos que mais vendem', icon: 'flame', active: true },
+  { id: 'herois', label: 'Heróis', blurb: 'Universo dos super-heróis', icon: 'shield' },
+  { id: 'games', label: 'Games', blurb: 'Cultura gamer e nerd', icon: 'gamepad' },
+  { id: 'series', label: 'Séries', blurb: 'Séries e filmes de sucesso', icon: 'film' },
+  { id: 'desenhos', label: 'Desenhos', blurb: 'Desenhos e cartoons clássicos', icon: 'palette' },
+  { id: 'variados', label: 'Temas Variados', blurb: 'Muito mais pra explorar', icon: 'infinity' },
 ];
 
 // FAIXA DE CONFIANÇA — 4 fatos, sem virar cards chamativos (ver render.js).
@@ -90,10 +91,10 @@ export const steps = [
 // SEÇÃO PROVA SOCIAL — prints de clientes já existentes no projeto e já em
 // uso na página em produção.
 export const testimonials = [
-  { file: 'testimonial-1-640.webp', alt: 'Print de conversa de cliente sobre os anúncios feitos com as artes' },
-  { file: 'testimonial-2-640.webp', alt: 'Print de conversa de cliente sobre vendas de canecas com as artes' },
-  { file: 'testimonial-3-640.webp', alt: 'Print de conversa de cliente sobre camiseta feita com as artes' },
-  { file: 'testimonial-4-640.webp', alt: 'Print de conversa de cliente sobre pedidos feitos com as artes' },
+  { file: 'testimonial-1-640.webp', alt: 'Print de conversa de cliente sobre os anúncios feitos com as artes', caption: 'Anúncios' },
+  { file: 'testimonial-2-640.webp', alt: 'Print de conversa de cliente sobre vendas de canecas com as artes', caption: 'Canecas' },
+  { file: 'testimonial-3-640.webp', alt: 'Print de conversa de cliente sobre camiseta feita com as artes', caption: 'Camiseta' },
+  { file: 'testimonial-4-640.webp', alt: 'Print de conversa de cliente sobre pedidos feitos com as artes', caption: 'Pedidos' },
 ];
 
 // SEÇÃO BÔNUS — cada bônus como uma ferramenta real que ajuda o comprador.
@@ -105,12 +106,16 @@ export const testimonials = [
 //
 // "Guia Start" (nome que aparece na arte do hero) É o mesmo item que "Venda
 // sem Estoque" — mesmo bônus, não conte como dois bônus separados.
+//
+// Ordem fixada pelo briefing de design: os 4 bônus numerados primeiro (caem
+// em 2×2 no desktop, já que a grade é grid-cols-1 sm:grid-cols-2), o pack de
+// canecas por último, maior e visualmente separado (badge + sm:col-span-2).
 export const bonuses = [
-  { file: 'HkNYhbxF-Chat-GPT-Image-9-de-jul-de-2026-00-00-22-(3)-640.webp', title: 'Guia Completo de Estampagem do Zero', price: 'R$ 57,00', text: 'Passo a passo do zero para sublimação: equipamentos, materiais, preparação da arte, impressão, tempo, temperatura, pressão, aplicação e os erros mais comuns.' },
-  { file: 't4cqMFTL-Chat-GPT-Image-9-de-jul-de-2026-00-00-22-(2)-640.webp', title: 'Guia Start — Venda sem Estoque', price: 'R$ 47,00', text: 'Estratégias para divulgar os produtos usando mockups e produzir somente após a venda.' },
+  { number: 1, file: 'L8W9bjXc-Chat-GPT-Image-9-de-jul-de-2026-00-00-22-(1)-640.webp', title: 'Mockups prontos', price: 'R$ 67,00', text: 'Modelos profissionais de camisetas e canecas para você aplicar a arte e divulgar antes mesmo de produzir.' },
+  { number: 2, file: '52r4R8yc-Chat-GPT-Image-9-de-jul-de-2026-00-00-23-(4)-640.webp', title: 'Modelos de anúncios prontos', price: 'R$ 97,00', text: 'Combo de artes prontas para posts e anúncios, para divulgar seus produtos e vender mais.' },
+  { number: 3, file: 't4cqMFTL-Chat-GPT-Image-9-de-jul-de-2026-00-00-22-(2)-640.webp', title: 'Guia Start — Venda sem Estoque', price: 'R$ 47,00', text: 'Estratégias para divulgar os produtos usando mockups e produzir somente após a venda.' },
+  { number: 4, file: 'HkNYhbxF-Chat-GPT-Image-9-de-jul-de-2026-00-00-22-(3)-640.webp', title: 'Guia Completo de Estampagem do Zero', price: 'R$ 57,00', text: 'Passo a passo do zero para sublimação: equipamentos, materiais, preparação da arte, impressão, tempo, temperatura, pressão, aplicação e os erros mais comuns.' },
   { file: 'zDswMkm2-Chat-GPT-Image-4-de-jul-de-2026-16-45-32-640.webp', title: `Pack com ${productConfig.bonusMugFileCount} Estampas para Canecas`, badge: `${productConfig.bonusMugFileCount} extras`, text: `${productConfig.bonusMugFileCount} estampas prontas para personalizar canecas, copos e outros produtos, organizadas por temas e preparadas para facilitar sua produção.` },
-  { file: 'L8W9bjXc-Chat-GPT-Image-9-de-jul-de-2026-00-00-22-(1)-640.webp', title: 'Mockups prontos', price: 'R$ 67,00', text: 'Modelos profissionais de camisetas e canecas para você aplicar a arte e divulgar antes mesmo de produzir.' },
-  { file: '52r4R8yc-Chat-GPT-Image-9-de-jul-de-2026-00-00-23-(4)-640.webp', title: 'Modelos de anúncios prontos', price: 'R$ 97,00', text: 'Combo de artes prontas para posts e anúncios, para divulgar seus produtos e vender mais.' },
 ];
 
 // SEÇÃO FAQ — consolidada em 8 grupos temáticos (quantidade, acesso,
@@ -118,8 +123,8 @@ export const bonuses = [
 // Premium, revenda), sem perguntas redundantes.
 export const faqs = [
   {
-    q: 'Quantas estampas recebo em cada plano?',
-    a: `O Plano Básico tem ${productConfig.basicPlan.fileCount} estampas. O Plano Premium tem ${productConfig.premiumPlan.fileCount} estampas, mais o pack extra de ${productConfig.bonusMugFileCount} para canecas e os demais bônus.`,
+    q: 'Quantas estampas recebo em cada pacote?',
+    a: `O Pacote Básico tem ${productConfig.basicPlan.fileCount} estampas. O Pacote Premium tem ${productConfig.premiumPlan.fileCount} estampas, mais o pack extra de ${productConfig.bonusMugFileCount} para canecas e os demais bônus.`,
   },
   {
     q: 'Como e quando recebo o acesso?',
