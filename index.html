@@ -323,15 +323,15 @@
     <section class="px-4 py-14 sm:py-20 lg:py-24 bg-ink-900 text-white" id="gallery">
       <div class="max-w-2xl mx-auto text-center mb-10">
         <p class="section-eyebrow-on-dark">A biblioteca</p>
-        <h2 class="section-title mt-2">Escolha o tema. Encontre a próxima arte.</h2>
+        <h2 class="section-title mt-2">Explore os temas disponíveis no acervo.</h2>
         <p class="mt-4 text-gray-300">
-          Seis categorias, milhares de estilos — veja uma amostra real do que está disponível.
+          A amostra abaixo destaca a categoria Animes — no acervo completo, você encontra muito mais estilos.
         </p>
       </div>
 
       <div id="categories-grid" class="max-w-3xl mx-auto flex flex-wrap justify-center gap-2 sm:grid sm:grid-cols-3 sm:gap-3 mb-10"></div>
 
-      <div class="relative max-w-5xl mx-auto">
+      <div class="relative max-w-5xl mx-auto overflow-hidden">
         <div
           id="gallery-grid"
           class="flex gap-3 sm:gap-4 overflow-x-auto no-scrollbar snap-x snap-mandatory scroll-smooth px-[11%] sm:px-[18%] lg:px-[26%] py-1"
@@ -341,7 +341,7 @@
           type="button"
           data-carousel-prev
           aria-label="Ver arte anterior"
-          class="hidden sm:flex absolute left-1 lg:-left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white text-ink-900 items-center justify-center shadow-lg hover:bg-brand-100 transition"
+          class="hidden sm:flex absolute left-1 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white text-ink-900 items-center justify-center shadow-lg hover:bg-brand-100 transition"
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>
         </button>
@@ -349,17 +349,10 @@
           type="button"
           data-carousel-next
           aria-label="Ver próxima arte"
-          class="hidden sm:flex absolute right-1 lg:-right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white text-ink-900 items-center justify-center shadow-lg hover:bg-brand-100 transition"
+          class="hidden sm:flex absolute right-1 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white text-ink-900 items-center justify-center shadow-lg hover:bg-brand-100 transition"
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>
         </button>
-      </div>
-
-      <div class="max-w-5xl mx-auto mt-4 flex items-center gap-3 px-4">
-        <div class="flex-1 h-1 rounded-full bg-white/10 overflow-hidden">
-          <div data-carousel-progress-bar class="h-full bg-brand-400 transition-[width] duration-300" style="width: 8.33%"></div>
-        </div>
-        <span data-carousel-progress-label class="text-[11px] font-mono text-gray-400 shrink-0">1 / 12</span>
       </div>
 
       <p class="text-center text-xs text-gray-400 mt-6">As artes acima são uma amostra da categoria Animes — clique em qualquer uma para ver em tamanho maior.</p>

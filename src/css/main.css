@@ -7,6 +7,10 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    overflow-x: hidden;
+  }
+
   body {
     @apply bg-paper text-ink-900 font-body antialiased;
   }
@@ -177,6 +181,7 @@
   .no-scrollbar {
     scrollbar-width: none;
     -ms-overflow-style: none;
+    overscroll-behavior-x: contain;
   }
   .no-scrollbar::-webkit-scrollbar {
     display: none;

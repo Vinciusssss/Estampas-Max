@@ -144,24 +144,21 @@ function renderSolution() {
 }
 
 // Painel de categorias — composição tipográfica, sem imagens (ver
-// content.js). Não são filtros de verdade — a galeria abaixo só tem
-// amostras reais da categoria Animes (as demais categorias não têm um
-// recorte próprio ainda). Por isso os chips não têm aparência de
-// botão/clicável (sem role, tabindex, cursor de link nem handler de
-// clique): evita o dead click de um chip "Heróis" que levaria pra uma
-// galeria de Animes, sem de fato filtrar nada. O hover fica só como
-// feedback visual — não promete uma ação que não existe.
+// content.js). A galeria abaixo mostra uma amostra real de Animes; enquanto
+// não houver recortes próprios para as outras categorias, os chips permanecem
+// informativos e sem aparência de botão para não prometer um filtro que ainda
+// não existe.
 function renderCategories() {
   const grid = document.getElementById('categories-grid');
   if (!grid) return;
   categories.forEach((cat, i) => {
     const stateClasses = cat.active
       ? 'border-brand-400 bg-brand-500/10 text-brand-200'
-      : 'border-white/15 text-gray-300 hover:border-white/30 hover:text-white';
+      : 'border-white/15 text-gray-300';
     grid.appendChild(
       el(`
         <div
-          class="reveal rounded-full sm:rounded-xl border ${stateClasses} transition duration-200 px-4 py-2 sm:px-4 sm:py-3.5 flex items-center sm:items-start gap-2 sm:gap-2.5"
+          class="reveal select-none rounded-full sm:rounded-xl border ${stateClasses} transition duration-200 px-4 py-2 sm:px-4 sm:py-3.5 flex items-center sm:items-start gap-2 sm:gap-2.5"
           style="transition-delay:${i * 50}ms"
         >
           ${icon(cat.icon, 'w-4 h-4 sm:w-5 sm:h-5 shrink-0')}

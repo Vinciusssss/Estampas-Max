@@ -4,6 +4,11 @@ export default defineConfig({
   // Caminhos relativos: o build funciona ao ser hospedado em subpasta e
   // ao abrir a pasta dist por um servidor estático, sem quebrar CSS/JS.
   base: './',
+  // O workspace Windows usado pelo ambiente pode bloquear realpath.native;
+  // preservar os caminhos lógicos deixa o resolver do Vite independente disso.
+  resolve: {
+    preserveSymlinks: true,
+  },
   server: {
     // host:true escuta em IPv4 (127.0.0.1) e IPv6. Sem isso, o Vite pode
     // ficar só em ::1 e o navegador (que resolve localhost p/ IPv4) não conecta.

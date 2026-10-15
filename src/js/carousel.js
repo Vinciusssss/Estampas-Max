@@ -1,8 +1,9 @@
 // CARROSSEL DE PRÉVIA — trilho com scroll-snap nativo (toque/swipe de
 // graça no mobile); este módulo cuida do que o CSS/scroll-snap não resolve
 // sozinho: marcar o slide em foco (.is-active, ver main.css), mover o
-// trilho ao clicar nas setas, atualizar a barra de progresso, e avançar
-// sozinho — looping contínuo, pausado só por interação direta do usuário.
+// trilho ao clicar nas setas, e avançar sozinho — looping contínuo, pausado
+// só por interação direta do usuário. O trilho não usa scrollIntoView para
+// não criar overflow horizontal na página inteira.
 const ACTIVE_CLASS = 'is-active';
 const AUTOPLAY_INTERVAL_MS = 4500;
 const TOUCH_RESUME_DELAY_MS = 1200;
@@ -35,9 +36,6 @@ export function initCarousel() {
 
   const prevBtn = document.querySelector('[data-carousel-prev]');
   const nextBtn = document.querySelector('[data-carousel-next]');
-  const progressBar = document.querySelector('[data-carousel-progress-bar]');
-  const progressLabel = document.querySelector('[data-carousel-progress-label]');
-
   let currentIndex = 0;
   let isPaused = false;
   let touchResumeTimer = null;
@@ -45,8 +43,6 @@ export function initCarousel() {
   function setActive(index) {
     currentIndex = index;
     slides.forEach((slide, i) => slide.classList.toggle(ACTIVE_CLASS, i === index));
-    if (progressBar) progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
-    if (progressLabel) progressLabel.textContent = `${index + 1} / ${slides.length}`;
   }
 
   // Mantém o slide mais visível no trilho marcado como ativo, inclusive
@@ -70,12 +66,17 @@ export function initCarousel() {
     // pula direto em vez de rolar visivelmente por todos os slides de volta
     // — fica parecendo um loop de verdade, não um "rebobinar".
     const isWrap = wrapped !== index;
-    slides[wrapped].scrollIntoView({
+    const slide = slides[wrapped];
+    const trackRect = track.getBoundingClientRect();
+    const slideRect = slide.getBoundingClientRect();
+    const left = track.scrollLeft + (slideRect.left - trackRect.left) - (track.clientWidth - slideRect.width) / 2;
+    track.scrollTo({
+      left: Math.max(0, left),
       behavior: isWrap || prefersReducedMotion() ? 'auto' : 'smooth',
-      inline: 'center',
-      block: 'nearest',
     });
   }
+
+  setActive(0);
 
   // Autoplay começa assim que a página carrega — sem depender de observer de
   // visibilidade (um ponto a menos que pode falhar silenciosamente); se a
